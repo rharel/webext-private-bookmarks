@@ -1,0 +1,252 @@
+/* Top-level */
+body
+{
+    background-color: white;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 384px;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* Header */
+#header
+{
+    height: 1.5em;
+}
+
+/* Buttons - regular */
+
+.deactivated { display: none; }
+
+button
+{
+    align-items: center;
+    display: flex;
+    font-size: 1rem;
+    height: auto;
+    padding: 8px;
+}
+button > label { flex-grow: 1; }
+button > img
+{
+    height: 28px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 28px;
+}
+
+/* Buttons - large */
+button.large
+{
+    height: auto;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px;
+    width: 156px;
+}
+button.large > label
+{
+    font-size: 1.2em;
+    text-align: center;
+}
+button.large > img
+{
+    height: 48px;
+    margin: 4px;
+    width: 48px;
+}
+
+/* Buttons - flavours */
+button.positive        { background-color: var(--green-70); }
+button.positive:hover  { background-color: var(--green-80); }
+button.positive:active { background-color: var(--green-90); }
+
+button.negative        { background-color: var(--red-70); }
+button.negative:hover  { background-color: var(--red-80); }
+button.negative:active { background-color: var(--red-90); }
+
+button.private        { background-color: var(--purple-60); }
+button.private:hover  { background-color: var(--purple-70); }
+button.private:active { background-color: var(--purple-80); }
+
+/* Images */
+img { box-sizing: border-box; }
+
+/* Panels - General */
+.panel
+{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 228px;
+    justify-content: center;
+    padding: 16px;
+}
+.panel.centering   { align-items: center;     }
+.panel.deactivated { display: none;           }
+.panel.form        { align-items: flex-start; }
+
+/* Panel - On hold */
+@keyframes rotate-clockwise
+{
+    0%   { transform: unset;         }
+    100% { transform: rotate(1turn); }
+}
+@keyframes rotate-counterclockwise
+{
+    0%   { transform: unset;          }
+    100% { transform: rotate(-1turn); }
+}
+#on-hold-animation-gear-A
+{
+    animation: rotate-clockwise 3s infinite;
+    animation-timing-function: linear;
+    left: 24px;
+    position: relative;
+    top: 24px;
+}
+#on-hold-animation-gear-B
+{
+    animation: rotate-counterclockwise 3s infinite;
+    animation-timing-function: linear;
+    left: -24px;
+    position: relative;
+    top: -24px;
+}
+
+/* Panel - Success and error */
+#error-panel,
+#success-panel
+{
+    justify-content: space-around;
+}
+#error-panel > img,
+#success-panel > img
+{
+    height: 64px;
+    width: 64px;
+}
+
+/* Panel - Confirmation dialog */
+#confirmation-buttons-container
+{
+    justify-content: space-between;
+}
+#confirmation-buttons-container > button > img
+{
+    height: 24px;
+    width: 24px;
+}
+
+/* Panel - Password setup */
+#password-setup-buttons-container
+{
+    justify-content: space-around;
+}
+#password-setup-buttons-container > button > img
+{
+    height: 16px;
+    width: 16px;
+}
+.validation-icon
+{
+    border-radius: 50%;
+    height: 16px;
+    margin: 4px;
+    padding: 4px;
+    visibility: hidden;  /* Only initially */
+    width: 16px;
+}
+img.validation-icon[src*="correct_white"]
+{
+    background-color: var(--green-70);
+}
+img.validation-icon[src*="incorrect_white"]
+{
+    background-color: var(--red-60);
+}
+
+/* Panel - Main menu */
+#main-menu-panel > #primary-buttons-container > button > img
+{
+    height: 64px;
+    width: 64px;
+}
+#main-menu-panel > #secondary-buttons-container > button
+{
+    height: auto;
+    width: 100%;
+}
+#main-menu-panel > #secondary-buttons-container > button > img
+{
+    height: 24px;
+    margin-left: 8px;
+    width: 24px;
+}
+
+/* Panel - Authentication */
+@keyframes flash-red
+{
+    0%   { box-shadow: unset;            }
+    100% { box-shadow: 0 0 24px #d70022; }
+}
+#authentication-password-input.animated
+{
+    animation: flash-red 0.2s 2;
+    animation-direction: alternate;
+    animation-timing-function: ease-out;
+}
+
+#authentication-buttons-container
+{
+    align-items: flex-start;
+    flex-direction: column;
+}
+#authentication-buttons-container > button
+{
+    width: 100%;
+    height: auto;
+}
+#authentication-buttons-container > button > label
+{
+    text-align: left;
+}
+#authentication-buttons-container > button > img
+{
+    height: 24px;
+    width: 24px;
+}
+
+/* Footer */
+#footer
+{
+    align-items: center;
+    border-bottom: 1px solid var(--grey-40);
+    height: 3em;
+    justify-content: space-between;
+    padding-left: 8px;
+}
+#extension-info
+{
+    color: var(--grey-60);
+    font-size: 0.85em;
+}
+#options-button
+{
+    cursor: pointer;
+    height: 28px;
+    margin: 4px;
+    padding: 4px;
+    width: 28px;
+}
+#options-button:hover  { filter: invert(100%); }
+#options-button:active { filter: invert(0%);   }
+
+/* Media responsiveness */
+@media (max-width: 256px)
+{
+    body { width: 256px; }
+    .panel { flex-grow: 1; }
+}

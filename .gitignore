@@ -1,0 +1,16 @@
+####################
+# Project-specific #
+####################
+
+# Distribution archives
+distribution/
+
+###########################
+# Development Environment #
+###########################
+
+# IntelliJ
+.idea/
+
+# Node
+node_modules/

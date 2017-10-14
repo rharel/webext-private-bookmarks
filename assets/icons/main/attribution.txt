@@ -1,0 +1,47 @@
+#######################
+# checkmark_black.svg # 
+# gear_blac.svg       #
+# open-lock_white.svg #
+#######################
+
+Icons by 'Iconicons' obtained from (respectively): 
+	https://www.iconfinder.com/icons/211644/checkmark_icon
+	https://www.iconfinder.com/icons/211670/b_gear_icon
+	https://www.iconfinder.com/icons/211936/unlocked_icon
+License: MIT. (https://opensource.org/licenses/MIT)
+
+#######################
+# happy-face_blue.svg #
+# key_black.svg       #
+# sad-face_blue.svg   #
+#######################
+
+Icons by 'Yannick Lung' obtained from (respectively): 
+    https://www.iconfinder.com/icons/314654/face_smiling_icon
+	https://www.iconfinder.com/icons/183280/key_icon
+	https://www.iconfinder.com/icons/314661/face_sad_icon
+License: Free for commercial use.
+
+##################
+# lock_black.svg #
+##################
+
+Icon by 'jxnblk' obtained from: 
+	https://www.iconfinder.com/icons/293687/lock_icon
+License: MIT (https://opensource.org/licenses/MIT)
+
+##################
+# star_black.svg #
+##################
+
+Icon by 'Design Revision' obtained from: 
+	https://www.iconfinder.com/icons/383219/star_icon
+License: Free for commercial use.
+
+###############
+# x_black.svg #
+###############
+
+Icon by 'Github' obtained from: 
+	https://www.iconfinder.com/icons/298889/x_icon
+License: MIT. (https://opensource.org/licenses/MIT)
