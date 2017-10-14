@@ -4,8 +4,8 @@
     const DEFAULT_OPTIONS =
     {
         id: "",
-        icon_url: "icons/main/private-bookmarks.svg",
         title: browser.i18n.getMessage("extension_name"),
+        icon_url: "/icons/main/private-bookmarks.svg",
         lifetime: 5000  /// The number of milliseconds until a post is cleared.
     };
 
