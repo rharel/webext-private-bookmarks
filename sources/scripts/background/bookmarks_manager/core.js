@@ -16,7 +16,7 @@
     let crypto, events, storage;
 
     /// The display name for the front folder.
-    const FRONT_TITLE = "Private Bookmarks";
+    const FRONT_TITLE = browser.i18n.getMessage("extension_name");
 
     /// The key for the back folder in local storage.
     const BACK_STORAGE_KEY = "back_folder";
