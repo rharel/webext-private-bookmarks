@@ -12,8 +12,13 @@
     /// Enumerates notification identifiers.
     const Identifier = { BookmarkAddition: "BookmarkAddition" };
 
-    /// Posts a notification with the specified title and message.
-    /// It is cleared after a delay.
+    /// Posts a notification with the specified message and display options.
+    ///
+    /// Display options are specified via an object with all-optional keys:
+    /// { title, icon_url, lifetime } indicating the notification's title text, accompanying icon,
+    /// and lifetime (in milliseconds).
+    ///
+    /// The notification is cleared after a delay.
     async function post(message, options)
     {
         options = Object.assign({}, DEFAULT_OPTIONS, options);
