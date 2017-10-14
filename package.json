@@ -1,0 +1,34 @@
+{
+  "name": "@rharel/webext-private-bookmarks",
+  "version": "0.0.1",
+  "description": "WebExtension that enables a special password-protected bookmark folder.",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "requirejs": "^2.3.5"
+  },
+  "scripts": {
+    "internationalize": "node scripts/internationalize.js",
+    "pack": "node scripts/pack.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rharel/webext-private-bookmarks.git"
+  },
+  "keywords": [
+    "WebExtension",
+    "privacy",
+    "bookmarks",
+    "password"
+  ],
+  "author": "Raoul Harel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rharel/webext-private-bookmarks/issues"
+  },
+  "homepage": "https://github.com/rharel/webext-private-bookmarks#readme"
+}

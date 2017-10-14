@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title data-localized="popup_title">
+        Control panel | Private Bookmarks
+    </title>
+
+    <link rel="stylesheet" href="/stylesheets/photon.css">
+    <link rel="stylesheet" href="page.css">
+
+    <script src="/scripts/utilities/localization.js" defer></script>
+    <script src="/libraries/require.min.js" data-main="js/page" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <div class="panel-section panel-section-header">
+        <div id="header" class="text-section-header"></div>
+    </div>
+
+    <!-- Static panels -->
+    <div id="blank-panel" class="panel"></div>
+    <div id="error-panel" class="deactivated centering panel">
+        <div>
+            <span data-localized="error_message_beginning">
+                Oops! There was an error.
+                You can help by
+            </span>
+            <a data-localized="error_message_ending"
+               href="https://github.com/rharel/webext-private-bookmarks/issues" target="_blank">
+                reporting it
+            </a><br><br>
+            <span data-localized="error_message_addendum">
+                Private Bookmarks is still in early development.
+                Sorry for the inconvenience.
+            </span>
+        </div>
+        <img src="/icons/main/error_blue.svg">
+    </div>
+    <div id="on-hold-panel" class="deactivated centering panel">
+        <img id="on-hold-animation-gear-A" src="/icons/main/options_gray.svg">
+        <img id="on-hold-animation-gear-B" src="/icons/main/options_gray.svg">
+    </div>
+
+    <!-- Interactive panels -->
+    <div id="success-panel" class="deactivated centering panel">
+        <div id="success-details"></div>
+        <img src="/icons/main/success_blue.svg">
+        <a id="success-transition-button">
+            <span id="success-transition-button-label"></span>
+        </a>
+    </div>
+    <div id="confirmation-dialog-panel" class="deactivated centering panel">
+        <div class="panel-section-formElements">
+            <div id="confirmation-message" class="panel-formElements-item"></div>
+            <div id="confirmation-buttons-container" class="panel-formElements-item">
+                <button id="confirm-accept-button" class="browser-style default disabled positive"
+                        disabled>
+                    <label data-localized="yes_no_positive">Yes</label>
+                    <img src="/icons/main/correct_white.svg">
+                </button>
+                <button id="confirm-deny-button" class="browser-style default disabled negative"
+                        disabled>
+                    <label data-localized="yes_no_negative">No</label>
+                    <img src="/icons/main/incorrect_white.svg">
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="get-started-panel" class="deactivated centering panel">
+        <button id="setup-password-button" class="large browser-style default disabled"
+                disabled>
+            <img src="/icons/main/password_white.svg">
+            <label data-localized="choose_password_command">Choose a password</label>
+        </button>
+    </div>
+    <div id="password-setup-panel" class="deactivated form panel">
+        <div class="panel-section-formElements">
+            <div class="panel-formElements-item" data-localized="password_requirements">
+                Must be 8 &#8211; 16 characters long, alphanumeric, containing at least one letter
+                and one number.
+            </div>
+            <div class="browser-style panel-formElements-item">
+                <input id="new-password-input" type="password"
+                       minlength="8" maxlength="16" size="20"
+                       placeholder="Password"
+                       data-localized="password_field_placeholder"
+                       data-localized-attribute="placeholder">
+                <img id="new-password-validation-icon" class="validation-icon"
+                     src="">
+            </div>
+            <div class="browser-style panel-formElements-item">
+                <input id="repeated-new-password-input" type="password"
+                       minlength="8" maxlength="16" size="20"
+                       placeholder="Repeat password"
+                       data-localized="repeated_password_field_placeholder"
+                       data-localized-attribute="placeholder">
+                <img id="repeated-new-password-validation-icon" class="validation-icon"
+                     src="">
+            </div>
+            <div id="password-setup-buttons-container"
+                 class="browser-style panel-formElements-item">
+                <button id="confirm-new-password-button"
+                        class="browser-style default disabled"
+                        disabled>
+                    <label data-localized="confirm_cancel_positive">Confirm</label>
+                    <img src="/icons/main/password_white.svg">
+                </button>
+                <button id="cancel-password-setup-button"
+                        class="browser-style default deactivated disabled negative"
+                        disabled>
+                    <label data-localized="confirm_cancel_negative">Cancel</label>
+                    <img src="/icons/main/incorrect_white.svg">
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="authentication-panel" class="deactivated centering panel">
+        <div class="panel-section-formElements">
+            <div id="authentication-message" class="panel-formElements-item"></div>
+            <div class="browser-style panel-formElements-item">
+                <input id="authentication-password-input" type="password"
+                       minlength="8" maxlength="16" size="20"
+                       placeholder="Password"
+                       data-localized="password_field_placeholder"
+                       data-localized-attribute="placeholder">
+            </div>
+            <div id="authentication-buttons-container"
+                 class="browser-style panel-formElements-item">
+                <button id="confirm-authentication-button"
+                        class="browser-style default disabled"
+                        disabled>
+                    <label data-localized="confirm_cancel_positive">Confirm</label>
+                    <img src="/icons/main/password_white.svg">
+                </button>
+                <button id="cancel-authentication-button"
+                        class="browser-style default disabled negative"
+                        disabled>
+                    <label data-localized="confirm_cancel_negative">Cancel</label>
+                    <img src="/icons/main/incorrect_white.svg">
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="main-menu-panel" class="deactivated centering panel">
+        <div id="primary-buttons-container">
+            <button id="lock-button"
+                    class="large browser-style default private disabled"
+                    disabled>
+                <img src="/icons/main/lock_white.svg">
+                <label data-localized="lock_command">Lock</label>
+            </button>
+            <button id="unlock-button"
+                    class="large browser-style default private disabled"
+                    disabled>
+                <img src="/icons/main/unlock_white.svg">
+                <label data-localized="unlock_command">Unlock</label>
+            </button>
+        </div>
+        <div id="secondary-buttons-container">
+            <button id="change-password-button" class="browser-style default disabled"
+                    disabled>
+                <label data-localized="change_password_command">Change password</label>
+                <img src="/icons/main/password_white.svg">
+            </button>
+            <button id="clear-data-button" class="browser-style default disabled negative"
+                    disabled>
+                <label data-localized="clear_data_command">Clear data</label>
+                <img src="/icons/main/erase_white.svg">
+            </button>
+        </div>
+    </div>
+    <div id="footer" class="panel-section-footer">
+        <div id="extension-info">
+            Private Bookmarks <span id="extension-version"></span> (alpha)
+        </div>
+        <img id="options-button" class="icon"
+             src="/icons/main/options_gray.svg" title="Open options page">
+    </div>
+</body>
+</html>

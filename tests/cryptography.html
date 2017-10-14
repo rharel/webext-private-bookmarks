@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tests/cryptography</title>
+
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+
+    <script src="../node_modules/requirejs/require.js"></script>
+</head>
+<body>
+<div id="mocha"></div>
+<script>
+(function()
+{
+    mocha.setup("bdd");
+	const assert = chai.assert;
+
+	// Set by require().
+    let convert, crypto;
+
+    describe("Cryptography", function()
+	{
+	    it("should digest using SHA-256", async function()
+        {
+            const hash = await crypto.digest("mock password");
+
+            assert.strictEqual(convert.from_hex_bytes(hash),
+                               "b99df2a69cd8d4d487b9a21c76401cbead93f14674bf44585b3cd44ed28d75b0");
+        });
+	    it("should encrypt without errors", async function()
+        {
+            const result = await crypto.encrypt("mock data", "mock password");
+
+            assert.isOk(result);
+            assert.isOk(result.iv);
+            assert.isOk(result.ciphertext);
+        });
+	    it("should decrypt without errors", async function()
+        {
+            const data = "mock data",
+                  key  = "mock password";
+
+            const encrypted_data = await crypto.encrypt(data, key),
+                  plaintext      = await crypto.decrypt(encrypted_data.iv,
+                                                        encrypted_data.ciphertext, key);
+
+            assert.strictEqual(plaintext, data);
+        });
+    });
+
+    requirejs.config({
+                        paths:
+                        {
+                            libraries: "../sources/libraries",
+                            scripts: "../sources/scripts"
+                        }
+                     });
+    requirejs(["scripts/utilities/cryptography",
+               "scripts/utilities/string_conversion"],
+              (cryptography_module, conversion_module) =>
+              {
+                    convert = conversion_module;
+                    crypto = cryptography_module;
+
+                    mocha.run();
+              });
+})();
+</script>
+</body>
+</html>

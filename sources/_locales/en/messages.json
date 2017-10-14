@@ -1,0 +1,195 @@
+{
+    "extension_name":
+    {
+        "message": "Private Bookmarks"
+    },
+    "extension_description":
+    {
+        "message": "Enables a special password-protected bookmark folder."
+    },
+    "page_action_default_title":
+    {
+        "message": "Bookmark this page privately (Ctrl+Shift+8)"
+    },
+
+    "options_page_title":
+    {
+        "message": "Options | Private Bookmarks"
+    },
+    "general_section_header":
+    {
+        "message": "General"
+    },
+    "privacy_context_option":
+    {
+        "message": "Disable Private Bookmarks outside of private browsing"
+    },
+    "whats_new_notification_option":
+    {
+        "message": "Let me know what's new after an update"
+    },
+    "support_section_header":
+    {
+        "message": "Support"
+    },
+    "feedback_label":
+    {
+        "message": "Something's not working? Got a question and/or suggestion?"
+    },
+    "post_feedback_command":
+    {
+        "message": "Post an issue",
+        "description": "'issue' refers to a GitHub issue. Appears directly after feedback_label."
+    },
+
+    "popup_title":
+    {
+        "message": "Control panel | Private Bookmarks"
+    },
+
+    "get_started_title":
+    {
+        "message": "Get started"
+    },
+    "choose_password_command":
+    {
+        "message": "Choose a password"
+    },
+
+    "password_setup_title":
+    {
+        "message": "Setup a password"
+    },
+    "password_requirements":
+    {
+        "message": "Must be 8–16 characters long, alphanumeric, containing at least one letter and one number."
+    },
+    "password_field_placeholder":
+    {
+        "message": "Password"
+    },
+    "repeated_password_field_placeholder":
+    {
+        "message": "Repeat password"
+    },
+    "confirm_cancel_positive":
+    {
+        "message": "Confirm",
+        "description": "A positive to response to a confirm/cancel question."
+    },
+    "confirm_cancel_negative":
+    {
+        "message": "Cancel",
+        "description": "A negative to response to a confirm/cancel question."
+    },
+    "password_setup_complete":
+    {
+        "message": "You are good to go!"
+    },
+
+    "authentication_title":
+    {
+        "message": "Authenticate"
+    },
+
+    "confirmation_title":
+    {
+        "message": "Are you sure?"
+    },
+    "yes_no_positive":
+    {
+        "message": "Yes",
+        "description": "A positive response to a yes/no question."
+    },
+    "yes_no_negative":
+    {
+        "message": "No",
+        "description": "A negative response to a yes/no question."
+    },
+
+    "on_hold_title":
+    {
+        "message": "Just a moment..."
+    },
+
+    "error_title":
+    {
+        "message": "Oops!",
+        "description": "Should be playful."
+    },
+    "error_message_beginning":
+    {
+        "message": "Oops! There was an error. You can help by",
+        "description": "Forms one sentence together with error_message_ending"
+    },
+    "error_message_ending":
+    {
+        "message": "reporting it",
+        "description": "Forms one sentence together with error_message_beginning."
+    },
+    "error_message_addendum":
+    {
+        "message": "Private Bookmarks is still in early development. Sorry for the inconvenience."
+    },
+
+    "success_title":
+    {
+        "message": "Success!"
+    },
+
+    "go_to_main_menu_command":
+    {
+        "message": "To main menu"
+    },
+
+
+    "lock_command":
+    {
+        "message": "Lock"
+    },
+    "locked_successfully":
+    {
+        "message": "Your bookmarks have been locked!"
+    },
+
+    "unlock_command":
+    {
+        "message": "Unlock"
+    },
+    "unlocked_successfully":
+    {
+        "message": "Your bookmarks have been unlocked! Check the 'Private Bookmarks' folder under 'Other Bookmarks'."
+    },
+
+    "change_password_command":
+    {
+        "message": "Change password"
+    },
+    "enter_current_password_instruction":
+    {
+        "message": "Enter your current password:"
+    },
+    "password_changed_successfully":
+    {
+        "message": "Your password has been changed successfully."
+    },
+
+    "clear_data_command":
+    {
+        "message": "Clear data"
+    },
+    "confirm_data_clearance_question":
+    {
+        "message": "This will delete all private bookmarks permanently, and a new password will need to be set up. Are you sure you wish to continue?"
+    },
+
+    "added_bookmark_successfully":
+    {
+        "message": "The page has been added to your private bookmarks."
+    },
+
+    "disabled_due_to_invalid_privacy_context":
+    {
+        "message": "requires private browsing"
+    }
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tests/string_conversion</title>
+
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+
+    <script src="../node_modules/requirejs/require.js"></script>
+</head>
+<body>
+<div id="mocha"></div>
+<script>
+(function()
+{
+    mocha.setup("bdd");
+	const assert = chai.assert;
+
+	// Set by require().
+    let convert;
+
+    describe("String conversion", function()
+	{
+	    it("should convert between base-64 strings and Uint8Arrays", function()
+        {
+            const byte_array = Uint8Array.from([0, 2, 4, 8, 16, 32, 64, 128, 255]);
+            const text       = convert.from_base64_bytes(byte_array);
+
+            convert.to_base64_bytes(text).forEach((value, index) =>
+            {
+                assert.strictEqual(value, byte_array[index]);
+            });
+        });
+	    it("should convert between hexadecimal strings and Uint8Arrays", function()
+        {
+            const text       = "000102030405060708090a0b0c0d0e0f10";
+            const byte_array = convert.to_hex_bytes(text);
+
+            assert.strictEqual(convert.from_hex_bytes(byte_array), text);
+        });
+	    it("should convert between UTF-8 strings and Uint8Arrays", function()
+        {
+            const text       = "What a sunny ☀ day ☺, yesterday it rained ☂ ☹.";
+            const byte_array = convert.to_utf8_bytes(text);
+
+            assert.strictEqual(convert.from_utf8_bytes(byte_array), text);
+        });
+    });
+
+    requirejs.config({
+                        paths:
+                        {
+                            libraries: "../sources/libraries",
+                            scripts: "../sources/scripts"
+                        }
+                     });
+    requirejs(["scripts/utilities/string_conversion"],
+              conversion_module =>
+              {
+                    convert = conversion_module;
+                    mocha.run();
+              });
+})();
+</script>
+</body>
+</html>
