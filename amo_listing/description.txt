@@ -4,6 +4,14 @@ When you unlock your private bookmarks, a new 'Private Bookmarks' folder appears
 
 By default, Private Bookmarks can only be accessed when in private browsing (to help avoid accidents), however that can be changed via the options page.
 
+<b>Auto-locking</b>
+There are a few cases where the extension auto locks your private bookmarks:
+<ul>
+<li>If you have selected the "disable outside of private browsing" option (it is on by default) private bookmarks auto-locks when the last private window is closed.</li>
+<li>If you manually delete the Private Bookmarks folder. In this case there will be no syncing of changes to your encrypted storage.</li>
+<li>If you close the browser while your private bookmarks are unlocked, the next time you open it the leftover Private Bookmarks folder is deleted immediately. In this case there will be no syncing of changes to your encrypted storage.</li>
+</ul>
+
 <b>Keyboard shortcuts</b>
 Both of these shortcuts are available while private bookmarks are unlocked:
 <ul>
