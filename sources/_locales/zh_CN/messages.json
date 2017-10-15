@@ -1,7 +1,7 @@
 {
     "extension_name":
     {
-        "message": "Private Bookmarks"
+        "message": "私密书签"
     },
     "extension_description":
     {
@@ -9,12 +9,12 @@
     },
     "page_action_default_title":
     {
-        "message": "加密添加此页面的书签 (Ctrl+Shift+8)"
+        "message": "添加此页面到私密书签 (Ctrl+Shift+8)"
     },
 
     "options_page_title":
     {
-        "message": "选项 | Private Bookmarks"
+        "message": "选项 | 私密书签"
     },
     "general_section_header":
     {
@@ -22,7 +22,7 @@
     },
     "privacy_context_option":
     {
-        "message": "仅在隐私浏览模式下使用 Private Bookmarks"
+        "message": "仅在隐私浏览模式下使用私密书签"
     },
     "whats_new_notification_option":
     {
@@ -44,7 +44,7 @@
 
     "popup_title":
     {
-        "message": "控制面板 | Private Bookmarks"
+        "message": "控制面板 | 私密书签"
     },
 
     "get_started_title":
@@ -129,7 +129,7 @@
     },
     "error_message_addendum":
     {
-        "message": "Private Bookmarks 仍处在早期发展阶段。很抱歉带来不便。"
+        "message": "私密书签 仍处在早期发展阶段。很抱歉带来不便。"
     },
 
     "success_title":
