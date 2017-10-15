@@ -75,12 +75,12 @@
     "confirm_cancel_positive":
     {
         "message": "Confirm",
-        "description": "A positive to response to a confirm/cancel question."
+        "description": "A positive response to a confirm/cancel question."
     },
     "confirm_cancel_negative":
     {
         "message": "Cancel",
-        "description": "A negative to response to a confirm/cancel question."
+        "description": "A negative response to a confirm/cancel question."
     },
     "password_setup_complete":
     {
