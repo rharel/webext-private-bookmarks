@@ -6,8 +6,10 @@ By default, Private Bookmarks can only be accessed when in private browsing (to 
 
 <b>Keyboard shortcuts</b>
 Both of these shortcuts are available while private bookmarks are unlocked:
- * Ctrl+Shift+8 adds the current page to your private bookmarks.
- * Ctrl+Shift+L locks the folder.
+<ul>
+<li>Ctrl+Shift+8 adds the current page to your private bookmarks.</li>
+<li>Ctrl+Shift+L locks the folder.</li>
+</ul>
 
 This extension is still in early development, so bugs are to be expected.
 
