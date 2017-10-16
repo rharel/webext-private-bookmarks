@@ -4,6 +4,9 @@ When you unlock your private bookmarks, a new 'Private Bookmarks' folder appears
 
 By default, Private Bookmarks can only be accessed when in private browsing (to help avoid accidents), however that can be changed via the options page.
 
+<b>Be aware!</b>
+This extension is still in early development, so bugs are to be expected, and you should backup your bookmarks if they are important.
+
 <b>Auto-locking</b>
 There are a few cases where the extension auto locks your private bookmarks:
 <ul>
@@ -18,7 +21,5 @@ Both of these shortcuts are available while private bookmarks are unlocked:
 <li>Ctrl+Shift+8 adds the current page to your private bookmarks.</li>
 <li>Ctrl+Shift+L locks the folder.</li>
 </ul>
-
-This extension is still in early development, so bugs are to be expected.
 
 <b>Something's not working? Got a question and/or suggestion?</b> <a href="https://github.com/rharel/webext-private-bookmarks/issues">Post an issue.</a>
