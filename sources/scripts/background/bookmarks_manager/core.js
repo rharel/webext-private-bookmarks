@@ -209,7 +209,12 @@
     /// Locks without syncing to the back.
     async function lock_immediately()
     {
-        try     { await browser.bookmarks.removeTree(pop_front().id); }
+        try { await browser.bookmarks.removeTree(pop_front().id); }
+        catch (error)
+        {
+            console.warn("No front to remove during immediate lock.\n" +
+                         "Debug info: " + error);
+        }
         finally { emit_event("lock"); }
     }
     /// Lock in response to user command.
