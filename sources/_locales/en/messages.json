@@ -41,6 +41,14 @@
         "message": "Post an issue",
         "description": "'issue' refers to a GitHub issue. Appears directly after feedback_label."
     },
+    "error_loading_options":
+    {
+        "message": "Unexpected error when loading options"
+    },
+    "error_saving_options":
+    {
+        "message": "Unexpected error when saving options"
+    },
 
     "popup_title":
     {

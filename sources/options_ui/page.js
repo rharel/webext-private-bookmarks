@@ -15,8 +15,8 @@
     /// Enumerates possible error messages.
     const ErrorMessage =
     {
-        LoadingConfiguration: "Error when loading options",
-        SavingConfiguration:  "Error when saving options"
+        LoadingConfiguration: browser.i18n.getMessage("error_loading_options"),
+        SavingConfiguration:  browser.i18n.getMessage("error_saving_options")
     };
     /// Displays (and logs) an error.
     function report_error(message, debug_info)
