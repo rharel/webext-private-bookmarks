@@ -9,7 +9,14 @@
     {
         if (message.type === INTERFACE_MESSAGE)
         {
-            return Promise.resolve(core[message.method_name](...message.arguments));
+            if (message.property_name)
+            {
+                return Promise.resolve(core[message.property_name]);
+            }
+            else
+            {
+                return Promise.resolve(core[message.method_name](...message.arguments));
+            }
         }
     });
 

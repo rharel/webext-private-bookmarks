@@ -301,6 +301,8 @@
                 return  {
                             get_front_id: () => { return front ? front.id : null; },
 
+                            load: load,
+
                             clear: clear,
 
                             needs_setup: needs_setup,
