@@ -15,7 +15,7 @@
     {
         const a = document.createElement("a");
 
-        a.href     = `data:text/plain;charset=utf-8,${uri}`;
+        a.href     = `data:application/json;charset=utf-8,${uri}`;
         a.download = filename;
 
         a.style.display = "none";
