@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let configuration, CURRENT_VERSION, populate_with_elements;
+    let configuration, CURRENT_VERSION, domanip;
 
     /// Contains DOM elements. Populated by initialize().
     const DOM =
@@ -11,26 +11,6 @@
         error_message: null,
         error_message_bar: null
     };
-
-    /// Hooks up events from all option controls so that when they are changed the new configuration
-    /// indicated by the page is saved.
-    function initialize_options_change_listeners()
-    {
-        const checkboxes = document.querySelectorAll("input[type='checkbox'].option");
-        checkboxes.forEach(checkbox =>
-        {
-            checkbox.addEventListener("change", save_page_configuration);
-        });
-    }
-
-    /// Initializes this module.
-    function initialize()
-    {
-        populate_with_elements(DOM);
-        initialize_options_change_listeners();
-
-        load_page_configuration();
-    }
 
     /// Enumerates possible error messages.
     const ErrorMessage =
@@ -97,6 +77,25 @@
                     .catch(reason => report_error(ErrorMessage.SavingConfiguration, reason));
     }
 
+    /// Hooks up events from all option controls so that when they are changed the new configuration
+    /// indicated by the page is saved.
+    function initialize_options_change_listeners()
+    {
+        const checkboxes = document.querySelectorAll("input[type='checkbox'].option");
+        checkboxes.forEach(checkbox =>
+        {
+            checkbox.addEventListener("change", save_page_configuration);
+        });
+    }
+    /// Initializes this module.
+    function initialize()
+    {
+        domanip.populate(DOM);
+        initialize_options_change_listeners();
+
+        load_page_configuration();
+    }
+
     require.config({
                         paths: { scripts: "/scripts" }
                    });
@@ -107,7 +106,7 @@
             {
                 configuration = configuration_module;
                 CURRENT_VERSION = version_module.CURRENT;
-                populate_with_elements = dom_module.populate;
+                domanip = dom_module;
 
                 initialize();
             });
