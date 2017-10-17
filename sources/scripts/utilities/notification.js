@@ -18,7 +18,7 @@
     /// { title, icon_url, lifetime } indicating the notification's title text, accompanying icon,
     /// and lifetime (in milliseconds).
     ///
-    /// The notification is cleared after a delay.
+    /// The notification is cleared once its lifetime has expired.
     async function post(message, options)
     {
         options = Object.assign({}, DEFAULT_OPTIONS, options);
