@@ -24,6 +24,13 @@
     /// verify that a password is correct.
     const BACK_SIGNATURE = "private_bookmarks@rharel";
 
+    /// Emits an event.
+    function emit_event(type, properties)
+    {
+        events.emitEvent(type);
+        browser.runtime.sendMessage(Object.assign({type: type}, properties));
+    }
+
     /// Removes properties we are not interested in saving from the specified bookmarks tree
     /// recursively.
     function prune_tree(node)
@@ -102,7 +109,7 @@
         {
             clearing.push(
                 browser.bookmarks.removeTree(pop_front().id)
-                .then(() => events.emitEvent("lock"))
+                .then(() => emit_event("lock"))
             );
         }
 
@@ -195,7 +202,7 @@
 
         return Promise.all([clearing, saving]).then(() =>
         {
-            events.emitEvent("lock");
+            emit_event("lock");
             return true;
         });
     }
@@ -203,7 +210,7 @@
     async function lock_immediately()
     {
         try     { await browser.bookmarks.removeTree(pop_front().id); }
-        finally { events.emitEvent("lock"); }
+        finally { emit_event("lock"); }
     }
     /// Lock in response to user command.
     browser.commands.onCommand.addListener(command =>
@@ -234,13 +241,13 @@
         {
             // If this is the first unlock there is nothing more to do beyond creating the front's
             // root.
-            events.emitEvent("unlock");
+            emit_event("unlock");
             return true;
         }
         try
         {
             await duplicate_tree(source, target);
-            events.emitEvent("unlock");
+            emit_event("unlock");
             return true;
         }
         catch (error)
