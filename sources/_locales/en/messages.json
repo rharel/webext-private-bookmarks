@@ -28,6 +28,18 @@
     {
         "message": "Let me know what's new after an update"
     },
+    "backup_section_header":
+    {
+        "message": "Backup"
+    },
+    "backup_encrypted_data_command":
+    {
+        "message": "Download encrypted data..."
+    },
+    "backup_plain_data_command":
+    {
+        "message": "Download plain data..."
+    },
     "support_section_header":
     {
         "message": "Support"
@@ -198,5 +210,9 @@
     "disabled_due_to_invalid_privacy_context":
     {
         "message": "requires private browsing"
+    },
+    "disabled_due_to_locked_state":
+    {
+        "message": "requires unlocked bookmarks"
     }
 }

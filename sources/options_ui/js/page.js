@@ -99,6 +99,7 @@
     require.config({
                         paths: { scripts: "/scripts" }
                    });
+    require(["./backup"]);
     require(["scripts/meta/configuration",
              "scripts/meta/version",
              "scripts/utilities/dom_manipulation"],
