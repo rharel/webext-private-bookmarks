@@ -7,6 +7,8 @@
     {
         const message = browser.i18n.getMessage(element.getAttribute(LOCALIZATION_MESSAGE));
 
+        if (message === "") { return; }
+
         if (element.hasAttribute(LOCALIZATION_ATTRIBUTE))
         {
             element.setAttribute(element.getAttribute(LOCALIZATION_ATTRIBUTE), message);
