@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.0.4
+ * TBD
+ 
 ### 0.0.3
  * Allows user to download backup [encrypted] bookmark data from the options page.
  
