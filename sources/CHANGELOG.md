@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.0.5
+ * TBD
+ 
 ### 0.0.4
  * Makes the data-clearance dialog more attention-grabbing using a new color scheme.
  * Enable the acceptance button on the data-clearance dialog only after a short delay.
