@@ -59,11 +59,19 @@ button.large > img
 }
 
 /* Buttons - flavours */
-button.positive        { background-color: var(--green-70); }
+button.positive
+{
+    background-color: var(--green-70);
+    border-color: var(--green-70);
+}
 button.positive:hover  { background-color: var(--green-80); }
 button.positive:active { background-color: var(--green-90); }
 
-button.negative        { background-color: var(--red-70); }
+button.negative
+{
+    background-color: var(--red-70);
+    border-color: var(--red-70);
+}
 button.negative:hover  { background-color: var(--red-80); }
 button.negative:active { background-color: var(--red-90); }
 
