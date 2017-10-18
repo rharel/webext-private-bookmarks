@@ -1,7 +1,7 @@
 ## Changelog
 
 ### 0.0.4
- * TBD
+ * Makes the data-clearance dialog more attention-grabbing using a new color scheme.
  
 ### 0.0.3
  * Allows user to download backup [encrypted] bookmark data from the options page.

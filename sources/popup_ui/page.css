@@ -138,6 +138,21 @@ img { box-sizing: border-box; }
 }
 
 /* Panel - Confirmation dialog */
+#confirmation-dialog-panel
+{
+    background: repeating-linear-gradient(
+        45deg,
+        var(--grey-90),
+        var(--grey-90) 24px,
+        var(--yellow-50) 24px,
+        var(--yellow-50) 48px
+    );
+}
+#confirmation-message
+{
+    background-color: var(--yellow-50);
+    padding: 8px;
+}
 #confirmation-buttons-container
 {
     justify-content: space-between;
