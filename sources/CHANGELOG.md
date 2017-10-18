@@ -2,7 +2,7 @@
 
 ### 0.0.4
  * Makes the data-clearance dialog more attention-grabbing using a new color scheme.
- 
+ * Enable the acceptance button on the data-clearance dialog only after a short delay.
 ### 0.0.3
  * Allows user to download backup [encrypted] bookmark data from the options page.
  
