@@ -32,14 +32,14 @@
     {
         "message": "Backup"
     },
-    "backup_encrypted_data_command":
+    "export_encrypted_data_command":
     {
-        "message": "Download encrypted data...",
+        "message": "Export encrypted data...",
         "description": "Appears as a button that downloads encrypted private bookmark data."
     },
-    "backup_plain_data_command":
+    "export_plain_data_command":
     {
-        "message": "Download plain data...",
+        "message": "Export plain data...",
         "description": "'plain' as in 'plaintext', i.e. not-encrypted."
     },
     "support_section_header":

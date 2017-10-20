@@ -6,8 +6,8 @@
     /// Contains DOM elements. Populated by initialize().
     const DOM =
     {
-        download_encrypted_data_button: null,
-        download_plain_data_button: null,
+        export_encrypted_data_button: null,
+        export_plain_data_button: null,
     };
 
     /// Offers the specified URI to the user for download.
@@ -23,8 +23,9 @@
         a.click();
         document.body.removeChild(a);
     }
+
     /// Offers the encrypted private bookmark data for download.
-    async function download_encrypted_data()
+    async function export_encrypted_data()
     {
         const data = (await bookmarks.load()).bookmarks;
         const uri  = encodeURIComponent(JSON.stringify(data));
@@ -32,7 +33,7 @@
         offer_download(uri, "encrypted_private_bookmarks.json");
     }
     /// Offers the plaintext private bookmark data for download.
-    async function download_plain_data()
+    async function export_plain_data()
     {
         const data = (await browser.bookmarks.getSubTree(await bookmarks.get_front_id()))[0];
         const uri  = encodeURIComponent(JSON.stringify(data));
@@ -41,22 +42,22 @@
     }
 
     /// Disables the plain backup button.
-    function disable_plain_backup_option()
+    function disable_plain_export_option()
     {
-        domanip.disable(DOM.download_plain_data_button);
+        domanip.disable(DOM.export_plain_data_button);
 
-        DOM.download_plain_data_button.title = (
+        DOM.export_plain_data_button.title = (
             `(${browser.i18n.getMessage("disabled_due_to_locked_state")})`
         );
-        DOM.download_plain_data_button.removeEventListener("click", download_plain_data);
+        DOM.export_plain_data_button.removeEventListener("click", export_plain_data);
     }
     /// Enables the plain backup button.
-    function enable_plain_backup_option()
+    function enable_plain_export_option()
     {
-        DOM.download_plain_data_button.removeAttribute("title");
-        DOM.download_plain_data_button.addEventListener("click", download_plain_data);
+        DOM.export_plain_data_button.removeAttribute("title");
+        DOM.export_plain_data_button.addEventListener("click", export_plain_data);
 
-        domanip.enable(DOM.download_plain_data_button);
+        domanip.enable(DOM.export_plain_data_button);
     }
 
     /// Initializes this module.
@@ -64,14 +65,14 @@
     {
         domanip.populate(DOM);
 
-        DOM.download_encrypted_data_button.addEventListener("click", download_encrypted_data);
+        DOM.export_encrypted_data_button.addEventListener("click", export_encrypted_data);
 
-        if (await bookmarks.is_locked()) { disable_plain_backup_option(); }
-        else                             { enable_plain_backup_option();  }
+        if (await bookmarks.is_locked()) { disable_plain_export_option(); }
+        else                             { enable_plain_export_option();  }
         browser.runtime.onMessage.addListener(message =>
         {
-            if      (message.type === "lock")   { disable_plain_backup_option(); }
-            else if (message.type === "unlock") { enable_plain_backup_option();  }
+            if      (message.type === "lock")   { disable_plain_export_option(); }
+            else if (message.type === "unlock") { enable_plain_export_option();  }
         });
     }
 
