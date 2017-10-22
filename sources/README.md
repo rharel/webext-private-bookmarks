@@ -8,7 +8,7 @@ Let us refer to the persistent data in storage as the "back" and to the actual b
 ### Implicit locking
 
 There are several cases that induce a locking implicitly:
- * When the front folder is deleted unexpectedly. In this case locking ensues __without synchronization__ to the back, i.e. the back retains its state prior to unlocking.
+ * When the front folder is deleted unexpectedly.
  * When the extension's privacy context setting is set to "private" and the user exits private browsing. A private browsing "exit" is when the last private window is closed.
  * Ideally, we would like to implicitly-lock when the extension is suspended, but that requires the `browser.runtime.onSuspend` event to be implemented in Firefox, which is not the case at the time of writing.
 
