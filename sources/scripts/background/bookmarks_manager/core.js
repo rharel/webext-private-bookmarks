@@ -179,32 +179,49 @@
                     });
     }
 
+    /// Encrypts contents of the front folder, and saves it to the back.
+    /// Returns true iff successful.
+    async function sync()
+    {
+        if (is_locked()) { return false; }
+
+        const {id, key} = front;
+
+        const bookmarks      = (await browser.bookmarks.getSubTree(id))[0],
+              bookmarks_json = JSON.stringify(prune_tree(bookmarks));
+
+        const encrypted_signature = await crypto.encrypt(BACK_SIGNATURE, key),
+              encrypted_bookmarks = await crypto.encrypt(bookmarks_json, key);
+
+        await save({
+            signature: encrypted_signature,
+            bookmarks: encrypted_bookmarks
+        });
+        return true;
+    }
+
     /// Encrypts contents of the front folder, saves it to the back, and clears the front.
     /// Returns true iff successful.
     async function lock()
     {
         if (is_locked()) { return false; }
 
-        const {id, key} = pop_front();
-
-        const bookmarks      = (await browser.bookmarks.getSubTree(id))[0],
-              bookmarks_json = JSON.stringify(prune_tree(bookmarks));
-
-        const clearing = browser.bookmarks.removeTree(id);
-
-        const encrypted_signature = await crypto.encrypt(BACK_SIGNATURE, key),
-              encrypted_bookmarks = await crypto.encrypt(bookmarks_json, key);
-
-        const saving = save({
-                                signature: encrypted_signature,
-                                bookmarks: encrypted_bookmarks
-                            });
-
-        return Promise.all([clearing, saving]).then(() =>
+        const clearing = browser.bookmarks.removeTree(front.id),
+              syncing  = sync();
+        try
         {
+            await Promise.all([clearing, syncing]);
+
+            pop_front();
             emit_event("lock");
+
             return true;
-        });
+        }
+        catch (error)
+        {
+            pop_front();
+            throw error;
+        }
     }
     /// Locks without syncing to the back.
     async function lock_immediately()
@@ -322,6 +339,8 @@
 
                             authenticate:          authenticate,
                             change_authentication: change_authentication,
+
+                            sync: sync,
 
                             lock:             lock,
                             lock_immediately: lock_immediately,

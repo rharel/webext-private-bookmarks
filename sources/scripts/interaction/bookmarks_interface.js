@@ -6,7 +6,7 @@
     const this_module = { MESSAGE_TYPE: "bookmarks_interface" };
 
     ["get_front_id", "load", "clear", "needs_setup", "setup",
-     "authenticate", "change_authentication",
+     "authenticate", "change_authentication", "sync",
      "lock", "unlock", "is_locked", "is_unlocked"]
     .forEach(method_name =>
     {
