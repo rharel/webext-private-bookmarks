@@ -192,17 +192,17 @@ img.validation-icon[src*="incorrect_white"]
 }
 
 /* Panel - Main menu */
-#main-menu-panel > #primary-buttons-container > button > img
+#main-menu-panel > .primary-buttons-container > button > img
 {
     height: 64px;
     width: 64px;
 }
-#main-menu-panel > #secondary-buttons-container > button
+#main-menu-panel > .secondary-buttons-container > button
 {
     height: auto;
     width: 100%;
 }
-#main-menu-panel > #secondary-buttons-container > button > img
+#main-menu-panel > .secondary-buttons-container > button > img
 {
     height: 24px;
     margin-left: 8px;
