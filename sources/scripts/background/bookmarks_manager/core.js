@@ -293,7 +293,7 @@
         });
     }
 
-    /// Returns true iff the specified node is privately bookmarked.
+    /// Returns true iff the specified node is a descendant of the front.
     /// Rejects if private bookmarks are locked.
     async function has_node(node)
     {
