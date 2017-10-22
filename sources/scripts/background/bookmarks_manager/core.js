@@ -105,13 +105,7 @@
     {
         let clearing = [storage.remove(BACK_STORAGE_KEY)];
 
-        if (is_unlocked())
-        {
-            clearing.push(
-                browser.bookmarks.removeTree(pop_front().id)
-                .then(() => emit_event("lock"))
-            );
-        }
+        if (is_unlocked()) { clearing.push(lock()); }
 
         return Promise.all(clearing);
     }
@@ -199,37 +193,75 @@
         });
         return true;
     }
+    /// Contains event listeners that invoke sync().
+    const sync_listeners =
+    {
+        /// Syncs when a new descendant of the front is created.
+        on_created: async (id, node) =>
+        {
+            if (is_unlocked() && (await has_node(node))) { sync(); }
+        },
+        /// Syncs when a descendant of the front is removed.
+        on_removed: async (id, info) =>
+        {
+            // If the user deletes the front manually, this callback may be invoked wrongly, so make
+            // sure that is not the case with the following try-clause:
+            try           { await browser.bookmarks.get(front.id); }
+            catch (error) { return; }
 
-    /// Encrypts contents of the front folder, saves it to the back, and clears the front.
+            if (is_unlocked() && (await has_node(info.node))) { sync(); }
+        },
+        /// Syncs when a node is moved into the front.
+        on_moved: async (id, info) =>
+        {
+            if (is_locked()) { return; }
+
+            if (info.parentId    === front.id ||
+                info.oldParentId === front.id)
+            {
+                sync();
+                return;
+            }
+
+            const [new_parent, old_parent] = (
+                await browser.bookmarks.get([info.parentId, info.oldParentId])
+            );
+            if ((await has_node(new_parent)) ||
+                (await has_node(old_parent)))
+            {
+                sync();
+            }
+        }
+    };
+    /// Listens for changes to the front and syncs.
+    function enable_dynamic_sync()
+    {
+        browser.bookmarks.onCreated.addListener(sync_listeners.on_created);
+        browser.bookmarks.onRemoved.addListener(sync_listeners.on_removed);
+        browser.bookmarks.onMoved.addListener(sync_listeners.on_moved);
+    }
+    /// Undoes the event hookup performed by enable_dynamic_sync().
+    function disable_dynamic_sync()
+    {
+        browser.bookmarks.onCreated.removeListener(sync_listeners.on_created);
+        browser.bookmarks.onRemoved.removeListener(sync_listeners.on_removed);
+        browser.bookmarks.onMoved.removeListener(sync_listeners.on_moved);
+    }
+
+    /// Clears the front.
     /// Returns true iff successful.
     async function lock()
     {
         if (is_locked()) { return false; }
-
-        const clearing = browser.bookmarks.removeTree(front.id),
-              syncing  = sync();
         try
         {
-            await Promise.all([clearing, syncing]);
-
-            pop_front();
-            emit_event("lock");
-
+            disable_dynamic_sync();
+            await browser.bookmarks.removeTree(pop_front().id);
             return true;
         }
         catch (error)
         {
-            pop_front();
-            throw error;
-        }
-    }
-    /// Locks without syncing to the back.
-    async function lock_immediately()
-    {
-        try { await browser.bookmarks.removeTree(pop_front().id); }
-        catch (error)
-        {
-            console.warn("No front to remove during immediate lock.\n" +
+            console.warn("No front to remove during lock.\n" +
                          "Debug info: " + error);
         }
         finally { emit_event("lock"); }
@@ -263,12 +295,14 @@
         {
             // If this is the first unlock there is nothing more to do beyond creating the front's
             // root.
+            enable_dynamic_sync();
             emit_event("unlock");
             return true;
         }
         try
         {
             await duplicate_tree(source, target);
+            enable_dynamic_sync();
             emit_event("unlock");
             return true;
         }
@@ -340,11 +374,8 @@
                             authenticate:          authenticate,
                             change_authentication: change_authentication,
 
-                            sync: sync,
-
-                            lock:             lock,
-                            lock_immediately: lock_immediately,
-
+                            sync:   sync,
+                            lock:   lock,
                             unlock: unlock,
 
                             is_locked:   is_locked,

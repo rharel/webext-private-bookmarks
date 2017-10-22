@@ -35,10 +35,10 @@
         }
     }
 
-    /// Lock up without syncing if the front folder is removed by the user.
+    /// Locks up if the front folder is removed by the user.
     browser.bookmarks.onRemoved.addListener(id =>
     {
-        if (core.is_unlocked() && id === core.get_front_id()) { core.lock_immediately(); }
+        if (core.is_unlocked() && id === core.get_front_id()) { core.lock(); }
     });
 
     // Lock up when suspended. We don't want to leave our private bookmarks out in the open.

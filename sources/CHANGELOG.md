@@ -1,7 +1,7 @@
 ## Changelog
 
 ### 0.0.5
- * TBD
+ * Enables dynamic syncing: the back is updated as soon as the front is, without waiting for an explicit lock. Locking now only clears the front.
  
 ### 0.0.4
  * Makes the data-clearance dialog more attention-grabbing using a new color scheme.
