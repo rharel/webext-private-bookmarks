@@ -3,7 +3,7 @@
 
 	"name":    "__MSG_extension_name__",
 	"author":  "Raoul Harel",
-	"version": "0.0.5",
+	"version": "0.0.6",
 
 	"description":  "__MSG_extension_description__",
 	"homepage_url": "https://github.com/rharel/webext-private-bookmarks",

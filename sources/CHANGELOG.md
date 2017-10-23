@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.0.6
+ * TBD
+
 ### 0.0.5
  * Enables dynamic syncing: the back is updated as soon as the front is, without waiting for an explicit lock. Locking now only clears the front.
  
