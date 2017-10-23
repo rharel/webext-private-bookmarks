@@ -253,9 +253,10 @@
     async function lock()
     {
         if (is_locked()) { return false; }
+
+        disable_dynamic_sync();
         try
         {
-            disable_dynamic_sync();
             await browser.bookmarks.removeTree(pop_front().id);
             return true;
         }
