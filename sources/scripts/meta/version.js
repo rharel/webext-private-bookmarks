@@ -25,7 +25,7 @@
 
                 return  {
                             CURRENT: create(0, 0, 5),
-                            HAS_RELEASE_NOTES: false,
+                            HAS_RELEASE_NOTES: true,
                             create: create
                         };
            });
