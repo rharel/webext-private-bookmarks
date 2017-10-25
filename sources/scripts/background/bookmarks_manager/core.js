@@ -5,9 +5,9 @@
     ///
     /// The back folder is encrypted. Initially, the front folder does not exist, this is what we
     /// refer to as a "locked" state. Upon unlocking, the contents of the back are decrypted and
-    /// reflected in the creation of the front. Changes to the front do not affect the back until a
-    /// "lock" operation is initiated. Upon locking, the contents of the front are serialized,
-    /// encrypted, and saved to the back, replacing previous data.
+    /// reflected in the creation of the front. Changes to the front cause its contents of to be
+    /// serialized, encrypted, and saved to the back, replacing previous data. Upon locking, the
+    /// front is removed.
     ///
     /// The user supplies his/her password during unlocking, and its hash is from then on saved in
     /// memory until locking (so that we don't have to ask for it again to encrypt).
