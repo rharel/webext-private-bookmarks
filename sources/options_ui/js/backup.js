@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let bookmarks, domanip;
+    let bookmarks, CURRENT_VERSION, domanip;
 
     /// Contains DOM elements. Populated by initialize().
     const DOM =
@@ -27,8 +27,10 @@
     /// Offers the encrypted private bookmark data for download.
     async function export_encrypted_data()
     {
-        const data = (await bookmarks.load()).bookmarks;
-        const uri  = encodeURIComponent(JSON.stringify(data));
+        const data   = (await bookmarks.load()).bookmarks;
+        data.version = CURRENT_VERSION;
+
+        const uri = encodeURIComponent(JSON.stringify(data));
 
         offer_download(uri, "encrypted_private_bookmarks.json");
     }
@@ -77,10 +79,12 @@
     }
 
     require(["scripts/interaction/bookmarks_interface",
+             "scripts/meta/version",
              "scripts/utilities/dom_manipulation"],
-            (bookmarks_module, dom_module) =>
+            (bookmarks_module, version_module, dom_module) =>
             {
                 bookmarks = bookmarks_module;
+                CURRENT_VERSION = version_module.CURRENT;
                 domanip = dom_module;
 
                 initialize();
