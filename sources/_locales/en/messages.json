@@ -16,6 +16,7 @@
     {
         "message": "Options | Private Bookmarks"
     },
+
     "general_section_header":
     {
         "message": "General"
@@ -28,6 +29,7 @@
     {
         "message": "Let me know what's new after an update"
     },
+
     "backup_section_header":
     {
         "message": "Backup"
@@ -42,6 +44,7 @@
         "message": "Export plain data...",
         "description": "'plain' as in 'plaintext', i.e. not-encrypted."
     },
+
     "support_section_header":
     {
         "message": "Support"
@@ -55,6 +58,7 @@
         "message": "Post an issue",
         "description": "'issue' refers to a GitHub issue. Appears directly after feedback_label."
     },
+
     "error_loading_options":
     {
         "message": "Unexpected error when loading options"
@@ -94,6 +98,7 @@
     {
         "message": "Repeat password"
     },
+
     "confirm_cancel_positive":
     {
         "message": "Confirm",
@@ -104,6 +109,7 @@
         "message": "Cancel",
         "description": "A negative response to a confirm/cancel question."
     },
+
     "password_setup_complete":
     {
         "message": "You are good to go!"
@@ -118,6 +124,7 @@
     {
         "message": "Are you sure?"
     },
+
     "yes_no_positive":
     {
         "message": "Yes",
