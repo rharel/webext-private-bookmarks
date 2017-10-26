@@ -120,9 +120,9 @@
 
         let settings_up = [
             save({
-                    signature: encrypted_signature,
-                    bookmarks: encrypted_bookmarks
-                 })
+                signature: encrypted_signature,
+                bookmarks: encrypted_bookmarks
+            })
         ];
         if (is_unlocked()) { settings_up.push(browser.bookmarks.removeTree(pop_front().id)); }
 
@@ -168,9 +168,9 @@
               encrypted_bookmarks = await crypto.encrypt(bookmarks_json, new_key);
 
         return save({
-                        signature: encrypted_signature,
-                        bookmarks: encrypted_bookmarks
-                    });
+            signature: encrypted_signature,
+            bookmarks: encrypted_bookmarks
+        });
     }
 
     /// Encrypts contents of the front folder, and saves it to the back.
@@ -262,8 +262,10 @@
         }
         catch (error)
         {
-            console.warn("No front to remove during lock.\n" +
-                         "Debug info: " + error);
+            console.warn(
+                "No front to remove during lock.\n" +
+                 "Debug info: " + error
+            );
         }
         finally { emit_event("lock"); }
     }
