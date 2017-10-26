@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.0.8
+ * TBD
+ 
 ### 0.0.7
  * Fixes a bug that broke the extension's page action.
  
