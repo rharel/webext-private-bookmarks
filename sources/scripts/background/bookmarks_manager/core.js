@@ -96,6 +96,17 @@
     /// Contains event listeners that invoke sync().
     const sync_listeners =
     {
+        /// Syncs when a descendant of the front is changed.
+        on_changed: async id =>
+        {
+            if (is_locked()) { return; }
+
+            const node = (await browser.bookmarks.get(id))[0];
+            if (await front.contains_node(node))
+            {
+                request_sync();
+            }
+        },
         /// Syncs when a new descendant of the front is created.
         on_created: async (id, node) =>
         {
@@ -144,6 +155,7 @@
     /// Listens for changes to the front and syncs.
     function enable_dynamic_sync()
     {
+        browser.bookmarks.onChanged.addListener(sync_listeners.on_changed);
         browser.bookmarks.onCreated.addListener(sync_listeners.on_created);
         browser.bookmarks.onRemoved.addListener(sync_listeners.on_removed);
         browser.bookmarks.onMoved.addListener(sync_listeners.on_moved);
@@ -151,6 +163,7 @@
     /// Undoes the event hookup performed by enable_dynamic_sync().
     function disable_dynamic_sync()
     {
+        browser.bookmarks.onChanged.removeListener(sync_listeners.on_changed);
         browser.bookmarks.onCreated.removeListener(sync_listeners.on_created);
         browser.bookmarks.onRemoved.removeListener(sync_listeners.on_removed);
         browser.bookmarks.onMoved.removeListener(sync_listeners.on_moved);
