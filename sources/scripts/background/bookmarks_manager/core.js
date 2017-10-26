@@ -193,13 +193,35 @@
         });
         return true;
     }
+    /// The sync request's timeout duration (in milliseconds).
+    const SYNC_REQUEST_TIMEOUT_DURATION = 1000;
+    /// The timeout for a syncing request. See request_sync() for details.
+    let sync_request_timeout = null;
+    /// To avoid repetitive syncing when many items are moved in/out of the front, we batch these
+    /// changes as follows: When a change occurs, a sync is requested via this method. This sets
+    /// a delayed timeout for an invocation of sync(). If another change occurs while waiting, the
+    /// timeout is reset, so as to avoid calling sync() multiple times. Instead, sync() will be
+    /// called once for the whole batch.
+    function request_sync()
+    {
+        if (sync_request_timeout !== null) { clearTimeout(sync_request_timeout); }
+
+        sync_request_timeout = setTimeout(
+            () =>
+            {
+                sync_request_timeout = null;
+                sync();
+            },
+            SYNC_REQUEST_TIMEOUT_DURATION
+        );
+    }
     /// Contains event listeners that invoke sync().
     const sync_listeners =
     {
         /// Syncs when a new descendant of the front is created.
         on_created: async (id, node) =>
         {
-            if (is_unlocked() && (await has_node(node))) { sync(); }
+            if (is_unlocked() && (await has_node(node))) { request_sync(); }
         },
         /// Syncs when a descendant of the front is removed.
         on_removed: async (id, info) =>
@@ -209,7 +231,7 @@
             try           { await browser.bookmarks.get(front.id); }
             catch (error) { return; }
 
-            if (is_unlocked() && (await has_node(info.node))) { sync(); }
+            if (is_unlocked() && (await has_node(info.node))) { request_sync(); }
         },
         /// Syncs when a node is moved into the front.
         on_moved: async (id, info) =>
@@ -219,7 +241,7 @@
             if (info.parentId    === front.id ||
                 info.oldParentId === front.id)
             {
-                sync();
+                request_sync();
                 return;
             }
 
@@ -229,7 +251,7 @@
             if ((await has_node(new_parent)) ||
                 (await has_node(old_parent)))
             {
-                sync();
+                request_sync();
             }
         }
     };
