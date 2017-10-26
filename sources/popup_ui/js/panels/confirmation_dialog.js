@@ -3,8 +3,6 @@
     /// Set in define().
     let domanip;
 
-    /// Invoked when transitioning out of this panel.
-    let transition_to;
     /// Callbacks for when the dialog message is respectively accepted/denied.
     let on_acceptance, on_denial;
 
@@ -93,8 +91,7 @@
                             TITLE: browser.i18n.getMessage("confirmation_title"),
 
                             on_activate:   on_activate,
-                            on_deactivate: on_deactivate,
-                            on_transition: handler => { transition_to = handler; },
+                            on_deactivate: on_deactivate
                         };
            });
 })();
