@@ -31,6 +31,15 @@
         browser.runtime.sendMessage(Object.assign({type: type}, properties));
     }
 
+    /// Computes the number of nodes in the specified bookmarks tree.
+    function compute_size(node)
+    {
+        if (!node.children) { return 1; }
+        else
+        {
+            return node.children.reduce((sum, child) => sum + compute_size(child), 1)
+        }
+    }
     /// Removes properties we are not interested in saving from the specified bookmarks tree
     /// recursively.
     function prune_tree(node)
@@ -46,7 +55,9 @@
     }
     /// Imports all descendants of the specified source node to their respective position in the
     /// specified target node. The nodes are bookmark tree nodes.
-    async function duplicate_tree(source_root, target_root)
+    ///
+    /// Invokes the specified callback for each new node created.
+    async function duplicate_tree(source_root, target_root, on_created)
     {
         if (!source_root.children) { return; }
 
@@ -71,6 +82,7 @@
                 title:    source.title,
                 url:      source.url
             });
+            on_created();
 
             if (source.children)
             {
@@ -326,7 +338,28 @@
         }
         try
         {
-            await duplicate_tree(source, target);
+            const total_node_count = compute_size(source);
+            let created_node_count = 1;
+            emit_event(
+                "unlock-status-update",
+                {
+                    index:   created_node_count,
+                    current: created_node_count,
+                    total:   total_node_count
+                }
+            );
+            await duplicate_tree(source, target, () =>
+            {
+                created_node_count += 1;
+                emit_event(
+                    "unlock-status-update",
+                    {
+                        index:   created_node_count,
+                        current: created_node_count,
+                        total:   total_node_count
+                    }
+                );
+            });
             enable_dynamic_sync();
             emit_event("unlock");
             return true;

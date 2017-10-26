@@ -25,11 +25,7 @@
         },
         get_started:    null,
         main_menu:      null,
-        on_hold:
-        {
-            ID: "on_hold",
-            TITLE: browser.i18n.getMessage("on_hold_title")
-        },
+        on_hold:        null,
         password_setup: null,
         success:        null
     };
@@ -96,18 +92,20 @@
              "popup/panels/confirmation_dialog",
              "popup/panels/get_started",
              "popup/panels/main_menu",
+             "popup/panels/on_hold",
              "popup/panels/password_setup",
              "popup/panels/success",
              "scripts/interaction/bookmarks_interface",
              "scripts/utilities/dom_manipulation"],
             (authentication_module, confirmation_dialog_module, get_started_module,
-             main_menu_module, password_setup_module, success_module,
+             main_menu_module, on_hold_module, password_setup_module, success_module,
              bookmarks_module, dom_module) =>
             {
                 panels.authentication = authentication_module;
                 panels.confirmation_dialog = confirmation_dialog_module;
                 panels.get_started = get_started_module;
                 panels.main_menu = main_menu_module;
+                panels.on_hold = on_hold_module;
                 panels.password_setup = password_setup_module;
                 panels.success = success_module;
 

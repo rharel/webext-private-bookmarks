@@ -71,7 +71,7 @@
                 try
                 {
                     const unlocking = bookmarks.unlock(hashed_password);
-                    transition_to("on_hold");
+                    transition_to("on_hold", "unlock-status-update");
                     await new Promise(resolve => { setTimeout(resolve, 1000); });
                     if (!(await unlocking)) { return; }
                     transition_to("success",
