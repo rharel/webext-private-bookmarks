@@ -74,7 +74,7 @@
         }
         while (node.parentId && node.parentId !== id)
         {
-            node = await browser.bookmarks.get(node.parentId);
+            node = (await browser.bookmarks.get(node.parentId))[0];
         }
         return node.parentId && node.parentId === id;
     }
