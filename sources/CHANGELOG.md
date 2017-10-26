@@ -1,7 +1,7 @@
 ## Changelog
 
 ### 0.0.7
- * TBD
+ * Fixes a bug that broke the extension's page action.
  
 ### 0.0.6
  * The unlock screen now displays feedback on the operation's progress.

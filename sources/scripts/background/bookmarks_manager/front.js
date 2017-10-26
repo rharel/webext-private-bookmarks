@@ -58,7 +58,7 @@
             return Promise.reject(new Error("Cannot add an item to front, front doesn't exist."));
         }
         return browser.bookmarks.create({
-            parentId: front.id,
+            parentId: id,
             url:      url,
             title:    title
         });
