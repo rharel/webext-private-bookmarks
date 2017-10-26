@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.0.7
+ * TBD
+ 
 ### 0.0.6
  * The unlock screen now displays feedback on the operation's progress.
  * Improves syncing speed in some cases where large numbers of bookmarks were moved into/out of the private folder.
