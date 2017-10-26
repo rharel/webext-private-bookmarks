@@ -15,7 +15,7 @@
         if (bookmarks.is_locked()         ||
            (is_private && !tab.incognito) ||
             tab.url.startsWith("about:")  ||
-           (await bookmarks.has_url(tab.url)))
+           (await bookmarks.contains_url(tab.url)))
         {
             browser.pageAction.hide(tab.id);
         }

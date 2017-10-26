@@ -37,7 +37,7 @@
     /// Offers the plaintext private bookmark data for download.
     async function export_plain_data()
     {
-        const data = (await browser.bookmarks.getSubTree(await bookmarks.get_front_id()))[0];
+        const data = await bookmarks.get_front_node();
         const uri  = encodeURIComponent(JSON.stringify(data));
 
         offer_download(uri, "private_bookmarks.json");
