@@ -310,6 +310,7 @@
         catch (error)
         {
             // Undo any partial progress:
+            disable_dynamic_sync();
             browser.bookmarks.removeTree(pop_front().id);
             throw error;
         }
