@@ -1,9 +1,9 @@
 ## Changelog
 
-### 0.0.9
+### 0.0.10
  * TBD
  
-### 0.0.8
+### 0.0.9
  * Fixes a bug that would cause an error upon initial unlock.
  
 ### 0.0.7
