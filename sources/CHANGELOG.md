@@ -1,7 +1,7 @@
 ## Changelog
 
 ### 0.0.8
- * TBD
+ * Fixes a bug that would cause an error upon initial unlock.
  
 ### 0.0.7
  * Fixes a bug that broke the extension's page action.

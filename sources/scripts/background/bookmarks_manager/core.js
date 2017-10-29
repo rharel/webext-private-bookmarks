@@ -219,6 +219,7 @@
             // root.
             enable_dynamic_sync();
             emit_event("unlock");
+            return;
         }
         try
         {
