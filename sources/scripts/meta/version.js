@@ -24,7 +24,7 @@
                 clamp = math_module.clamp;
 
                 return  {
-                            CURRENT: create(0, 0, 8),
+                            CURRENT: create(0, 0, 9),
                             HAS_RELEASE_NOTES: false,
                             create: create
                         };
