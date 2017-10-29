@@ -11,7 +11,8 @@
         {
             const {oldValue, newValue} = changes[STORAGE_KEY];
 
-            if (oldValue.general.is_private !== newValue.general.is_private)
+            if (!oldValue ||
+               (oldValue.general.is_private !== newValue.general.is_private))
             {
                 events.emitEvent("privacy-change", [newValue.general.is_private]);
             }
