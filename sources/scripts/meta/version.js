@@ -24,7 +24,15 @@
                 clamp = math_module.clamp;
 
                 return  {
-                            CURRENT: create(0, 0, 10),
+                            CURRENT: (() =>
+                            {
+                                const [major, minor, release] = (
+                                    browser.runtime.getManifest().version
+                                        .split(".")
+                                        .map(component_string => parseInt(component_string))
+                                );
+                                return create(major, minor, release);
+                            })(),
                             HAS_RELEASE_NOTES: false,
                             create: create
                         };
