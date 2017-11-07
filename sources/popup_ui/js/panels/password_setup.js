@@ -14,6 +14,8 @@
     /// Contains DOM elements. Populated by initialize().
     const DOM =
     {
+        password_requirements: null,
+
         new_password_input: null,
         new_password_validation_icon: null,
 
@@ -162,10 +164,20 @@
     {
         domanip.populate(DOM);
 
-        DOM.new_password_input
-            .setAttribute("pattern", security.PASSWORD_PATTERN.source);
-        DOM.repeated_new_password_input
-            .setAttribute("pattern", security.PASSWORD_PATTERN.source);
+        {
+            const {minimum, maximum} = security.PASSWORD_LENGTH;
+            DOM.password_requirements.textContent = (
+                browser.i18n.getMessage("password_requirements", [minimum, maximum])
+            );
+            [DOM.new_password_input,
+             DOM.repeated_new_password_input]
+            .forEach(element =>
+            {
+                element.setAttribute("minlength", minimum.toString());
+                element.setAttribute("maxlength", maximum.toString());
+                element.setAttribute("pattern", security.PASSWORD_PATTERN.source);
+            });
+        }
 
         DOM.new_password_input
             .addEventListener("input", update_confirmation_button_status);

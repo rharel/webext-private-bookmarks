@@ -88,7 +88,12 @@
     },
     "password_requirements":
     {
-        "message": "Must be 8–16 characters long, alphanumeric, containing at least one letter and one number."
+        "message": "Must be $MIN$–$MAX$ characters long, alphanumeric, containing at least one letter and one number.",
+        "placeholders":
+        {
+            "min": { "content": "$1" },
+            "max": { "content": "$2" }
+        }
     },
     "password_field_placeholder":
     {

@@ -75,6 +75,11 @@
     {
         domanip.populate(DOM);
 
+        DOM.authentication_password_input
+            .setAttribute("minlength", security.PASSWORD_LENGTH.minimum.toString());
+        DOM.authentication_password_input
+            .setAttribute("maxlength", security.PASSWORD_LENGTH.maximum.toString());
+        
         DOM.confirm_authentication_button.addEventListener("click", authenticate);
         DOM.cancel_authentication_button.addEventListener("click", () => { on_cancellation(); });
     }
