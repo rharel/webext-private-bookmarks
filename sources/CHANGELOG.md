@@ -1,7 +1,7 @@
 ## Changelog
 
 ### 0.0.10
- * TBD
+ * Increases maximum password length to 128.
  
 ### 0.0.9
  * Fixes a bug that would cause an error upon initial unlock.

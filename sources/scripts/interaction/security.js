@@ -7,7 +7,7 @@
     const PASSWORD_LENGTH =
     {
         minimum: 8,
-        maximum: 16
+        maximum: 128
     };
     /// A valid password's regex.
     const PASSWORD_PATTERN = new RegExp(
