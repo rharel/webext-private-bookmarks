@@ -20,23 +20,6 @@
 
     <!-- Static panels -->
     <div id="blank-panel" class="panel"></div>
-    <div id="error-panel" class="deactivated centering panel">
-        <div>
-            <span data-localized="error_message_beginning">
-                Oops! There was an error.
-                You can help by
-            </span>
-            <a data-localized="error_message_ending"
-               href="https://github.com/rharel/webext-private-bookmarks/issues" target="_blank">
-                reporting it
-            </a><br><br>
-            <span data-localized="error_message_addendum">
-                Private Bookmarks is still in early development.
-                Sorry for the inconvenience.
-            </span>
-        </div>
-        <img src="/icons/main/error_blue.svg">
-    </div>
 
     <!-- Interactive panels -->
     <div id="on-hold-panel" class="deactivated centering panel">
@@ -50,6 +33,24 @@
         <a id="success-transition-button">
             <span id="success-transition-button-label"></span>
         </a>
+    </div>
+    <div id="error-panel" class="deactivated centering panel">
+        <div>
+            <span data-localized="error_message_beginning">
+                Oops! There was an error.
+                You can help by
+            </span>
+            <a id="error-report-button"
+               data-localized="error_message_ending"
+               href="https://github.com/rharel/webext-private-bookmarks/issues" target="_blank">
+                reporting it
+            </a><br><br>
+            <span data-localized="error_message_addendum">
+                Private Bookmarks is still in early development.
+                Sorry for the inconvenience.
+            </span>
+        </div>
+        <img src="/icons/main/error_blue.svg">
     </div>
     <div id="confirmation-dialog-panel" class="deactivated centering panel">
         <div class="panel-section-formElements">

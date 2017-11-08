@@ -55,7 +55,14 @@
                                 transition: MAIN_MENU_TRANSITION
                           });
         }
-        catch (reason) { transition_to("error", reason); }
+        catch (error)
+        {
+            transition_to("error",
+            {
+                title: "Error during lock",
+                message: error.message
+            });
+        }
     }
     /// Invoked when the user chooses to unlock his/her private bookmarks.
     async function unlock()
@@ -80,7 +87,14 @@
                                         transition: MAIN_MENU_TRANSITION
                                   });
                 }
-                catch (reason) { transition_to("error", reason); }
+                catch (error)
+                {
+                    transition_to("error",
+                    {
+                        title: "Error during unlock",
+                        message: error.message
+                    });
+                }
             },
             on_cancellation: () => { transition_to("main_menu"); }
         });
@@ -130,7 +144,14 @@
                     await bookmarks.clear();
                     transition_to("get_started");
                 }
-                catch (reason) { transition_to("error", reason); }
+                catch (error)
+                {
+                    transition_to("error",
+                    {
+                        title: "Error during data-clearance",
+                        message: error.message
+                    });
+                }
             },
             on_denial: () => { transition_to("main_menu"); }
         });

@@ -126,8 +126,15 @@
 
             on_success(old_hashed_password, new_hashed_password);
         }
-        catch (reason) { transition_to("error", reason); }
-        finally        { clear_sensitive_data();         }
+        catch (error)
+        {
+            transition_to("error",
+            {
+                title: `Error during password ${old_hashed_password ? "change" : "setup"}`,
+                message: error.message
+            });
+        }
+        finally { clear_sensitive_data(); }
     }
     /// Cancels password setup.
     function cancel()

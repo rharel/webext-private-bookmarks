@@ -42,8 +42,15 @@
             }
             else { deny(); }
         }
-        catch (reason) { transition_to("error", reason); }
-        finally        { clear_sensitive_data();         }
+        catch (error)
+        {
+            transition_to("error",
+            {
+                title: "Error during authentication",
+                message: error.message
+            });
+        }
+        finally { clear_sensitive_data(); }
     }
 
     /// Invoked when this panel is activated.
