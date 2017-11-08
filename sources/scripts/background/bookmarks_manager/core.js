@@ -61,6 +61,10 @@
         return back.change_authentication(old_key, new_key);
     }
 
+    /// True iff a syncing operation is in progress.
+    let is_syncing = false;
+    /// True iff another syncing operation has been requested while another was already in progress.
+    let is_pending_sync = false;
     /// Encrypts contents of the front folder, and saves it to the back.
     /// Rejects if locked.
     async function sync()
@@ -69,7 +73,27 @@
         {
             return Promise.reject(new Error("Cannot sync when locked."));
         }
-        return back.write(tree.prune(await front.get_node()), back_key);
+
+        // This function ensures that at most one syncing operation is active at a time. If another
+        // sync is initiated while another is in progress, it is deferred until the end of the
+        // first.
+
+        if (is_syncing) { is_pending_sync = true; return; }
+
+        is_syncing = true;
+        emit_event("sync-start");
+
+        try { await back.write(tree.prune(await front.get_node()), back_key); }
+        finally
+        {
+            is_syncing = false;
+            if (is_pending_sync)
+            {
+                is_pending_sync = false;
+                sync();
+            }
+            else { emit_event("sync-end"); }
+        }
     }
     /// The sync request's timeout duration (in milliseconds).
     const SYNC_REQUEST_TIMEOUT_DURATION = 1000;
