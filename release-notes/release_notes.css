@@ -41,6 +41,7 @@ a:hover
     #content { width: 90%; }
 }
 
+#known-issues > header,
 #whats-new > header
 {
     font-size: larger;

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Release Notes | Private Bookmarks</title>
+
+    <link rel="icon" type="image/svg"
+          href="../icons/logo.svg"
+          sizes="32x32">
+
+    <link rel="stylesheet" href="release_notes.css">
+</head>
+<body>
+<div id="content">
+    <header>
+        <span>Release Notes</span>
+        <img src="../icons/logo.svg">
+    </header>
+    <p>
+        A new version of Private Bookmarks has been installed.
+    </p>
+    <div id="whats-new">
+        <header>What's new</header>
+        <ul>
+            <li>
+                <b>Longer passwords:</b> Maximum password length has been increased to 128
+                (up from 16).
+            </li>
+            <li>
+                <b>Visual feedback for when "busy":</b> Whenever [un]locking or saving changes to
+                your private bookmarks to storage, an hourglass ⌛ is displayed over the extension's
+                button icon.
+            </li>
+        </ul>
+    </div>
+    <div id="known-issues">
+        <header>Known issues</header>
+        <ul>
+            <li>
+                The extension's page action button (at the address-bar) is not properly hidden when
+                it is supposed to in Firefox 58 Beta 1. This is due to a change in behavior in
+                Firefox, but it seems
+                <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1413574"
+                   target="_blank">
+                    the old behavior will be restored
+                </a> soon.
+            </li>
+        </ul>
+    </div>
+    <div id="feedback-directions">
+        <p>
+            Something's not working? Got a question and/or suggestion?
+            <a href="https://github.com/rharel/webext-private-bookmarks/issues"
+               target="_blank">
+                Post it here</a>.
+        </p>
+    </div>
+    <div class="notice warning">
+        <p>
+            This is a reminder that the extension is very new and that things may break, so please
+            backup your bookmarks.
+        </p>
+    </div>
+    <div class="notice info">
+        <p>
+            If you do not wish to be notified of new features proceeding an update in the future,
+            you can un-subscribe through the extension's options page.
+        </p>
+    </div>
+</div>
+</body>
+</html>
