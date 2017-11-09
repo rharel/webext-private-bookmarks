@@ -25,10 +25,15 @@
     /// Returns true iff bookmarks are locked.
     function is_locked()   { return !is_unlocked(); }
 
+    /// Emites an event - only within background page.
+    function emit_background_event(type, properties)
+    {
+        events.emitEvent(type, [properties]);
+    }
     /// Emits an event.
     function emit_event(type, properties)
     {
-        events.emitEvent(type, [properties]);
+        emit_background_event(type, properties);
         browser.runtime.sendMessage(Object.assign({type: type}, properties));
     }
 
@@ -81,7 +86,7 @@
         if (is_syncing) { is_pending_sync = true; return; }
 
         is_syncing = true;
-        emit_event("busy", true);
+        emit_background_event("busy", true);
 
         try { await back.write(tree.prune(await front.get_node()), back_key); }
         finally
@@ -92,7 +97,7 @@
                 is_pending_sync = false;
                 sync();
             }
-            else { emit_event("busy", false); }
+            else { emit_background_event("busy", false); }
         }
     }
     /// The sync request's timeout duration (in milliseconds).
@@ -202,7 +207,7 @@
             return Promise.reject(new Error("Cannot lock when already locked."));
         }
 
-        emit_event("busy", true);
+        emit_background_event("busy", true);
 
         pop_key();
         disable_dynamic_sync();
@@ -218,7 +223,7 @@
         finally
         {
             emit_event("lock");
-            emit_event("busy", false);
+            emit_background_event("busy", false);
         }
     }
     /// Lock in response to user command.
@@ -240,7 +245,7 @@
             return Promise.reject(new Error("Cannot unlock with inauthentic key."));
         }
 
-        emit_event("busy", true);
+        emit_background_event("busy", true);
 
         try
         {
@@ -292,7 +297,7 @@
             front.remove();
             throw error;
         }
-        finally { emit_event("busy", false); }
+        finally { emit_background_event("busy", false); }
     }
 
     define(["libraries/EventEmitter.min",
