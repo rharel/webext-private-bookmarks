@@ -48,6 +48,12 @@
     {
         update_in_tab(await browser.tabs.get(activation_info.tabId));
     });
+    /// Enables/disables the browser action in a newly updated tab based on the extension's
+    /// privacy context setting.
+    browser.tabs.onUpdated.addListener((id, change_info, tab) =>
+    {
+        if (tab.active && change_info.url) { update_in_tab(tab); }
+    });
 
     /// Updates the action's icon based on the current locked/unlocked state.
     function update_icon()
