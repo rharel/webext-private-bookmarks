@@ -249,17 +249,9 @@
         {
             const total_node_count = tree.compute_size(source);
             let created_node_count = 1;
-            emit_event(
-                "unlock-status-update",
-                {
-                    index:   created_node_count,
-                    current: created_node_count,
-                    total:   total_node_count
-                }
-            );
-            await tree.duplicate(source, target, () =>
+
+            function emit_progress_event()
             {
-                created_node_count += 1;
                 emit_event(
                     "unlock-status-update",
                     {
@@ -268,7 +260,16 @@
                         total:   total_node_count
                     }
                 );
-            });
+            }
+
+            emit_progress_event();
+            await tree.duplicate(source, target,
+                /* node-creation callback: */ () =>
+                {
+                    created_node_count += 1;
+                    emit_progress_event();
+                }
+            );
             enable_dynamic_sync();
             emit_event("unlock");
         }
