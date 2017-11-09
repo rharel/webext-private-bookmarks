@@ -74,13 +74,26 @@
             }
         });
     }
+
+    /// The "busy" badge is displayed at least this amount of time (in milliseconds).
+    const MINIMUM_BUSY_BADGE_DISPLAY_DURATION = 1000;
+    /// The timeout for a "busy" badge clear.
+    let badge_clear_timeout = null;
     /// Updates the action's badge based on the current busy state.
     function update_badge(is_busy)
     {
-        browser.browserAction.setBadgeText(
+        clearTimeout(badge_clear_timeout);
+        if (is_busy)
         {
-            text: is_busy ? "⌛" : ""
-        });
+            browser.browserAction.setBadgeText({ text: "⌛" });
+        }
+        else
+        {
+            badge_clear_timeout = setTimeout(() =>
+            {
+                browser.browserAction.setBadgeText({ text: "" });
+            }, MINIMUM_BUSY_BADGE_DISPLAY_DURATION);
+        }
     }
 
     define(["scripts/background/bookmarks_manager",
