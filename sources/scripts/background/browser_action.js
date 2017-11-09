@@ -68,6 +68,14 @@
             }
         });
     }
+    /// Updates the action's badge based on the current busy state.
+    function update_badge(is_busy)
+    {
+        browser.browserAction.setBadgeText(
+        {
+            text: is_busy ? "⌛" : ""
+        });
+    }
 
     define(["scripts/background/bookmarks_manager",
             "scripts/background/configuration_monitor",
@@ -75,6 +83,10 @@
            (bookmarks_module, configuration_monitor_module, configuration_module) =>
            {
                 bookmarks = bookmarks_module;
+
+                bookmarks.events.addListener("busy", update_badge);
+                browser.browserAction.setBadgeBackgroundColor({ color: "rgb(45, 45, 45)" });
+
                 bookmarks.events.addListener("lock",   update_icon);
                 bookmarks.events.addListener("unlock", update_icon);
                 update_icon();

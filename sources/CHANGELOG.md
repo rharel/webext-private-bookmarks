@@ -2,6 +2,7 @@
 
 ### 0.0.10
  * Increases maximum password length to 128.
+ * Adds visual feedback for when an "expensive" operation is underway (such as an [un]lock/sync) via the browser action badge.
  
 ### 0.0.9
  * Fixes a bug that would cause an error upon initial unlock.
