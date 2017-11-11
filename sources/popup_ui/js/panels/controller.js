@@ -52,7 +52,7 @@
         active_panel_id = id;
     }
     /// Transitions to the panel with the specified identifier.
-    function transition(id, forwarded_arguments)
+    function transition_to(id, forwarded_arguments)
     {
         if (active_panel_id !== null) { deactivate(active_panel_id); }
         activate(id, forwarded_arguments);
@@ -68,16 +68,16 @@
             const element_id = panel.ID.replace(/_/g, "-") + "-panel";
             panel.element    = document.getElementById(element_id);
 
-            if (panel.on_transition) { panel.on_transition(transition); }
+            if (panel.on_transition) { panel.on_transition(transition_to); }
         }
         try
         {
-            if (await bookmarks.needs_setup()) { transition("get_started"); }
-            else                               { transition("main_menu");   }
+            if (await bookmarks.needs_setup()) { transition_to("get_started"); }
+            else                               { transition_to("main_menu");   }
         }
         catch (error)
         {
-            transition("error",
+            transition_to("error",
             {
                 title: "Error during browser action initialization",
                 message: error.message
