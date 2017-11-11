@@ -54,12 +54,8 @@
     /// Transitions to the panel with the specified identifier.
     function transition(id, forwarded_arguments)
     {
-        if (active_panel_id !== null)
-        {
-            deactivate(active_panel_id);
-            activate(id, forwarded_arguments);
-        }
-        else { activate(id, forwarded_arguments); }
+        if (active_panel_id !== null) { deactivate(active_panel_id); }
+        activate(id, forwarded_arguments);
     }
 
     /// Initializes this module.
