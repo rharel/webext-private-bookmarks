@@ -44,10 +44,10 @@
         {
             const panel = panels[id];
 
-            if (panel.on_activate) { panel.on_activate(forwarded_arguments); }
-
             DOM.header.textContent = panel.TITLE;
             panel.element.classList.remove("deactivated");
+
+            if (panel.on_activate) { panel.on_activate(forwarded_arguments); }
         }
         active_panel_id = id;
     }
