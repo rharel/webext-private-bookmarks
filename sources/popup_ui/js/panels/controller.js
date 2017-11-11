@@ -75,7 +75,14 @@
             if (await bookmarks.needs_setup()) { transition("get_started"); }
             else                               { transition("main_menu");   }
         }
-        catch (reason) { transition("error", reason); }
+        catch (error)
+        {
+            transition("error",
+            {
+                title: "Error during browser action initialization",
+                message: error.message
+            });
+        }
     }
 
     require(["popup/panels/authentication",
