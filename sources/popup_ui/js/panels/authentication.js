@@ -86,7 +86,12 @@
             .setAttribute("minlength", security.PASSWORD_LENGTH.minimum.toString());
         DOM.authentication_password_input
             .setAttribute("maxlength", security.PASSWORD_LENGTH.maximum.toString());
-        
+
+        DOM.authentication_password_input.addEventListener("keydown", event =>
+        {
+            // Authenticate on enter.
+           if (event.keyCode === 13) { authenticate(); }
+        });
         DOM.confirm_authentication_button.addEventListener("click", authenticate);
         DOM.cancel_authentication_button.addEventListener("click", () => { on_cancellation(); });
     }
