@@ -6,7 +6,7 @@
         element.setAttribute("disabled", "true");
         element.classList.add("disabled");
 
-        if (do_deactivate) { element.style.display = "none"; }//element.classList.add("deactivated"); }
+        if (do_deactivate) { element.style.display = "none"; }
     }
     /// Enables the specified element and styles it accordingly.
     function enable(element, do_activate = false)
@@ -14,7 +14,7 @@
         element.removeAttribute("disabled");
         element.classList.remove("disabled");
 
-        if (do_activate) { element.style.display = "flex"; }//element.classList.remove("deactivated"); }
+        if (do_activate) { element.style.display = "flex"; }
     }
 
     /// Populates the specified object with elements from the page.
