@@ -1,5 +1,12 @@
 (function()
 {
+    /// Determines whether the specified node is a separator.
+    function is_separator(node)
+    {
+        return (node.type && node.type === "separator") ||   // .type was introduced in FF 57
+               (node.title === "" && node.url === "data:");  // Prior to FF 57
+    }
+
     /// Computes the number of nodes in the specified tree.
     function compute_size(node)
     {
@@ -17,7 +24,12 @@
         delete node.dateGroupModified;
         delete node.unmodifiable;
 
-        if (node.children) { node.children.forEach(child => prune(child)); }
+        if (node.children)
+        {
+            /// bookmarks.create() cannot handle separators as of now, so skip those.
+            node.children = node.children.filter(child => !is_separator(child));
+            node.children.forEach(child => prune(child));
+        }
 
         return node;
     }
@@ -41,9 +53,12 @@
         const stack = source_root.children.slice().reverse();
         while (stack.length !== 0)
         {
-            const source = stack.pop(),
-                  target_parent = target_by_id[source.parentId];
+            const source = stack.pop();
 
+            /// bookmarks.create() cannot handle separators as of now, so skip those.
+            if (is_separator(source)) { continue; }
+
+            const target_parent = target_by_id[source.parentId];
             target_by_id[source.id] = await browser.bookmarks.create(
             {
                 parentId: target_parent.id,
