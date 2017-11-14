@@ -59,11 +59,7 @@
             );
             return decrypted_signature === SIGNATURE;
         }
-        catch (error)
-        {
-            if (error.name === "OperationError") { return false; }
-            else                                 { throw error;  }
-        }
+        catch (error) { return false; }
     }
     /// Changes the authenticated key to the specified value.
     /// Rejects if the folder does not exists.
