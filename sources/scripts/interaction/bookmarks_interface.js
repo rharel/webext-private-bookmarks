@@ -8,7 +8,8 @@
     ["add", "contains_url", "get_front_id", "get_front_node",
      "needs_setup", "authenticate", "load",
      "clear", "setup", "change_authentication",
-     "lock", "unlock", "is_locked", "is_unlocked"]
+     "lock", "unlock", "is_locked", "is_unlocked",
+     "export_encrypted_data", "export_plain_data"]
     .forEach(method_name =>
     {
         this_module[method_name] = (...arguments) =>

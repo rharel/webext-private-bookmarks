@@ -302,37 +302,40 @@
 
     define(["libraries/EventEmitter.min",
             "scripts/background/bookmarks_manager/back",
+            "scripts/background/bookmarks_manager/backup",
             "scripts/background/bookmarks_manager/front",
             "scripts/background/bookmarks_manager/tree_utilities",
             "scripts/utilities/cryptography"],
-           (EventEmitter, back_module, front_module, tree_module, cryptography_module) =>
+           (EventEmitter, back_module, backup_module, front_module, tree_module, cryptography_module) =>
            {
                back = back_module;
                front = front_module;
                tree = tree_module;
                crypto = cryptography_module;
 
-               return   {
-                            add:  (url, title) => { return front.add(url, title); },
-                            contains_url:  url => { return front.contains_url(url); },
-                            get_front_id:   () => { return front.get_id(); },
-                            get_front_node: () => { return front.get_node(); },
+               const this_module =
+               {
+                    add:  (url, title) => { return front.add(url, title); },
+                    contains_url:  url => { return front.contains_url(url); },
+                    get_front_id:   () => { return front.get_id(); },
+                    get_front_node: () => { return front.get_node(); },
 
-                            needs_setup: async () => { return !(await back.exists()); },
-                            authenticate:     key => { return back.authenticate(key); },
-                            load:              () => { return back.load(); },
+                    needs_setup: async () => { return !(await back.exists()); },
+                    authenticate:     key => { return back.authenticate(key); },
+                    load:              () => { return back.load(); },
 
-                            events: events = new EventEmitter(),
+                    events: events = new EventEmitter(),
 
-                            clear: clear,
-                            setup: setup,
-                            change_authentication: change_authentication,
+                    clear: clear,
+                    setup: setup,
+                    change_authentication: change_authentication,
 
-                            lock:   lock,
-                            unlock: unlock,
+                    lock:   lock,
+                    unlock: unlock,
 
-                            is_locked:   is_locked,
-                            is_unlocked: is_unlocked
-                        };
+                    is_locked:   is_locked,
+                    is_unlocked: is_unlocked
+               };
+               return Object.assign(this_module, backup_module);
            });
 })();

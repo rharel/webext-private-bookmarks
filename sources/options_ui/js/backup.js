@@ -27,17 +27,15 @@
     /// Offers the encrypted private bookmark data for download.
     async function export_encrypted_data()
     {
-        const data   = (await bookmarks.load()).bookmarks;
-        data.version = CURRENT_VERSION;
-
-        const uri = encodeURIComponent(JSON.stringify(data));
+        const data = await bookmarks.export_encrypted_data();
+        const uri  = encodeURIComponent(JSON.stringify(data));
 
         offer_download(uri, "encrypted_private_bookmarks.json");
     }
     /// Offers the plaintext private bookmark data for download.
     async function export_plain_data()
     {
-        const data = await bookmarks.get_front_node();
+        const data = await bookmarks.export_plain_data();
         const uri  = encodeURIComponent(JSON.stringify(data));
 
         offer_download(uri, "private_bookmarks.json");
