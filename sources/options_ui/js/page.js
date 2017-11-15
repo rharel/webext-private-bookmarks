@@ -103,7 +103,7 @@
             scripts: "/scripts"
         }
     });
-    require(["./backup", "./import"]);
+    require(["./export", "./import"]);
     require(["scripts/meta/configuration",
              "scripts/meta/version",
              "scripts/utilities/dom_manipulation"],

@@ -30,11 +30,11 @@
         "message": "Let me know what's new after an update"
     },
 
-    "backup_section_header":
+    "export_section_header":
     {
-        "message": "Backup"
+        "message": "Export"
     },
-    "backup_plain_data_requirements":
+    "export_plain_data_requirements":
     {
         "message": "Exporting plain data requires unlocked bookmarks."
     },
