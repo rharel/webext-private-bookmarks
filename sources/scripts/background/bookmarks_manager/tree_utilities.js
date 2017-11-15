@@ -3,8 +3,7 @@
     /// Determines whether the specified node is a separator.
     function is_separator(node)
     {
-        return (node.type && node.type === "separator") ||   // .type was introduced in FF 57
-               (node.title === "" && node.url === "data:");  // Prior to FF 57
+        return node.type && node.type === "separator";   // .type was introduced in FF 57
     }
 
     /// Computes the number of nodes in the specified tree.
@@ -24,12 +23,7 @@
         delete node.dateGroupModified;
         delete node.unmodifiable;
 
-        if (node.children)
-        {
-            /// bookmarks.create() cannot handle separators as of now, so skip those.
-            node.children = node.children.filter(child => !is_separator(child));
-            node.children.forEach(child => prune(child));
-        }
+        if (node.children) { node.children.forEach(child => prune(child)); }
 
         return node;
     }
@@ -53,18 +47,21 @@
         const stack = source_root.children.slice().reverse();
         while (stack.length !== 0)
         {
-            const source = stack.pop();
+            const source = stack.pop(),
+                  target_parent = target_by_id[source.parentId];
 
-            /// bookmarks.create() cannot handle separators as of now, so skip those.
-            if (is_separator(source)) { continue; }
-
-            const target_parent = target_by_id[source.parentId];
-            target_by_id[source.id] = await browser.bookmarks.create(
+            const target_properties = { parentId: target_parent.id };
+            if (is_separator(source))
             {
-                parentId: target_parent.id,
-                title:    source.title,
-                url:      source.url
-            });
+               target_properties.type = "separator";
+            }
+            else
+            {
+                target_properties.title = source.title;
+                target_properties.url   = source.url;
+            }
+            target_by_id[source.id] = await browser.bookmarks.create(target_properties);
+
             on_created();
 
             if (source.children)
