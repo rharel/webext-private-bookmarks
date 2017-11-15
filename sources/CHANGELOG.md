@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.0.11
+ * Can now handle separators.
+ 
 ### 0.0.10
  * Increases maximum password length to 128.
  * Adds visual feedback for when an "expensive" operation is underway (such as an [un]lock/sync) via the browser action badge.
