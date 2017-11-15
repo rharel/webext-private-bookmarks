@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.0.12
+ * TBD
+
 ### 0.0.11
  * Can now handle separators.
  * Allows import of exported data.
