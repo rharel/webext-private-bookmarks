@@ -1,0 +1,195 @@
+{
+    "extension_name":
+    {
+        "message": "私密书签"
+    },
+    "extension_description":
+    {
+        "message": "提供一个受密码保护的书签文件夹。"
+    },
+    "page_action_default_title":
+    {
+        "message": "添加此页面到私密书签 (Ctrl+Shift+8)"
+    },
+
+    "options_page_title":
+    {
+        "message": "选项 | 私密书签"
+    },
+    "general_section_header":
+    {
+        "message": "常规"
+    },
+    "privacy_context_option":
+    {
+        "message": "仅在隐私浏览模式下使用私密书签"
+    },
+    "whats_new_notification_option":
+    {
+        "message": "更新后告诉我有哪些新变化"
+    },
+    "support_section_header":
+    {
+        "message": "支持"
+    },
+    "feedback_label":
+    {
+        "message": "有什么不好用？想向我们提问或发建议？"
+    },
+    "post_feedback_command":
+    {
+        "message": "提报一个问题",
+        "description": "'issue' refers to a GitHub issue. Appears directly after feedback_label."
+    },
+
+    "popup_title":
+    {
+        "message": "控制面板 | 私密书签"
+    },
+
+    "get_started_title":
+    {
+        "message": "开始使用"
+    },
+    "choose_password_command":
+    {
+        "message": "选择一个密码"
+    },
+
+    "password_setup_title":
+    {
+        "message": "设置一个密码"
+    },
+    "password_requirements":
+    {
+        "message": "需为 8–16 个字符，以字母和数字组合，包含至少一个字母和一个数字。"
+    },
+    "password_field_placeholder":
+    {
+        "message": "密码"
+    },
+    "repeated_password_field_placeholder":
+    {
+        "message": "确认密码"
+    },
+    "confirm_cancel_positive":
+    {
+        "message": "确认",
+        "description": "A positive to response to a confirm/cancel question."
+    },
+    "confirm_cancel_negative":
+    {
+        "message": "取消",
+        "description": "A negative to response to a confirm/cancel question."
+    },
+    "password_setup_complete":
+    {
+        "message": "设置完成！"
+    },
+
+    "authentication_title":
+    {
+        "message": "验证身份"
+    },
+
+    "confirmation_title":
+    {
+        "message": "您确定吗？"
+    },
+    "yes_no_positive":
+    {
+        "message": "是",
+        "description": "A positive response to a yes/no question."
+    },
+    "yes_no_negative":
+    {
+        "message": "否",
+        "description": "A negative response to a yes/no question."
+    },
+
+    "on_hold_title":
+    {
+        "message": "稍等片刻..."
+    },
+
+    "error_title":
+    {
+        "message": "诶呀！",
+        "description": "Should be playful."
+    },
+    "error_message_beginning":
+    {
+        "message": "发生错误了。您可以尝试",
+        "description": "Forms one sentence together with error_message_ending"
+    },
+    "error_message_ending":
+    {
+        "message": "报告问题",
+        "description": "Forms one sentence together with error_message_beginning."
+    },
+    "error_message_addendum":
+    {
+        "message": "私密书签 仍处在早期发展阶段。很抱歉带来不便。"
+    },
+
+    "success_title":
+    {
+        "message": "成功！"
+    },
+
+    "go_to_main_menu_command":
+    {
+        "message": "返回主菜单"
+    },
+
+
+    "lock_command":
+    {
+        "message": "锁定"
+    },
+    "locked_successfully":
+    {
+        "message": "您的书签已锁定！"
+    },
+
+    "unlock_command":
+    {
+        "message": "解锁"
+    },
+    "unlocked_successfully":
+    {
+        "message": "您的书签已解锁！检查“其他书签”内的“Private Bookmarks”文件夹。"
+    },
+
+    "change_password_command":
+    {
+        "message": "更改密码"
+    },
+    "enter_current_password_instruction":
+    {
+        "message": "请输入您当前的密码："
+    },
+    "password_changed_successfully":
+    {
+        "message": "您的密码更改成功。"
+    },
+
+    "clear_data_command":
+    {
+        "message": "清除数据"
+    },
+    "confirm_data_clearance_question":
+    {
+        "message": "这将永久删除您的所有私密书签！并需要设置新的密码。您确定要继续执行吗？"
+    },
+
+    "added_bookmark_successfully":
+    {
+        "message": "该页面已添加到您的私密书签。"
+    },
+
+    "disabled_due_to_invalid_privacy_context":
+    {
+        "message": "需要处在隐私浏览模式"
+    }
+}
