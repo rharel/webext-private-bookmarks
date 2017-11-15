@@ -2,6 +2,7 @@
 
 ### 0.0.11
  * Can now handle separators.
+ * Allows import of exported data.
  
 ### 0.0.10
  * Increases maximum password length to 128.

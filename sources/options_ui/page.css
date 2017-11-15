@@ -1,3 +1,7 @@
 /* Utilities */
 
 .hidden { visibility: hidden; }
+
+#import-button-panel,
+#import-error-message-bar,
+#import-password-panel { display: none; }

@@ -49,6 +49,50 @@
         "description": "'plain' as in 'plaintext', i.e. not-encrypted."
     },
 
+    "import_section_header":
+    {
+        "message": "Import"
+    },
+    "import_requirements":
+    {
+        "message": "Importing requires unlocked bookmarks."
+    },
+    "import_data_file_label":
+    {
+        "message": "Backup file: "
+    },
+    "import_password_label":
+    {
+        "message": "File's password:"
+    },
+    "import_command":
+    {
+        "message": "Import"
+    },
+    "import_folder_title":
+    {
+        "message": "Imported on $DD$/$MM$/$YYYY$",
+        "description": "The title of a folder to host imported bookmarks.",
+        "placeholders":
+        {
+            "dd": { "content": "$1" },
+            "mm": { "content": "$2" },
+            "yyyy": { "content": "$3" }
+        }
+    },
+    "import_error_invalid_file":
+    {
+        "message": "The selected file could not be parsed."
+    },
+    "import_error_plain_import_failed":
+    {
+        "message": "The import operation failed."
+    },
+    "import_error_encrypted_import_failed":
+    {
+        "message": "The import operation failed. Are you sure you entered the correct password for this file?"
+    },
+
     "support_section_header":
     {
         "message": "Support"

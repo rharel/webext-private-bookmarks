@@ -65,6 +65,43 @@
             </div>
         </div>
         <div class="panel-section panel-section-header">
+            <div class="text-section-header" data-localized="import_section_header">
+                Import
+            </div>
+        </div>
+        <div class="panel-section-formElements">
+            <div class="browser-style panel-formElements-item"
+                 data-localized="import_requirements">
+                Importing requires unlocked bookmarks.
+            </div>
+            <div class="browser-style panel-formElements-item">
+                <label for="import-file-input" data-localized="import_data_file_label">
+                    Backup file:
+                </label>
+                <input id="import-file-input" type="file" accept=".json">
+            </div>
+            <div id="import-password-panel" class="browser-style panel-formElements-item">
+                <label for="import-password-input" data-localized="import_password_label">
+                    File's password:
+                </label>
+                <input id="import-password-input" type="password"
+                       size="20" placeholder="Password"
+                       data-localized="password_field_placeholder"
+                       data-localized-attribute="placeholder">
+            </div>
+            <div id="import-button-panel" class="browser-style panel-formElements-item">
+                <button id="import-button" class="browser-style default">
+                    <label data-localized="import_command">
+                        Import
+                    </label>
+                </button>
+                <span id="import-status-message"></span>
+            </div>
+            <div id="import-error-message-bar" class="message-bar error-message-bar">
+                <span id="import-error-message" class="message"></span>
+            </div>
+        </div>
+        <div class="panel-section panel-section-header">
             <div class="text-section-header" data-localized="support_section_header">
                 Support
             </div>

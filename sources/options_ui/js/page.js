@@ -97,9 +97,13 @@
     }
 
     require.config({
-                        paths: { scripts: "/scripts" }
-                   });
-    require(["./backup"]);
+        paths:
+        {
+            libraries: "/libraries",
+            scripts: "/scripts"
+        }
+    });
+    require(["./backup", "./import"]);
     require(["scripts/meta/configuration",
              "scripts/meta/version",
              "scripts/utilities/dom_manipulation"],
