@@ -15,6 +15,9 @@ There are a few cases where the extension auto locks your private bookmarks:
 <li>If you close the browser while your private bookmarks are unlocked, the next time you open it the leftover Private Bookmarks folder is deleted immediately.</li>
 </ul>
 
+<b>Backup</b>
+You can export both encrypted/plain versions of your private bookmark data from within the options page. However, to import an encrypted backup file you must remember the password you used when that backup was made.
+
 <b>Keyboard shortcuts</b>
 Both of these shortcuts are available while private bookmarks are unlocked:
 <ul>
