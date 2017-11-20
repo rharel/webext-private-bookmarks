@@ -11,8 +11,8 @@
     };
     /// A valid password's regex.
     const PASSWORD_PATTERN = new RegExp(
-        `(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]` +
-        `{${PASSWORD_LENGTH.minimum},${PASSWORD_LENGTH.maximum}})$`
+        `^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z0-9~!@#$%^&*_\\-+= ]` +
+        `{${PASSWORD_LENGTH.minimum},${PASSWORD_LENGTH.maximum}}$`
     );
 
     /// Returns true iff the specified value is a valid password.

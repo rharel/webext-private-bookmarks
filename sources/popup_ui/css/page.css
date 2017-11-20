@@ -172,6 +172,7 @@ img { box-sizing: border-box; }
 }
 
 /* Panel - Password setup */
+#password-allowed-characters-label { font-size: 0.75em; }
 #password-setup-buttons-container
 {
     justify-content: space-around;

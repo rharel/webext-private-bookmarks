@@ -1,0 +1,32 @@
+/* Adopted with modifications from: https://chrisbracco.com/a-simple-css-tooltip/ */
+[data-tooltip]
+{
+    position: relative;
+    z-index: 2;
+}
+/* Hide by default. */
+[data-tooltip]:before
+{
+    visibility: hidden;
+    pointer-events: none;
+}
+/* Position above the tagged element. */
+[data-tooltip]:before
+{
+    --width: 128px;
+
+    background-color: var(--grey-90);
+    border-radius: 3px;
+    bottom: 125%;
+    color: var(--grey-10);
+    content: attr(data-tooltip);
+    left: 50%;
+    margin-bottom: 4px;
+    margin-left: calc(-0.5 * var(--width));
+    padding: 4px;
+    position: absolute;
+    text-align: center;
+    width: var(--width);
+}
+/* Show on hover. */
+[data-tooltip]:hover:before { visibility: visible; }

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/stylesheets/photon.css">
     <link rel="stylesheet" href="css/page.css">
     <link rel="stylesheet" href="css/progress_bar.css">
+    <link rel="stylesheet" href="css/tooltip.css">
 
     <script src="/scripts/utilities/localization.js" defer></script>
     <script src="/libraries/require.min.js" data-main="js/page" defer></script>
@@ -85,9 +86,20 @@
     </div>
     <div id="password-setup-panel" class="deactivated form panel">
         <div class="panel-section-formElements">
-            <div id="password-requirements" class="panel-formElements-item">
-                Must be 8 &#8211; 16 characters long, alphanumeric, containing at least one letter
-                and one number.
+            <div>
+                <div>
+                    <span id="password-requirements">
+                        Must be 8 &#8211; 128 characters longm containing at least one letter
+                        and one number.
+                    </span>
+                </div>
+                <div>
+                    <a id="password-allowed-characters-label"
+                       data-localized="password_allowed_characters_label"
+                       data-tooltip="a-z, A-Z, 0-9, ~!@#$%^&*_-+=, [space]">
+                        Allowed characters
+                    </a>
+                </div>
             </div>
             <div class="browser-style panel-formElements-item">
                 <input id="new-password-input" type="password"
