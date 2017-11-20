@@ -123,6 +123,14 @@ img { box-sizing: border-box; }
     position: relative;
     top: -24px;
 }
+#on-hold-progress-bar
+{
+    --animation-cycle-period: 0.75s;
+    --bar-height: 24px;
+    --stripe-width: 8px;
+
+    width: 100%;
+}
 
 /* Panel - Success and error */
 #error-panel,

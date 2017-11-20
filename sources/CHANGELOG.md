@@ -1,7 +1,7 @@
 ## Changelog
 
 ### 0.0.12
- * TBD
+ * Adds a progress bar to the unlock progress panel.
 
 ### 0.0.11
  * Can now handle separators.

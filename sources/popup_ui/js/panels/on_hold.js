@@ -3,21 +3,34 @@
     /// Set in define().
     let domanip;
 
+    /// Contains DOM elements. Populated by initialize().
+    const DOM =
+    {
+        on_hold_progress_indicator: null,
+        on_hold_status_message: null
+    };
+
     /// The name of the event to track for status updates.
-    let status_update_event = null;
+    let status_update_event_type = null;
     /// The index of the previous status update event.
     let previous_status_update_index = -1;
 
-    /// Contains DOM elements. Populated by initialize().
-    const DOM = { on_hold_status_message: null };
+    /// Updates the progress bar and status message.
+    function update_status(current, total)
+    {
+        DOM.on_hold_progress_indicator.style.width = `${Math.round(100 * current / total)}%`;
+        DOM.on_hold_status_message.textContent = `${current} / ${total}`;
+    }
 
     /// Invoked when this panel is activated.
-    function on_activate(event) { status_update_event = event; }
+    function on_activate(event_type) { status_update_event_type = event_type; }
     /// Invoked when this panel is deactivated.
     function on_deactivate()
     {
-        status_update_event = null;
+        status_update_event_type = null;
         previous_status_update_index = -1;
+
+        DOM.on_hold_progress_indicator.style.width = "0%";
         DOM.on_hold_status_message.textContent = "";
     }
 
@@ -28,15 +41,13 @@
 
         browser.runtime.onMessage.addListener(message =>
         {
-            if (!status_update_event ||
-                 message.type !== status_update_event ||
-                 message.index <= previous_status_update_index)
+            if (status_update_event_type &&
+                message.type === status_update_event_type &&
+                message.index > previous_status_update_index)
             {
-                return;
+                update_status(message.current, message.total);
+                previous_status_update_index = message.index;
             }
-            const {current, total} = message;
-            DOM.on_hold_status_message.textContent = `${current} / ${total}`;
-            previous_status_update_index = message.index;
         });
     }
 

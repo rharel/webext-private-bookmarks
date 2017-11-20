@@ -7,7 +7,8 @@
     </title>
 
     <link rel="stylesheet" href="/stylesheets/photon.css">
-    <link rel="stylesheet" href="page.css">
+    <link rel="stylesheet" href="css/page.css">
+    <link rel="stylesheet" href="css/progress_bar.css">
 
     <script src="/scripts/utilities/localization.js" defer></script>
     <script src="/libraries/require.min.js" data-main="js/page" defer></script>
@@ -25,6 +26,9 @@
     <div id="on-hold-panel" class="deactivated centering panel">
         <img id="on-hold-animation-gear-A" src="/icons/main/options_gray.svg">
         <img id="on-hold-animation-gear-B" src="/icons/main/options_gray.svg">
+        <div id="on-hold-progress-bar">
+            <div id="on-hold-progress-indicator" class="progress-indicator"></div>
+        </div>
         <span id="on-hold-status-message"></span>
     </div>
     <div id="success-panel" class="deactivated centering panel">
