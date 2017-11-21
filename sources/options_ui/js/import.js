@@ -42,13 +42,13 @@
         domanip.disable(DOM.import_button);
 
         if (reason) { DOM.import_button.title = `(${reason})`; }
-        DOM.import_button.removeEventListener("click", import_data);
+        DOM.import_button.removeEventListener("click", import_selected_files);
     }
     /// Enables the import button.
     function enable_import_button()
     {
         DOM.import_button.removeAttribute("title");
-        DOM.import_button.addEventListener("click", import_data);
+        DOM.import_button.addEventListener("click", import_selected_files);
 
         domanip.enable(DOM.import_button);
     }
@@ -89,78 +89,118 @@
                data.hasOwnProperty("ciphertext");
     }
 
+    /// Assigned the JSON contents of the selected files.
+    let file_contents = [];
+    /// True if at least one selected file appears to be encrypted.
+    let requires_password = false;
+
     /// Resets the import process.
     function reset()
     {
+        file_contents = [];
+        requires_password = false;
+
         DOM.import_password_input.value = "";
         DOM.import_password_panel.style.display = "none";
         DOM.import_button_panel.style.display = "none";
         DOM.import_status_message.textContent = "";
+
         clear_status();
         hide_error_display();
     }
 
-    /// Assigned the JSON contents of a processed file.
-    let file_contents;
-    /// Examines the contents of the selected file to import.
-    function process_selected_file()
+    /// Examines the contents of the selected files to import.
+    async function process_selected_files()
     {
         const files = DOM.import_file_input.files;
 
         if (files.length === 0) { return; }
 
-        const reader = new FileReader();
-        reader.onerror = () => { display_error(ErrorMessage.InvalidFile); };
-        reader.onload  = () =>
+        for (let i = 0; i < files.length; ++i)
         {
-            try           { file_contents = JSON.parse(reader.result); }
-            catch (error) { display_error(ErrorMessage.InvalidFile); return; }
-
-            DOM.import_button_panel.style.display = "block";
-            if (is_encrypted(file_contents))
+            try
             {
-                DOM.import_password_panel.style.display = "block";
+                file_contents.push(await process_selected_file(files.item(i)));
             }
-        };
-        reader.readAsText(files.item(0));
+            catch { return; }
+        }
+        requires_password = file_contents.some(data => is_encrypted(data));
+
+        DOM.import_button_panel.style.display = "block";
+        if (requires_password)
+        {
+            DOM.import_password_panel.style.display = "block";
+        }
+    }
+    /// Reads the contents of the selected file to import.
+    function process_selected_file(file)
+    {
+        return new Promise((resolve, reject) =>
+        {
+            const reader = new FileReader();
+            reader.onerror = () =>
+            {
+                const error_message = `${file.name}: ${ErrorMessage.InvalidFile}`;
+                display_error(error_message);
+                reject(error_message);
+            };
+            reader.onload = () =>
+            {
+                try { resolve(JSON.parse(reader.result)); }
+                catch (error)
+                {
+                    const error_message = `${file.name}: ${ErrorMessage.InvalidFile}`;
+                    display_error(error_message);
+                    reject(error_message);
+                }
+            };
+            reader.readAsText(file);
+        });
     }
 
-    /// Imports bookmarks from the decoded contents of the selected file.
-    async function import_data()
+    /// Imports bookmarks from the decoded contents of the selected files.
+    async function import_selected_files()
     {
         hide_error_display();
-
-        let importing;
-        if (is_encrypted(file_contents))
-        {
-            const password        = DOM.import_password_input.value,
-                  hashed_password = await security.hash(password);
-
-            importing = bookmarks.import_encrypted_data(file_contents, hashed_password);
-        }
-        else { importing = bookmarks.import_plain_data(file_contents); }
-
-        clear_status();
-
         disable_import_button();
-        try { await importing; }
-        catch (error)
-        {
-            DOM.import_error_message_bar.title = error.message;
-            display_error(
-                is_encrypted(file_contents) ?
-                    ErrorMessage.EncryptedImportFailed :
-                    ErrorMessage.PlainImportFailed
-            );
-            return;
-        }
-        finally { update_import_button_availability(); }
 
+        let key = null;
+        if (requires_password)
+        {
+            const password = DOM.import_password_input.value;
+            key = await security.hash(password);
+        }
+        for (let i = 0; i < file_contents.length; ++i)
+        {
+            const data = file_contents[i];
+
+            clear_status();
+            try
+            {
+                if (is_encrypted(data))
+                {
+                    await bookmarks.import_encrypted_data(data, key);
+                }
+                else { await bookmarks.import_plain_data(data); }
+            }
+            catch (error)
+            {
+                DOM.import_error_message_bar.title = error.message;
+                display_error(
+                    `${DOM.import_file_input.files.item(i).name}: ` +
+                    `${is_encrypted(data) ? 
+                        ErrorMessage.EncryptedImportFailed :
+                        ErrorMessage.PlainImportFailed}`
+                );
+                break;
+            }
+        }
         DOM.import_password_input.value = "";
+        update_import_button_availability();
     }
 
     /// Initializes this module.
-    async function initialize()
+    function initialize()
     {
         domanip.populate(DOM);
 
@@ -168,10 +208,10 @@
         DOM.import_file_input.addEventListener("change", () =>
         {
             reset();
-            process_selected_file();
+            process_selected_files();
         });
 
-        update_import_button_availability(await bookmarks.is_locked());
+        update_import_button_availability();
         browser.runtime.onMessage.addListener(message =>
         {
             if (message.type === "lock" ||

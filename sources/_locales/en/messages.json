@@ -62,11 +62,11 @@
     },
     "import_data_file_label":
     {
-        "message": "Backup file: "
+        "message": "Backup file(s): "
     },
     "import_password_label":
     {
-        "message": "File's password:"
+        "message": "Password for file(s):"
     },
     "import_command":
     {
@@ -93,7 +93,7 @@
     },
     "import_error_encrypted_import_failed":
     {
-        "message": "The import operation failed. Are you sure you entered the correct password for this file?"
+        "message": "The import operation failed. Are you sure you entered the correct password for the file(s)?"
     },
 
     "support_section_header":
