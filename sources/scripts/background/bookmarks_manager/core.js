@@ -318,7 +318,6 @@
                     add:  (url, title) => { return front.add(url, title); },
                     contains_url:  url => { return front.contains_url(url); },
                     get_front_id:   () => { return front.get_id(); },
-                    get_front_tree: () => { return front.get_tree(); },
 
                     needs_setup: async () => { return !(await back.exists()); },
                     authenticate:     key => { return back.authenticate(key); },
