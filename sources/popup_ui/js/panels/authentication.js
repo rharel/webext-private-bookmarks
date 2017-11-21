@@ -31,13 +31,6 @@
     async function authenticate()
     {
         const password = DOM.authentication_password_input.value;
-
-        if (!security.is_valid_password(password))
-        {
-            deny();
-            clear_sensitive_data();
-            return;
-        }
         try
         {
             const hashed_password = await security.hash(password);
