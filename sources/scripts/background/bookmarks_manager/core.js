@@ -319,6 +319,12 @@
                     contains_url:  url => { return front.contains_url(url); },
                     get_front_id:   () => { return front.get_id(); },
 
+                    get_front_title: async () => { return (await front.get_node()).title; },
+                    get_front_parent_title: async () =>
+                    {
+                          return (await front.get_parent()).title;
+                    },
+
                     needs_setup: async () => { return !(await back.exists()); },
                     authenticate:     key => { return back.authenticate(key); },
                     load:              () => { return back.load(); },

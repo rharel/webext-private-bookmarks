@@ -243,7 +243,12 @@
     },
     "unlocked_successfully":
     {
-        "message": "Your bookmarks have been unlocked! Check the 'Private Bookmarks' folder under 'Other Bookmarks'."
+        "message": "Your bookmarks have been unlocked! Check the '$TITLE$' folder under '$PARENT_TITLE$'.",
+        "placeholders":
+        {
+            "title":        { "content": "$1" },
+            "parent_title": { "content": "$2" }
+        }
     },
 
     "change_password_command":

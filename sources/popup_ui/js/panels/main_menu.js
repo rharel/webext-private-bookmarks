@@ -81,9 +81,17 @@
                     transition_to("on_hold", "unlock-status-update");
                     await new Promise(resolve => { setTimeout(resolve, 1000); });
                     await unlocking;
+
+                    const title        = await bookmarks.get_front_title(),
+                          parent_title = await bookmarks.get_front_parent_title();
+
                     transition_to("success",
                                   {
-                                        details: browser.i18n.getMessage("unlocked_successfully"),
+                                        details: browser.i18n.getMessage(
+                                            "unlocked_successfully",
+                                            [title,
+                                             parent_title === "" ? "(no title)" : parent_title]
+                                        ),
                                         transition: MAIN_MENU_TRANSITION
                                   });
                 }

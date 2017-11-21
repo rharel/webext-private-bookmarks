@@ -1,6 +1,7 @@
 ## Changelog
 
 ### 0.0.12
+ * Remembers where you moved your Private Bookmarks folder to, and spawns it there next time you unlock it.
  * Allows additional characters in passwords: `~!@#$%^&*_-+=` and `space`
  * Adds a progress bar to the unlock progress panel.
 

@@ -1,5 +1,11 @@
 (function()
 {
+    /// Set in define().
+    let storage;
+
+    /// Key to the folder's spawn location information in storage.
+    /// The value stored is an object { parent_id:, index: }.
+    const SPAWN_LOCATION_STORAGE_KEY = "front_folder_spawn_location";
     /// The folder's display name.
     const TITLE = browser.i18n.getMessage("extension_name");
 
@@ -11,6 +17,16 @@
 
     /// Gets the folder's identifier.
     function get_id() { return id; }
+    /// Gets the folder's node.
+    /// Rejects if the folder does not exist.
+    async function get_node()
+    {
+        if (!exists())
+        {
+            return Promise.reject(new Error("Cannot get front node when none exists."));
+        }
+        return (await browser.bookmarks.get(id))[0];
+    }
     /// Gets the folder's sub tree.
     /// Rejects if the folder does not exist.
     async function get_tree()
@@ -20,6 +36,17 @@
             return Promise.reject(new Error("Cannot get front node when none exists."));
         }
         return (await browser.bookmarks.getSubTree(id))[0];
+    }
+    /// Gets the folder's parent.
+    /// Rejects if the folder does not exist.
+    async function get_parent()
+    {
+        if (!exists())
+        {
+            return Promise.reject(new Error("Cannot get front node when none exists."));
+        }
+        const node = await get_node();
+        return (await browser.bookmarks.get(node.parentId))[0];
     }
 
     /// Creates the folder (it is empty) and returns its node.
@@ -31,7 +58,27 @@
             return Promise.reject(new Error("Cannot create front when it already exists."));
         }
 
-        const node = await browser.bookmarks.create({ title: TITLE });
+        const creation_details = { title: TITLE };
+
+        const spawn_location = await storage.load(SPAWN_LOCATION_STORAGE_KEY);
+        if (spawn_location !== null)
+        {
+            let parent_exists;
+            try
+            {
+                await browser.bookmarks.get(spawn_location.parent_id);
+                parent_exists = true;
+            }
+            catch { parent_exists = false; }
+
+            if (parent_exists)
+            {
+                creation_details.parentId = spawn_location.parent_id;
+                creation_details.index    = spawn_location.index;
+            }
+        }
+
+        const node = await browser.bookmarks.create(creation_details);
         id = node.id;
 
         return node;
@@ -44,7 +91,19 @@
         {
             return Promise.reject(new Error("Cannot remove front when none exists."));
         }
-        try           { await browser.bookmarks.removeTree(id); }
+        try
+        {
+            // Remember where the folder is moved to, i.e. its new parent and index within it, so
+            // that the next time it is created, it will try to spawn there (if that location is
+            // still available).
+            const node = await get_node();
+            storage.save(SPAWN_LOCATION_STORAGE_KEY,
+            {
+                parent_id: node.parentId,
+                index:     node.index
+            });
+            await browser.bookmarks.removeTree(id);
+        }
         catch (error) { throw error; }
         finally       { id = null; }
     }
@@ -94,18 +153,26 @@
         return false;
     }
 
-    define({
-                get_id:   get_id,
-                            get_tree: get_tree,
+    define(["scripts/utilities/local_storage"],
+           storage_module =>
+           {
+                storage = storage_module;
 
-                exists: exists,
+                return {
+                            get_id:     get_id,
+                            get_node:   get_node,
+                            get_tree:   get_tree,
+                            get_parent: get_parent,
 
-                create: create,
-                remove: remove,
+                            exists: exists,
 
-                add: add,
+                            create: create,
+                            remove: remove,
 
-                contains_node: contains_node,
-                contains_url:  contains_url
+                            add: add,
+
+                            contains_node: contains_node,
+                            contains_url:  contains_url
+                        };
            });
 })();
