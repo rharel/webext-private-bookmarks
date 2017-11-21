@@ -7,6 +7,7 @@
     const DOM =
     {
         is_private_checkbox: null,
+        disable_password_requirements_checkbox: null,
         do_notify_about_release_notes_checkbox: null,
         error_message: null,
         error_message_bar: null
@@ -34,19 +35,28 @@
         return  {
                     version: CURRENT_VERSION,
 
+                    general:
+                    {
+                        is_private: DOM.is_private_checkbox.checked
+                    },
                     notification:
                     {
                         release_notes: DOM.do_notify_about_release_notes_checkbox.checked
                     },
-                    general:
+                    security:
                     {
-                        is_private: DOM.is_private_checkbox.checked
+                        disable_password_requirements: (
+                            DOM.disable_password_requirements_checkbox.checked
+                        )
                     }
                 };
     }
     /// Applies the specified configuration to the controls on the page.
     function apply_configuration_to_page(options)
     {
+        DOM.disable_password_requirements_checkbox.checked = (
+            options.security.disable_password_requirements
+        );
         DOM.do_notify_about_release_notes_checkbox.checked = (
             options.notification.release_notes
         );

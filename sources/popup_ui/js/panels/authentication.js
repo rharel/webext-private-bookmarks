@@ -76,12 +76,13 @@
     }
 
     /// Initializes this module.
-    function initialize()
+    async function initialize()
     {
         domanip.populate(DOM);
 
+        const {minimum, maximum} = await security.get_password_length();
         DOM.authentication_password_input
-            .setAttribute("maxlength", security.PASSWORD_LENGTH.maximum.toString());
+            .setAttribute("maxlength", maximum.toString());
 
         DOM.authentication_password_input.addEventListener("keydown", event =>
         {

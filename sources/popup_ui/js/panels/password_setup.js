@@ -167,15 +167,14 @@
     }
 
     /// Initializes this module.
-    function initialize()
+    async function initialize()
     {
         domanip.populate(DOM);
 
+        DOM.password_requirements.textContent = await security.get_password_description();
         {
-            const {minimum, maximum} = security.PASSWORD_LENGTH;
-            DOM.password_requirements.textContent = (
-                browser.i18n.getMessage("password_requirements", [minimum, maximum])
-            );
+            const {minimum, maximum} = await security.get_password_length();
+
             [DOM.new_password_input,
              DOM.repeated_new_password_input]
             .forEach(element =>

@@ -29,7 +29,10 @@
     {
         "message": "Let me know what's new after an update"
     },
-
+    "disable_password_requirements_option":
+    {
+        "message": "Disable password requirements (allows less secure passwords)"
+    },
     "export_section_header":
     {
         "message": "Export"
@@ -134,14 +137,18 @@
     {
         "message": "Setup a password"
     },
-    "password_requirements":
+    "password_length_requirements":
     {
-        "message": "Must be $MIN$–$MAX$ characters long, containing at least one letter and one number.",
+        "message": "Must be $MIN$–$MAX$ characters long.",
         "placeholders":
         {
             "min": { "content": "$1" },
             "max": { "content": "$2" }
         }
+    },
+    "password_character_requirements":
+    {
+        "message": "Must contain at least one letter and one number."
     },
     "password_allowed_characters_label":
     {

@@ -18,14 +18,23 @@
                     {
                         /// True iff release notes may be displayed proceeding an update.
                         release_notes: true
+                    },
+                    security:
+                    {
+                        /// True iff no requirements should be imposed on passwords.
+                        disable_password_requirements: false
                     }
                 };
     }
     /// Updates a configuration to the latest version.
     function update(configuration)
     {
-        // Currently there are no breaking changes from previous versions, so just update the
-        // version value and leave the rest as-is:
+        // The 'security' property was added in release 12.
+        if (!configuration.hasOwnProperty("security"))
+        {
+            configuration.security = { disable_password_requirements: false };
+        }
+        // Update the version value:
         configuration.version = version.CURRENT;
 
         return configuration;
