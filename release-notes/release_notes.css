@@ -48,6 +48,13 @@ a:hover
     font-weight: bold;
 }
 
+.code
+{
+    background-color: #e4e4e4;
+    font-size: 0.9em;
+    padding: 0 4px 0 4px;
+}
+
 .notice
 {
     border-radius: 10px;
@@ -61,6 +68,6 @@ a:hover
 }
 .notice.warning
 {
-    background-color: #6200a4;
-    color: white;
+    background-color: #ffd30e;
+    color: #000000;
 }
