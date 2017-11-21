@@ -226,11 +226,6 @@
             emit_background_event("busy", false);
         }
     }
-    /// Lock in response to user command.
-    browser.commands.onCommand.addListener(command =>
-    {
-        if (command === "lock") { lock(); }
-    });
 
     /// Decrypts the contents of the back folder and creates a new front to reflect them.
     /// Rejects if unlocked or if the key is not authentic.

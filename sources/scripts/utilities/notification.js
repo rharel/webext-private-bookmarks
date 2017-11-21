@@ -10,7 +10,11 @@
     };
 
     /// Enumerates notification identifiers.
-    const Identifier = { BookmarkAddition: "BookmarkAddition" };
+    const Identifier =
+    {
+        BookmarkAddition: "BookmarkAddition",
+        Locked: "Locked"
+    };
 
     /// Posts a notification with the specified message and display options.
     ///
@@ -37,13 +41,24 @@
         return id;
     }
     /// Notifies that a new item has been added to the private bookmarks folder.
-    function notify_bookmark_addition()
+    function notify_item_added()
     {
         return post(
-            browser.i18n.getMessage("notification_added_bookmark"),
+            browser.i18n.getMessage("notification_item_added"),
             {
                 id: Identifier.BookmarkAddition,
-                title: browser.i18n.getMessage("notification_added_bookmark_title")
+                title: browser.i18n.getMessage("notification_item_added_title")
+            }
+        );
+    }
+    /// Notifies that private bookmarks have been locked.
+    function notify_locked()
+    {
+        return post(
+            browser.i18n.getMessage("notification_locked"),
+            {
+                id: Identifier.Locked,
+                title: browser.i18n.getMessage("notification_locked_title")
             }
         );
     }
@@ -51,6 +66,7 @@
     define({
                 Identifier: Identifier,
                 post: post,
-                notify_bookmark_addition: notify_bookmark_addition
+                item_added: notify_item_added,
+                locked:     notify_locked
            });
 })();
