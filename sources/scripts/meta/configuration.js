@@ -9,17 +9,16 @@
         return  {
                     version: version.CURRENT,
 
-                    notification:
-                    {
-                        /// True iff release notes may be displayed proceeding an update.
-                        release_notes: true
-                    },
                     general:
                     {
                         /// True iff the extension is limited to private contexts exclusively.
                         is_private: true
                     },
-
+                    notification:
+                    {
+                        /// True iff release notes may be displayed proceeding an update.
+                        release_notes: true
+                    }
                 };
     }
     /// Updates a configuration to the latest version.
