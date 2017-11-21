@@ -36,9 +36,21 @@
 
         return id;
     }
+    /// Notifies that a new item has been added to the private bookmarks folder.
+    function notify_bookmark_addition()
+    {
+        return post(
+            browser.i18n.getMessage("notification_added_bookmark"),
+            {
+                id: Identifier.BookmarkAddition,
+                title: browser.i18n.getMessage("notification_added_bookmark_title")
+            }
+        );
+    }
 
     define({
                 Identifier: Identifier,
-                post: post
+                post: post,
+                notify_bookmark_addition: notify_bookmark_addition
            });
 })();

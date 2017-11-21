@@ -44,8 +44,7 @@
         await bookmarks.add(tab.url, tab.title);
         update_in_active_tabs();
 
-        notification.post(browser.i18n.getMessage("added_bookmark_successfully"),
-                          { id: notification.Identifier.BookmarkAddition });
+        notification.notify_bookmark_addition();
     });
     /// When a bookmarks is removed we may need to update the page action's visibility.
     browser.bookmarks.onRemoved.addListener(update_in_active_tabs);

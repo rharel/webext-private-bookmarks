@@ -273,7 +273,11 @@
         "message": "This will delete all private bookmarks permanently, and a new password will need to be set up. Are you sure you wish to continue?"
     },
 
-    "added_bookmark_successfully":
+    "notification_added_bookmark_title":
+    {
+        "message": "Privately bookmarked!"
+    },
+    "notification_added_bookmark":
     {
         "message": "The page has been added to your private bookmarks."
     },
