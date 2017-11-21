@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.0.13
+ * TBD
+
 ### 0.0.12
  * Allows import of several backup files at once (provided they share a password).
  * Adds the option to disable password requirements.
