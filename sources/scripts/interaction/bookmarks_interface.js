@@ -5,7 +5,7 @@
 
     const this_module = { MESSAGE_TYPE: "bookmarks_interface" };
 
-    ["add", "contains_url", "get_front_id", "get_front_node",
+    ["add", "contains_url", "get_front_id", "get_front_tree",
      "needs_setup", "authenticate", "load",
      "clear", "setup", "change_authentication",
      "lock", "unlock", "is_locked", "is_unlocked",

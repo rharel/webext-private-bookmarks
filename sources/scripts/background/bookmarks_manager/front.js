@@ -11,9 +11,9 @@
 
     /// Gets the folder's identifier.
     function get_id() { return id; }
-    /// Gets the folder's node.
+    /// Gets the folder's sub tree.
     /// Rejects if the folder does not exist.
-    async function get_node()
+    async function get_tree()
     {
         if (!exists())
         {
@@ -96,7 +96,7 @@
 
     define({
                 get_id:   get_id,
-                get_node: get_node,
+                            get_tree: get_tree,
 
                 exists: exists,
 

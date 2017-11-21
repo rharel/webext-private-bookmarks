@@ -88,7 +88,7 @@
         is_syncing = true;
         emit_background_event("busy", true);
 
-        try { await back.write(tree.prune(await front.get_node()), back_key); }
+        try { await back.write(tree.prune(await front.get_tree()), back_key); }
         finally
         {
             is_syncing = false;
@@ -318,7 +318,7 @@
                     add:  (url, title) => { return front.add(url, title); },
                     contains_url:  url => { return front.contains_url(url); },
                     get_front_id:   () => { return front.get_id(); },
-                    get_front_node: () => { return front.get_node(); },
+                    get_front_tree: () => { return front.get_tree(); },
 
                     needs_setup: async () => { return !(await back.exists()); },
                     authenticate:     key => { return back.authenticate(key); },

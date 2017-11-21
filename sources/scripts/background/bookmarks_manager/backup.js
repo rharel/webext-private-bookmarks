@@ -18,7 +18,7 @@
         {
             return Promise.reject(new Error("Cannot export plain data while locked."));
         }
-        return tree.prune(await front.get_node())
+        return tree.prune(await front.get_tree())
     }
 
     /// Composes the title for the folder to host imported bookmarks.
