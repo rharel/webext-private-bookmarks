@@ -182,7 +182,6 @@
             {
                 element.setAttribute("minlength", minimum.toString());
                 element.setAttribute("maxlength", maximum.toString());
-                element.setAttribute("pattern", security.PASSWORD_PATTERN.source);
             });
         }
 
