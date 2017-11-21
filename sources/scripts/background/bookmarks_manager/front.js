@@ -69,7 +69,7 @@
                 await browser.bookmarks.get(spawn_location.parent_id);
                 parent_exists = true;
             }
-            catch { parent_exists = false; }
+            catch (error) { parent_exists = false; }
 
             if (parent_exists)
             {

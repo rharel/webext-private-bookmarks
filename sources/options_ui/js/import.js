@@ -122,7 +122,7 @@
             {
                 file_contents.push(await process_selected_file(files.item(i)));
             }
-            catch { return; }
+            catch (error) { return; }
         }
         requires_password = file_contents.some(data => is_encrypted(data));
 
