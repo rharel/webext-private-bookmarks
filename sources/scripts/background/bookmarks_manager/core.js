@@ -301,7 +301,8 @@
             "scripts/background/bookmarks_manager/front",
             "scripts/background/bookmarks_manager/tree_utilities",
             "scripts/utilities/cryptography"],
-           (EventEmitter, back_module, backup_module, front_module, tree_module, cryptography_module) =>
+           (EventEmitter, back_module, backup_module,
+            front_module, tree_module, cryptography_module) =>
            {
                back = back_module;
                front = front_module;
