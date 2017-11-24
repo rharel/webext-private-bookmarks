@@ -3,13 +3,16 @@
     /// Determines whether the specified node is a separator.
     function is_separator(node)
     {
-        return node.type && node.type === "separator";   // .type was introduced in FF 57
+        return node.hasOwnProperty("type") &&
+               node.type === "separator";   // .type was introduced in FF 57
     }
+    /// Determines whether the specified node is a folder.
+    function is_folder(node) { return node.hasOwnProperty("children"); }
 
     /// Computes the number of nodes in the specified tree.
     function compute_size(node)
     {
-        if (!node.children) { return 1; }
+        if (!is_folder(node)) { return 1; }
         else
         {
             return node.children.reduce((sum, child) => sum + compute_size(child), 1)
@@ -23,7 +26,7 @@
         delete node.dateGroupModified;
         delete node.unmodifiable;
 
-        if (node.children) { node.children.forEach(child => prune(child)); }
+        if (is_folder(node)) { node.children.forEach(child => prune(child)); }
 
         return node;
     }
@@ -64,7 +67,7 @@
 
             on_created();
 
-            if (source.children)
+            if (is_folder(source))
             {
                 // Since browser.bookmarks.create() prepends new nodes rather than appends, to
                 // preserve original ordering we visit children in their reverse order.

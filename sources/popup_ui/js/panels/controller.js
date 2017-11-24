@@ -32,7 +32,7 @@
     {
         const panel = panels[id];
 
-        if (panel.on_deactivate) { panel.on_deactivate(); }
+        if (panel.hasOwnProperty("on_deactivate")) { panel.on_deactivate(); }
 
         panel.element.classList.add("deactivated");
     }
@@ -47,7 +47,7 @@
             DOM.header.textContent = panel.TITLE;
             panel.element.classList.remove("deactivated");
 
-            if (panel.on_activate) { panel.on_activate(forwarded_arguments); }
+            if (panel.hasOwnProperty("on_activate")) { panel.on_activate(forwarded_arguments); }
         }
         active_panel_id = id;
     }
@@ -68,7 +68,7 @@
             const element_id = panel.ID.replace(/_/g, "-") + "-panel";
             panel.element    = document.getElementById(element_id);
 
-            if (panel.on_transition) { panel.on_transition(transition_to); }
+            if (panel.hasOwnProperty("on_transition")) { panel.on_transition(transition_to); }
         }
         try
         {
