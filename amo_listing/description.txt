@@ -1,6 +1,6 @@
 Private Bookmarks enables a special password-protected bookmark folder. Your private bookmarks are encrypted with your chosen password. This is not an online service, and no data leaves your machine.
 
-When you unlock your private bookmarks, a new 'Private Bookmarks' folder appears under 'Other Bookmarks'. You can add/remove items to it and when ready, lock it. Whenever an item is added/removed, the contents of the folder are encrypted and stored on your machine. When locked, the folder itself is removed from your browser's bookmarks collection.
+When you unlock your private bookmarks, a new 'Private Bookmarks' folder appears under 'Other Bookmarks'. You can add/remove items to it and when ready, lock it. Whenever an item is added/removed, the contents of the folder are encrypted and stored on your machine. When locked, the folder itself is removed from your browser's bookmarks collection. You can also move the folder wherever you want to, and the next time you unlock it will appear there.
 
 By default, Private Bookmarks can only be accessed when in private browsing (to help avoid accidents), however that can be changed via the options page.
 
