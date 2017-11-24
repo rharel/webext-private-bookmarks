@@ -75,11 +75,6 @@
                                 await loading;
                                 return password_length;
                             },
-                            get_password_pattern: async () =>
-                            {
-                                await loading;
-                                return password_pattern;
-                            },
                             get_password_description: async () =>
                             {
                                 await loading;
