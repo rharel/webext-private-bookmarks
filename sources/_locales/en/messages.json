@@ -78,8 +78,8 @@
         "description": "The title of a folder to host imported bookmarks.",
         "placeholders":
         {
-            "dd": { "content": "$1" },
-            "mm": { "content": "$2" },
+            "dd":   { "content": "$1" },
+            "mm":   { "content": "$2" },
             "yyyy": { "content": "$3" }
         }
     },
