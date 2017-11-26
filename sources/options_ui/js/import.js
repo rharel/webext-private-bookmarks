@@ -103,7 +103,6 @@
         DOM.import_password_input.value = "";
         DOM.import_password_panel.style.display = "none";
         DOM.import_button_panel.style.display = "none";
-        DOM.import_status_message.textContent = "";
 
         clear_status();
         hide_error_display();
