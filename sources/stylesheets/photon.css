@@ -88,7 +88,7 @@ a[href*="//"]::after
 a.inline-with-margin { margin-left: 8px; }
 
 /* Messages */
-.message-bar
+.message-container
 {
     align-items: center;
     border-radius: 0.25rem;
@@ -96,14 +96,9 @@ a.inline-with-margin { margin-left: 8px; }
     margin-bottom: 1rem;
     padding: 0.25rem;
 }
-.error-message-bar
+.message-container > .message::before
 {
-    background-color: var(--red-50);
-    color: white;
-}
-.error-message-bar > .message::before
-{
-    background: url(/icons/photon/warning_white.svg) no-repeat;
+    background-repeat: no-repeat;
     background-size: 16px 16px;
     content: "";
     display: inline-block;
@@ -111,4 +106,13 @@ a.inline-with-margin { margin-left: 8px; }
     margin: -0.3rem 0.15rem 0;
     vertical-align: middle;
     width: 16px;
+}
+.message-container.error
+{
+    background-color: var(--red-50);
+    color: white;
+}
+.message-container.error > .message::before
+{
+    background-image: url(/icons/photon/warning_white.svg);
 }

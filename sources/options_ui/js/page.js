@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let configuration, CURRENT_VERSION, domanip;
+    let configuration, CURRENT_VERSION, domanip, messages;
 
     /// Contains DOM elements. Populated by initialize().
     const DOM =
@@ -9,8 +9,7 @@
         is_private_checkbox: null,
         disable_password_requirements_checkbox: null,
         do_notify_about_release_notes_checkbox: null,
-        error_message: null,
-        error_message_bar: null
+        top_level_message_container: null
     };
 
     /// Enumerates possible error messages.
@@ -19,15 +18,6 @@
         LoadingConfiguration: browser.i18n.getMessage("error_loading_options"),
         SavingConfiguration:  browser.i18n.getMessage("error_saving_options")
     };
-    /// Displays (and logs) an error.
-    function report_error(message, debug_info)
-    {
-        console.error(message + "\n" +
-                      "Debug info: " + debug_info);
-
-        DOM.error_message.textContent = message;
-        DOM.error_message_bar.classList.remove("hidden");
-    }
 
     /// Extracts the configuration indicated by the controls on the page.
     function extract_configuration_from_page()
@@ -69,22 +59,30 @@
     function load_page_configuration()
     {
         return configuration.load()
-                    .then(options =>
-                    {
-                        if (options === null)
-                        {
-                            report_error(ErrorMessage.LoadingConfiguration, "options === null");
-                        }
-                        else { apply_configuration_to_page(options); }
-                    })
-                    .catch(reason => report_error(ErrorMessage.LoadingConfiguration, reason));
+            .then(options =>
+            {
+                if (options === null)
+                {
+                    messages.error(
+                        ErrorMessage.LoadingConfiguration,
+                        "options === null"
+                    );
+                }
+                else { apply_configuration_to_page(options); }
+            })
+            .catch(reason => messages.error(
+                ErrorMessage.LoadingConfiguration,
+                reason
+            ));
     }
     /// Saves the configuration indicated by the controls on the page to local storage
     /// asynchronously.
     function save_page_configuration()
     {
         return configuration.save(extract_configuration_from_page())
-                    .catch(reason => report_error(ErrorMessage.SavingConfiguration, reason));
+            .catch(reason => messages.error(
+                ErrorMessage.SavingConfiguration, reason
+            ));
     }
 
     /// Hooks up events from all option controls so that when they are changed the new configuration
@@ -101,6 +99,8 @@
     function initialize()
     {
         domanip.populate(DOM);
+        messages = messages.create_for(DOM.top_level_message_container);
+
         initialize_options_change_listeners();
 
         load_page_configuration();
@@ -114,11 +114,13 @@
         }
     });
     require(["./export", "./import"]);
-    require(["scripts/meta/configuration",
+    require(["./messages",
+             "scripts/meta/configuration",
              "scripts/meta/version",
              "scripts/utilities/dom_manipulation"],
-            (configuration_module, version_module, dom_module) =>
+            (messages_module, configuration_module, version_module, dom_module) =>
             {
+                messages = messages_module;
                 configuration = configuration_module;
                 CURRENT_VERSION = version_module.CURRENT;
                 domanip = dom_module;

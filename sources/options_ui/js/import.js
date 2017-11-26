@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let bookmarks, domanip, security;
+    let bookmarks, domanip, messages, security;
 
     /// Contains DOM elements. Populated by initialize().
     const DOM =
@@ -12,8 +12,7 @@
         import_button_panel: null,
         import_button: null,
         import_status_message: null,
-        import_error_message: null,
-        import_error_message_bar: null
+        import_message_container: null
     };
 
     /// Enumerates possible error messages.
@@ -23,18 +22,6 @@
         PlainImportFailed:     browser.i18n.getMessage("import_error_plain_import_failed"),
         EncryptedImportFailed: browser.i18n.getMessage("import_error_encrypted_import_failed")
     };
-    /// Displays an error.
-    function display_error(message)
-    {
-        DOM.import_error_message.textContent = message;
-        DOM.import_error_message_bar.style.display = "block";
-    }
-    /// Hides the error bar.
-    function hide_error_display()
-    {
-        DOM.import_error_message_bar.removeAttribute("title");
-        DOM.import_error_message_bar.style.display = "none";
-    }
 
     /// Disables the import button.
     function disable_import_button(reason)
@@ -105,7 +92,7 @@
         DOM.import_button_panel.style.display = "none";
 
         clear_status();
-        hide_error_display();
+        messages.clear();
     }
 
     /// Examines the contents of the selected files to import.
@@ -117,11 +104,16 @@
 
         for (let i = 0; i < files.length; ++i)
         {
-            try
+            const file = files.item(i);
+            try { file_contents.push(await process_selected_file(file)); }
+            catch (error)
             {
-                file_contents.push(await process_selected_file(files.item(i)));
+                messages.error(
+                    `${file.name}: ${ErrorMessage.InvalidFile}`,
+                    /* Debug info: */ error.message
+                );
+                return;
             }
-            catch (error) { return; }
         }
         requires_password = file_contents.some(data => is_encrypted(data));
 
@@ -137,21 +129,11 @@
         return new Promise((resolve, reject) =>
         {
             const reader = new FileReader();
-            reader.onerror = () =>
-            {
-                const error_message = `${file.name}: ${ErrorMessage.InvalidFile}`;
-                display_error(error_message);
-                reject(error_message);
-            };
+            reader.onerror = () => { reject(reader.error); };
             reader.onload = () =>
             {
                 try { resolve(JSON.parse(reader.result)); }
-                catch (error)
-                {
-                    const error_message = `${file.name}: ${ErrorMessage.InvalidFile}`;
-                    display_error(error_message);
-                    reject(error_message);
-                }
+                catch (error) { reject(error); }
             };
             reader.readAsText(file);
         });
@@ -160,7 +142,7 @@
     /// Imports bookmarks from the decoded contents of the selected files.
     async function import_selected_files()
     {
-        hide_error_display();
+        messages.clear();
         disable_import_button();
 
         let key = null;
@@ -184,12 +166,12 @@
             }
             catch (error)
             {
-                DOM.import_error_message_bar.title = error.message;
-                display_error(
+                messages.error(
                     `${DOM.import_file_input.files.item(i).name}: ` +
                     `${is_encrypted(data) ? 
                         ErrorMessage.EncryptedImportFailed :
-                        ErrorMessage.PlainImportFailed}`
+                        ErrorMessage.PlainImportFailed}`,
+                    /* Debug info: */ error.message
                 );
                 break;
             }
@@ -202,6 +184,7 @@
     function initialize()
     {
         domanip.populate(DOM);
+        messages = messages.create_for(DOM.import_message_container);
 
         reset();
         DOM.import_file_input.addEventListener("change", () =>
@@ -222,11 +205,13 @@
         });
     }
 
-    require(["scripts/interaction/bookmarks_interface",
+    require(["./messages",
+             "scripts/interaction/bookmarks_interface",
              "scripts/interaction/security",
              "scripts/utilities/dom_manipulation"],
-            (bookmarks_module, security_module, dom_module) =>
+            (messages_module, bookmarks_module, security_module, dom_module) =>
             {
+                messages = messages_module;
                 bookmarks = bookmarks_module;
                 security = security_module;
                 domanip = dom_module;

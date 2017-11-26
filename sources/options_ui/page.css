@@ -1,7 +1,8 @@
-/* Utilities */
+@keyframes fade-in
+{
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.fading-in  { animation: fade-in  0.5s forwards; }
 
-.hidden { visibility: hidden; }
-
-#import-button-panel,
-#import-error-message-bar,
-#import-password-panel { display: none; }
+.message-container { display: none; opacity: 0; }
