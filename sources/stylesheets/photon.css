@@ -90,10 +90,10 @@ a.inline-with-margin { margin-left: 8px; }
 /* Messages */
 .message-container
 {
+    box-sizing: border-box;
     align-items: center;
     border-radius: 0.25rem;
     display: flex;
-    margin-bottom: 1rem;
     padding: 0.25rem;
 }
 .message-container > .message::before
