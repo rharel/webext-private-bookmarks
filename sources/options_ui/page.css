@@ -3,6 +3,6 @@
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-.fading-in  { animation: fade-in  0.5s forwards; }
+.fading-in { animation: fade-in 0.5s forwards; }
 
 .message-container { display: none; opacity: 0; }
