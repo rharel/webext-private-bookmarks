@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let configuration, CURRENT_VERSION, domanip, messages;
+    let configuration, domanip, messages, version;
 
     /// Contains DOM elements. Populated by initialize().
     const DOM =
@@ -9,7 +9,8 @@
         is_private_checkbox: null,
         disable_password_requirements_checkbox: null,
         do_notify_about_release_notes_checkbox: null,
-        top_level_message_container: null
+        top_level_message_container: null,
+        release_notes_link: null
     };
 
     /// Enumerates possible error messages.
@@ -23,7 +24,7 @@
     function extract_configuration_from_page()
     {
         return  {
-                    version: CURRENT_VERSION,
+                    version: version.CURRENT,
 
                     general:
                     {
@@ -104,6 +105,8 @@
         initialize_options_change_listeners();
 
         load_page_configuration();
+
+        DOM.release_notes_link.href = version.RELEASE_NOTES.url;
     }
 
     require.config({
@@ -122,7 +125,7 @@
             {
                 messages = messages_module;
                 configuration = configuration_module;
-                CURRENT_VERSION = version_module.CURRENT;
+                version = version_module;
                 domanip = dom_module;
 
                 initialize();
