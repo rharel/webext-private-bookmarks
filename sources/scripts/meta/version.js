@@ -33,8 +33,7 @@
                                 );
                                 return create(major, minor, release);
                             })(),
-                            HAS_RELEASE_NOTES: false,
-                            create: create
+                            HAS_RELEASE_NOTES: false
                         };
            });
 })();
