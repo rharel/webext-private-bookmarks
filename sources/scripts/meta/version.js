@@ -18,22 +18,34 @@
                 };
     }
 
+    const CURRENT = (function()
+    {
+        const [major, minor, release] = (
+            browser.runtime.getManifest().version
+                .split(".")
+                .map(component_string => parseInt(component_string))
+        );
+        return create(major, minor, release);
+    })();
+
+    /// Release notes are hosted in this directory.
+    const RELEASE_NOTES_URL = (
+        "https://rharel.github.io/webext-private-bookmarks/release-notes/" +
+        `${CURRENT.major}-${CURRENT.minor}-${CURRENT.release}.html`
+    );
+
     define(["scripts/utilities/math"],
            math_module =>
            {
                 clamp = math_module.clamp;
 
                 return  {
-                            CURRENT: (() =>
+                            CURRENT: CURRENT,
+                            RELEASE_NOTES:
                             {
-                                const [major, minor, release] = (
-                                    browser.runtime.getManifest().version
-                                        .split(".")
-                                        .map(component_string => parseInt(component_string))
-                                );
-                                return create(major, minor, release);
-                            })(),
-                            HAS_RELEASE_NOTES: false
+                                url: RELEASE_NOTES_URL,
+                                is_relevant_to_users: false
+                            }
                         };
            });
 })();

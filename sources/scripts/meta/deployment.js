@@ -3,17 +3,10 @@
     /// Set in define().
     let configuration, version;
 
-    /// Release notes are hosted in the following directory:
-    const RELEASE_NOTES_URL =
-        "https://rharel.github.io/webext-private-bookmarks/release-notes/";
-
     /// Opens a new tab displaying the release notes for the current version.
     function show_release_notes()
     {
-        const {major, minor, release} = version.CURRENT;
-        const url = RELEASE_NOTES_URL + `${major}-${minor}-${release}.html`;
-
-        browser.tabs.create({ url: url, active: true });
+        browser.tabs.create({ url: version.RELEASE_NOTES.url, active: true });
     }
 
     /// Handles extension deployment (installation and updates).
@@ -30,7 +23,7 @@
         configuration.load().then(options =>
         {
             if (options.notification.release_notes &&
-                version.HAS_RELEASE_NOTES)
+                version.RELEASE_NOTES.is_relevant_to_users)
             {
                 show_release_notes();
             }
