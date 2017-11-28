@@ -98,11 +98,11 @@ button.positive:active { background-color: var(--green-90); }
 
 button.negative
 {
-    background-color: var(--red-70);
-    border-color: var(--red-70);
+    background-color: var(--red-60);
+    border-color: var(--red-60);
 }
-button.negative:hover  { background-color: var(--red-80); }
-button.negative:active { background-color: var(--red-90); }
+button.negative:hover  { background-color: var(--red-70); }
+button.negative:active { background-color: var(--red-80); }
 
 /* Messages */
 .message-container
