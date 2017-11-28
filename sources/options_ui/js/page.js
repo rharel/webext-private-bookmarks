@@ -100,7 +100,7 @@
     function initialize()
     {
         domanip.populate(DOM);
-        messages = messages.create_for(DOM.top_level_message_container);
+        messages = new messages.Controller(DOM.top_level_message_container);
 
         initialize_options_change_listeners();
 

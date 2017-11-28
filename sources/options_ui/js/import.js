@@ -184,7 +184,7 @@
     function initialize()
     {
         domanip.populate(DOM);
-        messages = messages.create_for(DOM.import_message_container);
+        messages = new messages.Controller(DOM.import_message_container);
 
         reset();
         DOM.import_file_input.addEventListener("change", () =>
