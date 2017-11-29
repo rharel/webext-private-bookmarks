@@ -126,7 +126,7 @@ button.negative:active { background-color: var(--red-80); }
 }
 .message-container.error
 {
-    background-color: var(--red-50);
+    background-color: var(--red-60);
     color: white;
 }
 .message-container.error > .message::before
