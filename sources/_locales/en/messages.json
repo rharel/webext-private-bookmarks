@@ -33,6 +33,7 @@
     {
         "message": "Disable password requirements (allows less secure passwords)"
     },
+
     "export_section_header":
     {
         "message": "Export"
@@ -94,6 +95,23 @@
     "import_error_encrypted_import_failed":
     {
         "message": "The import operation failed. Are you sure you entered the correct password for the file(s)?"
+    },
+
+    "data_section_header":
+    {
+        "message": "Data"
+    },
+    "clear_data_command":
+    {
+        "message": "Clear..."
+    },
+    "confirm_data_clearance_question":
+    {
+        "message": "This will delete all private bookmarks and your password, are you sure?"
+    },
+    "error_clearing_data":
+    {
+        "message": "Unexpected error when clearing data"
     },
 
     "support_section_header":
@@ -188,11 +206,6 @@
         "message": "Authenticate"
     },
 
-    "confirmation_title":
-    {
-        "message": "Are you sure?"
-    },
-
     "yes_no_positive":
     {
         "message": "Yes",
@@ -273,15 +286,6 @@
     "password_changed_successfully":
     {
         "message": "Your password has been changed successfully."
-    },
-
-    "clear_data_command":
-    {
-        "message": "Clear data"
-    },
-    "confirm_data_clearance_question":
-    {
-        "message": "This will delete all private bookmarks permanently, and a new password will need to be set up. Are you sure you wish to continue?"
     },
 
     "notification_item_added_title":

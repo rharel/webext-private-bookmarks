@@ -3,6 +3,7 @@
 ### 0.0.13
  * Makes error display in the options page more consistent and adds animation.
  * Links to release notes from the options page.
+ * Moves the "Clear Data" button to the options page.
 
 ### 0.0.12
  * Allows import of several backup files at once (provided they share a password).

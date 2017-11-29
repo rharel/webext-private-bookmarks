@@ -116,7 +116,7 @@
             scripts: "/scripts"
         }
     });
-    require(["./export", "./import"]);
+    require(["./data", "./export", "./import"]);
     require(["./messages",
              "scripts/meta/configuration",
              "scripts/meta/version",

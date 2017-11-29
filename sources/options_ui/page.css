@@ -1,10 +1,24 @@
 body { overflow-y: hidden; }
 
+button.small
+{
+    height: 24px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    padding: 0 4px 0 4px;
+}
+button.small > img
+{
+    height: 12px;
+    margin: 2px;
+    width: 12px;
+}
+
 @keyframes fade-in
 {
-    0%   { height: 0;    opacity: 0; }
-    50%  { height: 32px; opacity: 0; }
-    100% { height: 32px; opacity: 1; }
+    0%   { height: 0;     opacity: 0; }
+    50%  { height: 2.5em; opacity: 0; }
+    100% { height: 2.5em; opacity: 1; }
 }
 .fading-in { animation: fade-in 0.5s ease-out forwards; }
 
@@ -14,3 +28,4 @@ body { overflow-y: hidden; }
     display: none;
     opacity: 0;
 }
+.message-container > button { display: none; }

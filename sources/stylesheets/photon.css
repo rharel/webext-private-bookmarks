@@ -88,6 +88,21 @@ a[href*="//"]::after
 a.inline-with-margin { margin-left: 8px; }
 
 /* Buttons */
+button
+{
+    align-items: center;
+    display: flex;
+    font-size: 1em;
+    height: auto;
+    padding: 8px;
+}
+button > label { flex-grow: 1; }
+button > img
+{
+    height: 28px;
+    width: 28px;
+}
+
 button.positive
 {
     background-color: var(--green-70);
@@ -107,11 +122,18 @@ button.negative:active { background-color: var(--red-80); }
 /* Messages */
 .message-container
 {
-    box-sizing: border-box;
     align-items: center;
     border-radius: 0.25rem;
+    box-sizing: border-box;
     display: flex;
-    padding: 0.25rem;
+}
+.message-container > * + button { margin-left: 8px; }
+.message-container > .message
+{
+    align-items: center;
+    display: flex;
+    height: 100%;
+    padding: 0 16px 0 4px;
 }
 .message-container > .message::before
 {
@@ -120,16 +142,45 @@ button.negative:active { background-color: var(--red-80); }
     content: "";
     display: inline-block;
     height: 16px;
-    margin: -0.3rem 0.15rem 0;
+    margin-left: 4px;
+    margin-right: 4px;
     vertical-align: middle;
     width: 16px;
 }
+
 .message-container.error
 {
     background-color: var(--red-60);
     color: white;
 }
 .message-container.error > .message::before
+{
+    background-image: url(/icons/photon/warning_white.svg);
+}
+
+.message-container.success
+{
+    background-color: var(--green-60);
+    color: white;
+}
+.message-container.success > .message::before
+{
+    background-image: url(/icons/main/correct_white.svg);
+}
+
+.message-container.warning
+{
+    background: repeating-linear-gradient(
+        45deg,
+        var(--grey-90),
+        var(--grey-90) 24px,
+        var(--yellow-50) 24px,
+        var(--yellow-50) 48px
+    );
+    color: white;
+}
+.message-container.warning > .message { background-color: #000000AA; }
+.message-container.warning > .message::before
 {
     background-image: url(/icons/photon/warning_white.svg);
 }

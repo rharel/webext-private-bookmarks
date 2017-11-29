@@ -18,8 +18,7 @@
     {
         lock_button: null,
         unlock_button: null,
-        change_password_button: null,
-        clear_data_button: null
+        change_password_button: null
     };
 
     /// Disables all buttons.
@@ -36,7 +35,6 @@
         else                             { domanip.enable(DOM.lock_button, true);   }
 
         domanip.enable(DOM.change_password_button, true);
-        domanip.enable(DOM.clear_data_button, true);
     }
 
     /// Invoked when the user chooses to lock his/her private bookmarks.
@@ -138,33 +136,6 @@
         });
     }
 
-    /// Invoked when the user chooses to clear all extension data in storage.
-    function clear_data()
-    {
-        transition_to("confirmation_dialog",
-        {
-            message: browser.i18n.getMessage("confirm_data_clearance_question"),
-
-            on_acceptance: async () =>
-            {
-                try
-                {
-                    await bookmarks.clear();
-                    transition_to("get_started");
-                }
-                catch (error)
-                {
-                    transition_to("error",
-                    {
-                        title: "Error during data-clearance",
-                        message: error.message
-                    });
-                }
-            },
-            on_denial: () => { transition_to("main_menu"); }
-        });
-    }
-
     /// Invoked when this panel is activated.
     function on_activate() { update_button_activation_status(); }
     /// Invoked when this panel is deactivated.
@@ -178,7 +149,6 @@
         DOM.lock_button.addEventListener("click", lock);
         DOM.unlock_button.addEventListener("click", unlock);
         DOM.change_password_button.addEventListener("click", change_password);
-        DOM.clear_data_button.addEventListener("click", clear_data);
     }
 
     define(["scripts/interaction/bookmarks_interface",

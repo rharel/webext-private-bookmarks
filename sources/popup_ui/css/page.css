@@ -20,23 +20,6 @@ body
 
 .deactivated { display: none; }
 
-button
-{
-    align-items: center;
-    display: flex;
-    font-size: 1rem;
-    height: auto;
-    padding: 8px;
-}
-button > label { flex-grow: 1; }
-button > img
-{
-    height: 28px;
-    display: inline-block;
-    vertical-align: middle;
-    width: 28px;
-}
-
 /* Buttons - large */
 button.large
 {
@@ -127,32 +110,6 @@ img { box-sizing: border-box; }
 {
     height: 64px;
     width: 64px;
-}
-
-/* Panel - Confirmation dialog */
-#confirmation-dialog-panel
-{
-    background: repeating-linear-gradient(
-        45deg,
-        var(--grey-90),
-        var(--grey-90) 24px,
-        var(--yellow-50) 24px,
-        var(--yellow-50) 48px
-    );
-}
-#confirmation-message
-{
-    background-color: var(--yellow-50);
-    padding: 8px;
-}
-#confirmation-buttons-container
-{
-    justify-content: space-between;
-}
-#confirmation-buttons-container > button > img
-{
-    height: 24px;
-    width: 24px;
 }
 
 /* Panel - Password setup */
