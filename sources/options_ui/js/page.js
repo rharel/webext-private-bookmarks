@@ -107,6 +107,8 @@
         load_page_configuration();
 
         DOM.release_notes_link.href = version.RELEASE_NOTES.url;
+
+        browser.runtime.sendMessage({ type: "options-open" });
     }
 
     require.config({

@@ -12,5 +12,6 @@
              "scripts/background/browser_action",
              "scripts/background/commands",
              "scripts/background/configuration_monitor",
-             "scripts/background/page_action"]);
+             "scripts/background/page_action",
+             "scripts/meta/deployment"]);
 })();

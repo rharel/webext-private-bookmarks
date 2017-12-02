@@ -21,6 +21,8 @@
         }
 
         DOM.options_button.addEventListener("click", () => { browser.runtime.openOptionsPage(); });
+
+        browser.runtime.sendMessage({ type: "popup-open" });
     }
 
     require.config({
