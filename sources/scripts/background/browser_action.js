@@ -3,6 +3,14 @@
     /// Set in define().
     let bookmarks;
 
+    /// The button's title when enabled.
+    const TITLE_WHEN_ENABLED = browser.i18n.getMessage("extension_name");
+    /// The button's title when disabled.
+    const TITLE_WHEN_DISABLED = (
+        browser.i18n.getMessage("extension_name") +
+        ` (${browser.i18n.getMessage("disabled_due_to_invalid_privacy_context")})`
+    );
+
     /// True iff the extension's privacy context setting is set to private.
     let do_limit_to_private_context = false;
 
@@ -10,16 +18,16 @@
     function enable_in_tab(id)
     {
         browser.browserAction.setTitle({
-            title: browser.i18n.getMessage("extension_name"),
+            title: TITLE_WHEN_ENABLED,
             tabId: id
         });
         browser.browserAction.enable(id);
     }
-    /// Disables the browser action in the specified tab for the specified reason.
-    function disable_in_tab(id, reason)
+    /// Disables the browser action in the specified tab.
+    function disable_in_tab(id)
     {
         browser.browserAction.setTitle({
-            title: `${browser.i18n.getMessage("extension_name")} (${reason})`,
+            title: TITLE_WHEN_DISABLED,
             tabId: id
         });
         browser.browserAction.disable(id);
@@ -31,8 +39,7 @@
     {
         if (do_limit_to_private_context && !tab.incognito)
         {
-            disable_in_tab(tab.id,
-                           browser.i18n.getMessage("disabled_due_to_invalid_privacy_context"));
+            disable_in_tab(tab.id);
         }
         else { enable_in_tab(tab.id); }
     }
