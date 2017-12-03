@@ -4,7 +4,7 @@
     let bookmarks, notification;
 
     /// True iff the extension's privacy context setting is set to private.
-    let is_private;
+    let do_limit_to_private_context = false;
 
     /// Shows/hides the page action in the specified tab.
     /// The action is visible when:
@@ -12,9 +12,9 @@
     ///     2. Its tab's URL is not already bookmarked privately.
     async function update_in_tab(tab)
     {
-        if (bookmarks.is_locked()         ||
-           (is_private && !tab.incognito) ||
-            tab.url.startsWith("about:")  ||
+        if (bookmarks.is_locked() ||
+           (do_limit_to_private_context && !tab.incognito) ||
+            tab.url.startsWith("about:") ||
            (await bookmarks.contains_url(tab.url)))
         {
             browser.pageAction.hide(tab.id);
@@ -49,28 +49,29 @@
     /// When a bookmarks is removed we may need to update the page action's visibility.
     browser.bookmarks.onRemoved.addListener(update_in_active_tabs);
 
+    /// Listen to changes in privacy context requirements.
+    browser.runtime.onMessage.addListener(message =>
+    {
+        if (message.type !== "context-requirement-change") { return; }
+
+        do_limit_to_private_context = message.do_limit_to_private_context;
+        update_in_active_tabs();
+    });
+
     define(["scripts/background/bookmarks_manager",
-            "scripts/background/configuration_monitor",
             "scripts/meta/configuration",
             "scripts/utilities/notification"],
-           (bookmarks_module, configuration_monitor_module, configuration_module,
-            notification_module) =>
+           (bookmarks_module, configuration, notification_module) =>
            {
                 bookmarks = bookmarks_module;
                 bookmarks.events.addListener("lock",   update_in_active_tabs);
                 bookmarks.events.addListener("unlock", update_in_active_tabs);
 
-                configuration_monitor_module
-                    .events.addListener("privacy-change", value =>
-                    {
-                        is_private = value;
-                        update_in_active_tabs();
-                    });
-                configuration_module.load().then(options =>
+                configuration.load().then(options =>
                 {
                     if (options !== null)
                     {
-                        is_private = options.general.is_private;
+                        do_limit_to_private_context = options.do_limit_to_private_context;
                         update_in_active_tabs();
                     }
                 });

@@ -20,7 +20,7 @@
 
         const options = await configuration.load();
 
-        if (options.notification.release_notes &&
+        if (options.do_show_release_notes &&
             version.RELEASE_NOTES.is_relevant_to_users)
         {
             show_release_notes();

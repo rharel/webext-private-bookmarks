@@ -20,16 +20,18 @@
         if (core.is_unlocked() && !(await is_private_browsing())) { return core.lock(); }
     }
     /// Enables/disables window monitoring based on the specified privacy context setting.
-    function update_private_window_monitoring(is_private)
+    function update_private_window_monitoring(do_limit_to_private_context)
     {
         const onRemoved = browser.windows.onRemoved;
 
-        if (is_private && !onRemoved.hasListener(lock_if_not_private))
+        if (do_limit_to_private_context &&
+            !onRemoved.hasListener(lock_if_not_private))
         {
             onRemoved.addListener(lock_if_not_private);
             lock_if_not_private();
         }
-        else if (!is_private && onRemoved.hasListener(lock_if_not_private))
+        else if (!do_limit_to_private_context &&
+                 onRemoved.hasListener(lock_if_not_private))
         {
             onRemoved.removeListener(lock_if_not_private);
         }
@@ -61,11 +63,18 @@
         }
     }
 
+    /// Listen to changes in privacy context requirements.
+    browser.runtime.onMessage.addListener(message =>
+    {
+        if (message.type !== "context-requirement-change") { return; }
+
+        update_private_window_monitoring(message.do_limit_to_private_context);
+    });
+
     require(["scripts/background/bookmarks_manager/core",
-             "scripts/background/configuration_monitor",
              "scripts/meta/configuration",
              "scripts/utilities/local_storage"],
-            (core_module, configuration_monitor_module, configuration_module, storage_module) =>
+            (core_module, configuration, storage_module) =>
             {
                 core = core_module;
                 storage = storage_module;
@@ -79,13 +88,11 @@
                     storage.remove(FRONT_ID_STORAGE_KEY);
                 });
 
-                configuration_monitor_module
-                    .events.addListener("privacy-change", update_private_window_monitoring);
-                configuration_module.load().then(options =>
+                configuration.load().then(options =>
                 {
                     if (options !== null)
                     {
-                        update_private_window_monitoring(options.general.is_private);
+                        update_private_window_monitoring(options.do_limit_to_private_context);
                     }
                 });
 

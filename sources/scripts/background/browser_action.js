@@ -4,7 +4,7 @@
     let bookmarks;
 
     /// True iff the extension's privacy context setting is set to private.
-    let is_private;
+    let do_limit_to_private_context = false;
 
     /// Enables the browser action in the specified tab.
     function enable_in_tab(id)
@@ -29,7 +29,7 @@
     /// context setting.
     function update_in_tab(tab)
     {
-        if (is_private && !tab.incognito)
+        if (do_limit_to_private_context && !tab.incognito)
         {
             disable_in_tab(tab.id,
                            browser.i18n.getMessage("disabled_due_to_invalid_privacy_context"));
@@ -96,10 +96,18 @@
         }
     }
 
+    /// Listen to changes in privacy context requirements.
+    browser.runtime.onMessage.addListener(message =>
+    {
+        if (message.type !== "context-requirement-change") { return; }
+
+        do_limit_to_private_context = message.do_limit_to_private_context;
+        update_in_active_tabs();
+    });
+
     define(["scripts/background/bookmarks_manager",
-            "scripts/background/configuration_monitor",
             "scripts/meta/configuration"],
-           (bookmarks_module, configuration_monitor_module, configuration_module) =>
+           (bookmarks_module, configuration) =>
            {
                 bookmarks = bookmarks_module;
 
@@ -110,17 +118,11 @@
                 bookmarks.events.addListener("unlock", update_icon);
                 update_icon();
 
-                configuration_monitor_module
-                    .events.addListener("privacy-change", value =>
-                    {
-                        is_private = value;
-                        update_in_active_tabs();
-                    });
-                configuration_module.load().then(options =>
+                configuration.load().then(options =>
                 {
                     if (options !== null)
                     {
-                        is_private = options.general.is_private;
+                        do_limit_to_private_context = options.do_limit_to_private_context;
                         update_in_active_tabs();
                     }
                 });

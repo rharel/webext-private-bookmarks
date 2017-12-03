@@ -6,9 +6,9 @@
     /// Contains DOM elements. Populated by initialize().
     const DOM =
     {
-        is_private_checkbox: null,
-        disable_password_requirements_checkbox: null,
-        do_notify_about_release_notes_checkbox: null,
+        do_disable_password_requirements_checkbox: null,
+        do_limit_to_private_context_checkbox: null,
+        do_show_release_notes_checkbox: null,
         top_level_message_container: null,
         release_notes_link: null
     };
@@ -26,33 +26,28 @@
         return  {
                     version: version.CURRENT,
 
-                    general:
-                    {
-                        is_private: DOM.is_private_checkbox.checked
-                    },
-                    notification:
-                    {
-                        release_notes: DOM.do_notify_about_release_notes_checkbox.checked
-                    },
-                    security:
-                    {
-                        disable_password_requirements: (
-                            DOM.disable_password_requirements_checkbox.checked
-                        )
-                    }
+                    do_disable_password_requirements: (
+                        DOM.do_disable_password_requirements_checkbox.checked
+                    ),
+                    do_limit_to_private_context: (
+                        DOM.do_limit_to_private_context_checkbox.checked
+                    ),
+                    do_show_release_notes: (
+                        DOM.do_show_release_notes_checkbox.checked
+                    ),
                 };
     }
     /// Applies the specified configuration to the controls on the page.
     function apply_configuration_to_page(options)
     {
-        DOM.disable_password_requirements_checkbox.checked = (
-            options.security.disable_password_requirements
+        DOM.do_disable_password_requirements_checkbox.checked = (
+            options.do_disable_password_requirements
         );
-        DOM.do_notify_about_release_notes_checkbox.checked = (
-            options.notification.release_notes
+        DOM.do_limit_to_private_context_checkbox.checked = (
+            options.do_limit_to_private_context
         );
-        DOM.is_private_checkbox.checked = (
-            options.general.is_private
+        DOM.do_show_release_notes_checkbox.checked = (
+            options.do_show_release_notes
         );
     }
 
