@@ -158,6 +158,16 @@ button.negative:active { background-color: var(--red-80); }
     background-image: url(/icons/photon/warning_white.svg);
 }
 
+.message-container.info
+{
+    background-color: var(--blue-60);
+    color: white;
+}
+.message-container.info > .message::before
+{
+    background-image: url(/icons/photon/warning_white.svg);
+}
+
 .message-container.success
 {
     background-color: var(--green-60);

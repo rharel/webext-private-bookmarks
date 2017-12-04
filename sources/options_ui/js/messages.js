@@ -104,6 +104,15 @@
             this._disable_buttons();
             this.show();
         },
+        /// Displays a neutral information message with the specified text.
+        info: function(text)
+        {
+            this.container.className = "info message-container";
+            this.message.textContent = text;
+
+            this._disable_buttons();
+            this.show();
+        },
         /// Displays a success message.
         success: function()
         {
