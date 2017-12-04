@@ -1,6 +1,7 @@
 /* Adopted with modifications from: https://chrisbracco.com/a-simple-css-tooltip/ */
 [data-tooltip]
 {
+    font-size: 0.75em;
     position: relative;
     z-index: 2;
 }
@@ -28,5 +29,12 @@
     text-align: center;
     width: var(--width);
 }
+[data-tooltip].has-long-tooltip:before
+{
+    --width: 256px;
+
+    text-align: left;
+}
+
 /* Show on hover. */
 [data-tooltip]:hover:before { visibility: visible; }
