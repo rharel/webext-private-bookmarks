@@ -59,7 +59,7 @@
             do_limit_to_private_context = new_requirements.do_limit_to_private_context;
             update_in_active_tabs();
         }
-        events.global.add_listener(
+        events.local.add_listener(
             "context-requirement-change",
             on_context_requirement_change
         );

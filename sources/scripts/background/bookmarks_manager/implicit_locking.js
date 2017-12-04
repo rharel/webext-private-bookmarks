@@ -77,7 +77,7 @@
             storage.remove(FRONT_ID_STORAGE_KEY);
         });
 
-        events.global.add_listener("context-requirement-change", message =>
+        events.local.add_listener("context-requirement-change", message =>
         {
             update_private_window_monitoring(message.do_limit_to_private_context);
         });

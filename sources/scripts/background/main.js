@@ -12,5 +12,6 @@
              "scripts/background/browser_action",
              "scripts/background/commands",
              "scripts/background/page_action",
+             "scripts/background/storage_monitor",
              "scripts/meta/deployment"]);
 })();

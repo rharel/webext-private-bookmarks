@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let events, storage, version;
+    let storage, version;
 
     /// Returns a new configuration object with default values for all options.
     function create()
@@ -57,38 +57,18 @@
     /// Resolves to the configuration object if it exists. If not, resolves to null.
     function load()              { return storage.load(STORAGE_KEY); }
     /// Saves a configuration to local storage asynchronously.
-
-    /// Report any changes to other components of the extension.
-    browser.storage.onChanged.addListener((changes, area) =>
-    {
-        if (area === "local" &&
-            changes.hasOwnProperty(STORAGE_KEY))
-        {
-            const {oldValue, newValue} = changes[STORAGE_KEY];
-
-            if (!oldValue ||
-                oldValue.do_limit_to_private_context !==
-                newValue.do_limit_to_private_context)
-            {
-                events.global.emit("context-requirement-change",
-                {
-                    do_limit_to_private_context: newValue.do_limit_to_private_context
-                });
-            }
-        }
-    });
     function save(configuration) { return storage.save(STORAGE_KEY, configuration); }
 
     define(["scripts/meta/version",
-            "scripts/utilities/events",
             "scripts/utilities/local_storage"],
-           (version_module, events_module, storage_module) =>
+           (version_module, storage_module) =>
            {
                 version = version_module;
-                events = events_module;
                 storage = storage_module;
 
                 return  {
+                            STORAGE_KEY: STORAGE_KEY,
+
                             create: create,
                             update: update,
 

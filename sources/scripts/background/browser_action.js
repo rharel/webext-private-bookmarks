@@ -3,6 +3,9 @@
     /// Set in define().
     let bookmarks, configuration, events;
 
+    /// True iff the extension's privacy context setting is set to private.
+    let do_limit_to_private_context = false;
+
     /// The button's title when enabled.
     const TITLE_WHEN_ENABLED = browser.i18n.getMessage("extension_name");
     /// The button's title when disabled.
@@ -32,7 +35,7 @@
 
     /// Enables/disables the browser action in the specified tab based on the extension's privacy
     /// context setting.
-    function update_in_tab(tab, do_limit_to_private_context)
+    function update_in_tab(tab)
     {
         if (do_limit_to_private_context && !tab.incognito)
         {
@@ -42,11 +45,11 @@
     }
     /// Enables/disables the browser action in the current tab based on the extension's privacy
     /// context.
-    async function update_in_active_tabs(do_limit_to_private_context)
+    async function update_in_active_tabs()
     {
         (await browser.tabs.query({ active: true })).forEach(tab =>
         {
-            update_in_tab(tab, do_limit_to_private_context);
+            update_in_tab(tab);
         });
     }
     /// Enables/disables the browser action in a newly activated tab based on the extension's
@@ -114,9 +117,10 @@
 
         function on_context_requirement_change(new_requirements)
         {
-            update_in_active_tabs(new_requirements.do_limit_to_private_context);
+            do_limit_to_private_context = new_requirements.do_limit_to_private_context;
+            update_in_active_tabs();
         }
-        events.global.add_listener(
+        events.local.add_listener(
             "context-requirement-change",
             on_context_requirement_change
         );
