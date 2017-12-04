@@ -10,7 +10,7 @@ Let us refer to the persistent data in storage as the "back" and to the actual b
 There are several cases that induce a locking implicitly:
  * When the front folder is deleted unexpectedly.
  * When the extension's privacy context setting is set to "private" and the user exits private browsing. A private browsing "exit" is when the last private window is closed.
- * Ideally, we would like to implicitly-lock when the extension is suspended, but that requires the `browser.runtime.onSuspend` event to be implemented in Firefox, which is not the case at the time of writing.
+ * Ideally, we would like to implicitly-lock when the extension is suspended, but Firefox is missing some functionality for that at this time. Therefore, if the browser is closed while private bookmarks are unlocked, the next time it is opened we make sure to delete the leftover front immediately.
 
 ## License
 
