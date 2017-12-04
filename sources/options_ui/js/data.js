@@ -47,7 +47,7 @@
     }
 
     require(["./messages",
-             "scripts/interaction/bookmarks_interface",
+             "scripts/foreground/bookmarks_interface",
              "scripts/utilities/dom_manipulation"],
             (messages_module, bookmarks_module, dom_module) =>
             {

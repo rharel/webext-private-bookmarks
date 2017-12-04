@@ -151,7 +151,7 @@
         DOM.change_password_button.addEventListener("click", change_password);
     }
 
-    define(["scripts/interaction/bookmarks_interface",
+    define(["scripts/foreground/bookmarks_interface",
             "scripts/utilities/dom_manipulation"],
            (bookmarks_module, dom_module) =>
            {

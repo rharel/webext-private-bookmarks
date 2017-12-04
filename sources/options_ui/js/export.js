@@ -74,7 +74,7 @@
         events.global.add_listener("unlock", enable_plain_export_option);
     }
 
-    require(["scripts/interaction/bookmarks_interface",
+    require(["scripts/foreground/bookmarks_interface",
              "scripts/meta/version",
              "scripts/utilities/dom_manipulation",
              "scripts/utilities/events"],

@@ -91,7 +91,7 @@
              "popup/panels/on_hold",
              "popup/panels/password_setup",
              "popup/panels/success",
-             "scripts/interaction/bookmarks_interface",
+             "scripts/foreground/bookmarks_interface",
              "scripts/utilities/dom_manipulation"],
             (authentication_module, error_module, get_started_module,
              main_menu_module, on_hold_module, password_setup_module, success_module,

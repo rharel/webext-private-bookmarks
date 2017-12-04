@@ -93,8 +93,8 @@
         DOM.cancel_authentication_button.addEventListener("click", () => { on_cancellation(); });
     }
 
-    define(["scripts/interaction/bookmarks_interface",
-            "scripts/interaction/security",
+    define(["scripts/foreground/bookmarks_interface",
+            "scripts/foreground/security",
             "scripts/utilities/dom_manipulation"],
            (bookmarks_module, security_module, dom_module) =>
            {

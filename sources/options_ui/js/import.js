@@ -200,8 +200,8 @@
     }
 
     require(["./messages",
-             "scripts/interaction/bookmarks_interface",
-             "scripts/interaction/security",
+             "scripts/foreground/bookmarks_interface",
+             "scripts/foreground/security",
              "scripts/utilities/dom_manipulation",
              "scripts/utilities/events"],
             (messages_module, bookmarks_module, security_module,
