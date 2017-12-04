@@ -53,21 +53,10 @@
     /// The key for the extension's configuration in local storage.
     const STORAGE_KEY = "configuration";
 
-    /// Caches the configuration object.
-    let cache = null;
     /// Loads the configuration from local storage.
     /// Resolves to the configuration object if it exists. If not, resolves to null.
-    async function load()
-    {
-        if (cache === null) { cache = await storage.load(STORAGE_KEY); }
-        return cache;
-    }
+    function load()              { return storage.load(STORAGE_KEY); }
     /// Saves a configuration to local storage asynchronously.
-    function save(configuration)
-    {
-        cache = JSON.parse(JSON.stringify(configuration));  // Deep copy.
-        return storage.save(STORAGE_KEY, configuration);
-    }
 
     /// Report any changes to other components of the extension.
     browser.storage.onChanged.addListener((changes, area) =>
@@ -88,6 +77,7 @@
             }
         }
     });
+    function save(configuration) { return storage.save(STORAGE_KEY, configuration); }
 
     define(["scripts/meta/version",
             "scripts/utilities/events",
