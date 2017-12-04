@@ -1,6 +1,6 @@
 (function()
 {
-    /// Set in define().
+    /// Imported from other modules.
     let bookmarks, notification;
 
     /// Lock in response to user command.

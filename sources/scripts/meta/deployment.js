@@ -1,6 +1,6 @@
 (function()
 {
-    /// Set in define().
+    /// Imported from other modules.
     let configuration, events, storage, version;
 
     /// Opens a new tab displaying the release notes for the current version.

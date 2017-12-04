@@ -1,6 +1,6 @@
 (function()
 {
-    /// Set in define().
+    /// Imported from other modules.
     let bookmarks, domanip;
 
     /// Contains DOM elements. Populated by initialize().

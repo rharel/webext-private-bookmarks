@@ -1,6 +1,6 @@
 (function()
 {
-    /// Set in define().
+    /// Imported from other modules.
     let CURRENT_VERSION, events, populate_with_elements;
 
     /// Contains DOM elements. Populated by initialize().

@@ -1,6 +1,6 @@
 (function()
 {
-    /// Set in define().
+    /// Imported from other modules.
     let storage, version;
 
     /// Returns a new configuration object with default values for all options.

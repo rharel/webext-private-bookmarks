@@ -5,7 +5,7 @@
     /// if they are all closed. Other reasons for implicit locking include unexpected deletion of
     /// the front and suspension of the extension. This module implements this behavior.
 
-    /// Set in define().
+    /// Imported from other modules.
     let configuration, core, events, storage;
 
     /// Resolves to true iff there is at least one private normal/popup window open.

@@ -12,7 +12,7 @@
     /// The user supplies his/her password during unlocking, and its hash is from then on saved in
     /// memory until locking (so that we don't have to ask for it again to encrypt).
 
-    /// Set in define().
+    /// Imported from other modules.
     let back, crypto, events, front, tree;
 
     /// The key used to unlock the back. It is assigned null when locked.

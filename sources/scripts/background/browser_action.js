@@ -1,6 +1,6 @@
 (function()
 {
-    /// Set in define().
+    /// Imported from other modules.
     let bookmarks, configuration, events;
 
     /// True iff the extension's privacy context setting is set to private.

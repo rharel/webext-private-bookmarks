@@ -1,6 +1,6 @@
 (function()
 {
-    /// Set in define().
+    /// Imported from other modules.
     let crypto, storage;
 
     /// The key for the folder in local storage.

@@ -1,6 +1,6 @@
 (function()
 {
-    /// Set in define().
+    /// Imported from other modules.
     let back, crypto, CURRENT_VERSION, events, front, tree;
 
     /// Returns a JSON object containing encrypted bookmarks' data.

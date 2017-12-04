@@ -1,6 +1,6 @@
 (function()
 {
-    /// Set in define().
+    /// Imported from other modules.
     let storage;
 
     /// Key to the folder's spawn location information in storage.

@@ -1,6 +1,6 @@
 (function()
 {
-    /// Set in define().
+    /// Imported from other modules.
     let bookmarks, domanip;
 
     /// Invoked when transitioning out of this panel.

@@ -1,6 +1,6 @@
 (function()
 {
-    /// Set in require().
+    /// Imported from other modules.
     let CONFIGURATION_STORAGE_KEY, events;
 
     /// Convert changes to storage to relevant events.
