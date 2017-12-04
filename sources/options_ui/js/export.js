@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let bookmarks, CURRENT_VERSION, domanip;
+    let bookmarks, CURRENT_VERSION, domanip, events;
 
     /// Contains DOM elements. Populated by initialize().
     const DOM =
@@ -69,21 +69,21 @@
 
         if (await bookmarks.is_locked()) { disable_plain_export_option(); }
         else                             { enable_plain_export_option();  }
-        browser.runtime.onMessage.addListener(message =>
-        {
-            if      (message.type === "lock")   { disable_plain_export_option(); }
-            else if (message.type === "unlock") { enable_plain_export_option();  }
-        });
+
+        events.global.add_listener("lock",   disable_plain_export_option);
+        events.global.add_listener("unlock", enable_plain_export_option);
     }
 
     require(["scripts/interaction/bookmarks_interface",
              "scripts/meta/version",
-             "scripts/utilities/dom_manipulation"],
-            (bookmarks_module, version_module, dom_module) =>
+             "scripts/utilities/dom_manipulation",
+             "scripts/utilities/events"],
+            (bookmarks_module, version_module, dom_module, events_module) =>
             {
                 bookmarks = bookmarks_module;
                 CURRENT_VERSION = version_module.CURRENT;
                 domanip = dom_module;
+                events = events_module;
 
                 initialize();
             });

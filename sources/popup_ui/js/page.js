@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let CURRENT_VERSION, populate_with_elements;
+    let CURRENT_VERSION, events, populate_with_elements;
 
     /// Contains DOM elements. Populated by initialize().
     const DOM =
@@ -22,7 +22,7 @@
 
         DOM.options_button.addEventListener("click", () => { browser.runtime.openOptionsPage(); });
 
-        browser.runtime.sendMessage({ type: "popup-open" });
+        events.global.emit("popup-open");
     }
 
     require.config({
@@ -35,11 +35,14 @@
                    });
     require(["popup/panels/controller",
              "scripts/meta/version",
-             "scripts/utilities/dom_manipulation"],
-            (panels_controller_module, version_module, dom_module) =>
+             "scripts/utilities/dom_manipulation",
+             "scripts/utilities/events"],
+            (panels_controller_module, version_module,
+             dom_module, events_module) =>
             {
                 CURRENT_VERSION = version_module.CURRENT;
                 populate_with_elements = dom_module.populate;
+                events = events_module;
 
                 initialize();
             });

@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let configuration, storage, version;
+    let configuration, events, storage, version;
 
     /// Opens a new tab displaying the release notes for the current version.
     function show_release_notes()
@@ -29,19 +29,12 @@
     /// Listens for first user interaction with the extension proceeding deployment.
     async function listen_for_first_interaction(deployment_type)
     {
-        /// Inspects the specified runtime message to determine whether it counts as an initial
-        /// user interaction with the extension.
-        function check(message)
+        let listener = events.global.add_listener(["options-open", "popup-open"], () =>
         {
-            if (message.type === "options-open" ||
-                message.type === "popup-open")
-            {
-                browser.runtime.onMessage.removeListener(check);
-                storage.remove(DEPLOYMENT_TYPE_STORAGE_KEY);
-                on_first_interaction(deployment_type);
-            }
-        }
-        browser.runtime.onMessage.addListener(check);
+            events.global.remove_listener(listener);
+            storage.remove(DEPLOYMENT_TYPE_STORAGE_KEY);
+            on_first_interaction(deployment_type);
+        });
     }
 
     /// Handles extension deployment (installation and updates).
@@ -78,11 +71,13 @@
 
     define(["scripts/meta/configuration",
             "scripts/meta/version",
+            "scripts/utilities/events",
             "scripts/utilities/local_storage"],
-           (configuration_module, version_module, storage_module) =>
+           (configuration_module, version_module, events_module, storage_module) =>
            {
                 configuration = configuration_module;
                 version = version_module;
+                events = events_module;
                 storage = storage_module;
 
                 initialize();

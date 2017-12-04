@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let back, crypto, CURRENT_VERSION, front, tree;
+    let back, crypto, CURRENT_VERSION, events, front, tree;
 
     /// Returns a JSON object containing encrypted bookmarks' data.
     async function export_encrypted_data()
@@ -63,8 +63,8 @@
 
             function emit_progress_event()
             {
-                browser.runtime.sendMessage({
-                    type:   "import-status-update",
+                events.global.emit("import-status-update",
+                {
                     index:   created_node_count,
                     current: created_node_count,
                     total:   total_node_count
@@ -92,14 +92,17 @@
             "scripts/background/bookmarks_manager/front",
             "scripts/background/bookmarks_manager/tree_utilities",
             "scripts/meta/version",
-            "scripts/utilities/cryptography"],
-           (back_module, front_module, tree_module, version_module, cryptography_module) =>
+            "scripts/utilities/cryptography",
+            "scripts/utilities/events"],
+           (back_module, front_module, tree_module,
+            version_module, cryptography_module, events_module) =>
            {
                 back = back_module;
                 CURRENT_VERSION = version_module.CURRENT;
                 front = front_module;
                 tree = tree_module;
                 crypto = cryptography_module;
+                events = events_module;
 
                 return  {
                             export_encrypted_data: export_encrypted_data,

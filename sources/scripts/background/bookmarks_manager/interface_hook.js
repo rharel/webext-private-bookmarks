@@ -1,30 +1,26 @@
 (function()
 {
     /// Set in define().
-    let core, INTERFACE_MESSAGE;
+    let core, events;
 
-    /// Listen for and handle non-background commands via the bookmarks interface
-    /// (see scripts/interaction/bookmarks_interface.js).
-    browser.runtime.onMessage.addListener(message =>
+    /// Initializes this module.
+    function initialize()
     {
-        if (message.type === INTERFACE_MESSAGE)
+        /// Listen for and handle commands from other frames via the bookmarks interface
+        /// (see scripts/interaction/bookmarks_interface.js).
+        events.global.add_listener("bookmarks-interface", message =>
         {
-            if (message.property_name)
-            {
-                return Promise.resolve(core[message.property_name]);
-            }
-            else
-            {
-                return Promise.resolve(core[message.method_name](...message.arguments));
-            }
-        }
-    });
+            return Promise.resolve(core[message.method_name](...message.arguments));
+        });
+    }
 
     require(["scripts/background/bookmarks_manager/core",
-             "scripts/interaction/bookmarks_interface"],
-            (core_module, interface_module) =>
+             "scripts/utilities/events"],
+            (core_module, events_module) =>
             {
                 core = core_module;
-                INTERFACE_MESSAGE = interface_module.MESSAGE_TYPE;
+                events = events_module;
+
+                initialize();
             });
 })();

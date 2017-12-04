@@ -6,7 +6,7 @@
     /// the front and suspension of the extension. This module implements this behavior.
 
     /// Set in define().
-    let core, storage;
+    let configuration, core, events, storage;
 
     /// Resolves to true iff there is at least one private normal/popup window open.
     async function is_private_browsing()
@@ -63,39 +63,44 @@
         }
     }
 
-    /// Listen to changes in privacy context requirements.
-    browser.runtime.onMessage.addListener(message =>
+    /// Initializes this module.
+    function initialize()
     {
-        if (message.type !== "context-requirement-change") { return; }
+        clean_up_after_suspension();
 
-        update_private_window_monitoring(message.do_limit_to_private_context);
-    });
+        events.local.add_listener("unlock", () =>
+        {
+            storage.save(FRONT_ID_STORAGE_KEY, core.get_front_id());
+        });
+        events.local.add_listener("lock", () =>
+        {
+            storage.remove(FRONT_ID_STORAGE_KEY);
+        });
+
+        events.global.add_listener("context-requirement-change", message =>
+        {
+            update_private_window_monitoring(message.do_limit_to_private_context);
+        });
+        configuration.load().then(options =>
+        {
+            if (options !== null)
+            {
+                update_private_window_monitoring(options.do_limit_to_private_context);
+            }
+        });
+    }
 
     require(["scripts/background/bookmarks_manager/core",
              "scripts/meta/configuration",
+             "scripts/utilities/events",
              "scripts/utilities/local_storage"],
-            (core_module, configuration, storage_module) =>
+            (core_module, configuration_module, events_module, storage_module) =>
             {
                 core = core_module;
+                configuration = configuration_module;
+                events = events_module;
                 storage = storage_module;
 
-                core.events.addListener("unlock", () =>
-                {
-                    storage.save(FRONT_ID_STORAGE_KEY, core.get_front_id());
-                });
-                core.events.addListener("lock", () =>
-                {
-                    storage.remove(FRONT_ID_STORAGE_KEY);
-                });
-
-                configuration.load().then(options =>
-                {
-                    if (options !== null)
-                    {
-                        update_private_window_monitoring(options.do_limit_to_private_context);
-                    }
-                });
-
-                clean_up_after_suspension();
+                initialize();
             });
 })();

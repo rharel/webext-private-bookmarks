@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let bookmarks;
+    let bookmarks, configuration, events;
 
     /// The button's title when enabled.
     const TITLE_WHEN_ENABLED = browser.i18n.getMessage("extension_name");
@@ -10,9 +10,6 @@
         browser.i18n.getMessage("extension_name") +
         ` (${browser.i18n.getMessage("disabled_due_to_invalid_privacy_context")})`
     );
-
-    /// True iff the extension's privacy context setting is set to private.
-    let do_limit_to_private_context = false;
 
     /// Enables the browser action in the specified tab.
     function enable_in_tab(id)
@@ -35,7 +32,7 @@
 
     /// Enables/disables the browser action in the specified tab based on the extension's privacy
     /// context setting.
-    function update_in_tab(tab)
+    function update_in_tab(tab, do_limit_to_private_context)
     {
         if (do_limit_to_private_context && !tab.incognito)
         {
@@ -45,9 +42,12 @@
     }
     /// Enables/disables the browser action in the current tab based on the extension's privacy
     /// context.
-    async function update_in_active_tabs()
+    async function update_in_active_tabs(do_limit_to_private_context)
     {
-        (await browser.tabs.query({ active: true })).forEach(update_in_tab);
+        (await browser.tabs.query({ active: true })).forEach(tab =>
+        {
+            update_in_tab(tab, do_limit_to_private_context);
+        });
     }
     /// Enables/disables the browser action in a newly activated tab based on the extension's
     /// privacy context setting.
@@ -87,10 +87,10 @@
     /// The timeout for a "busy" badge clear.
     let badge_clear_timeout = null;
     /// Updates the action's badge based on the current busy state.
-    function update_badge(is_busy)
+    function update_badge(busy_event)
     {
         clearTimeout(badge_clear_timeout);
-        if (is_busy)
+        if (busy_event.type === "busy-begin")
         {
             browser.browserAction.setBadgeText({ text: "⌛" });
         }
@@ -103,35 +103,38 @@
         }
     }
 
-    /// Listen to changes in privacy context requirements.
-    browser.runtime.onMessage.addListener(message =>
+    /// Initializes this module.
+    function initialize()
     {
-        if (message.type !== "context-requirement-change") { return; }
+        events.local.add_listener(["busy-begin", "busy-end"], update_badge);
+        browser.browserAction.setBadgeBackgroundColor({ color: "rgb(45, 45, 45)" });
 
-        do_limit_to_private_context = message.do_limit_to_private_context;
-        update_in_active_tabs();
-    });
+        events.local.add_listener(["lock", "unlock"], update_icon);
+        update_icon();
+
+        function on_context_requirement_change(new_requirements)
+        {
+            update_in_active_tabs(new_requirements.do_limit_to_private_context);
+        }
+        events.global.add_listener(
+            "context-requirement-change",
+            on_context_requirement_change
+        );
+        configuration.load().then(options =>
+        {
+            if (options !== null) { on_context_requirement_change(options); }
+        });
+    }
 
     define(["scripts/background/bookmarks_manager",
-            "scripts/meta/configuration"],
-           (bookmarks_module, configuration) =>
+            "scripts/meta/configuration",
+            "scripts/utilities/events"],
+           (bookmarks_module, configuration_module, events_module) =>
            {
                 bookmarks = bookmarks_module;
+                configuration = configuration_module;
+                events = events_module;
 
-                bookmarks.events.addListener("busy", update_badge);
-                browser.browserAction.setBadgeBackgroundColor({ color: "rgb(45, 45, 45)" });
-
-                bookmarks.events.addListener("lock",   update_icon);
-                bookmarks.events.addListener("unlock", update_icon);
-                update_icon();
-
-                configuration.load().then(options =>
-                {
-                    if (options !== null)
-                    {
-                        do_limit_to_private_context = options.do_limit_to_private_context;
-                        update_in_active_tabs();
-                    }
-                });
+                initialize();
            });
 })();

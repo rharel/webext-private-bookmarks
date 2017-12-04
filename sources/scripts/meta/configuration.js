@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let storage, version;
+    let events, storage, version;
 
     /// Returns a new configuration object with default values for all options.
     function create()
@@ -81,8 +81,8 @@
                 oldValue.do_limit_to_private_context !==
                 newValue.do_limit_to_private_context)
             {
-                browser.runtime.sendMessage({
-                    type: "context-requirement-change",
+                events.global.emit("context-requirement-change",
+                {
                     do_limit_to_private_context: newValue.do_limit_to_private_context
                 });
             }
@@ -90,10 +90,12 @@
     });
 
     define(["scripts/meta/version",
+            "scripts/utilities/events",
             "scripts/utilities/local_storage"],
-           (version_module, storage_module) =>
+           (version_module, events_module, storage_module) =>
            {
                 version = version_module;
+                events = events_module;
                 storage = storage_module;
 
                 return  {

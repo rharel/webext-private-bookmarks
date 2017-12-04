@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let configuration, domanip, messages, version;
+    let configuration, domanip, events, messages, version;
 
     /// Contains DOM elements. Populated by initialize().
     const DOM =
@@ -103,7 +103,7 @@
 
         DOM.release_notes_link.href = version.RELEASE_NOTES.url;
 
-        browser.runtime.sendMessage({ type: "options-open" });
+        events.global.emit("options-open");
     }
 
     require.config({
@@ -117,13 +117,16 @@
     require(["./messages",
              "scripts/meta/configuration",
              "scripts/meta/version",
-             "scripts/utilities/dom_manipulation"],
-            (messages_module, configuration_module, version_module, dom_module) =>
+             "scripts/utilities/dom_manipulation",
+             "scripts/utilities/events"],
+            (messages_module, configuration_module, version_module,
+             dom_module, events_module) =>
             {
                 messages = messages_module;
                 configuration = configuration_module;
                 version = version_module;
                 domanip = dom_module;
+                events = events_module;
 
                 initialize();
             });

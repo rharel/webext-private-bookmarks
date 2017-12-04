@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let bookmarks, notification;
+    let bookmarks, configuration, events, notification;
 
     /// True iff the extension's privacy context setting is set to private.
     let do_limit_to_private_context = false;
@@ -49,33 +49,37 @@
     /// When a bookmarks is removed we may need to update the page action's visibility.
     browser.bookmarks.onRemoved.addListener(update_in_active_tabs);
 
-    /// Listen to changes in privacy context requirements.
-    browser.runtime.onMessage.addListener(message =>
+    /// Initializes this module.
+    function initialize()
     {
-        if (message.type !== "context-requirement-change") { return; }
+        events.local.add_listener(["lock", "unlock"], update_in_active_tabs);
 
-        do_limit_to_private_context = message.do_limit_to_private_context;
-        update_in_active_tabs();
-    });
+        function on_context_requirement_change(new_requirements)
+        {
+            do_limit_to_private_context = new_requirements.do_limit_to_private_context;
+            update_in_active_tabs();
+        }
+        events.global.add_listener(
+            "context-requirement-change",
+            on_context_requirement_change
+        );
+        configuration.load().then(options =>
+        {
+            if (options !== null) { on_context_requirement_change(options); }
+        });
+    }
 
     define(["scripts/background/bookmarks_manager",
             "scripts/meta/configuration",
+            "scripts/utilities/events",
             "scripts/utilities/notification"],
-           (bookmarks_module, configuration, notification_module) =>
+           (bookmarks_module, configuration_module, events_module, notification_module) =>
            {
                 bookmarks = bookmarks_module;
-                bookmarks.events.addListener("lock",   update_in_active_tabs);
-                bookmarks.events.addListener("unlock", update_in_active_tabs);
-
-                configuration.load().then(options =>
-                {
-                    if (options !== null)
-                    {
-                        do_limit_to_private_context = options.do_limit_to_private_context;
-                        update_in_active_tabs();
-                    }
-                });
-
+                configuration = configuration_module;
+                events = events_module;
                 notification = notification_module;
+
+                initialize();
            });
 })();

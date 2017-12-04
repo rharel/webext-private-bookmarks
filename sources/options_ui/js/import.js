@@ -1,7 +1,7 @@
 (function()
 {
     /// Set in define().
-    let bookmarks, domanip, messages, security;
+    let bookmarks, domanip, events, messages, security;
 
     /// Contains DOM elements. Populated by initialize().
     const DOM =
@@ -194,27 +194,24 @@
         });
 
         update_import_button_availability();
-        browser.runtime.onMessage.addListener(message =>
-        {
-            if (message.type === "lock" ||
-                message.type === "unlock")
-            {
-                update_import_button_availability();
-            }
-            else if (message.type === "import-status-update") { update_status_message(message); }
-        });
+
+        events.global.add_listener(["lock", "unlock"], update_import_button_availability);
+        events.global.add_listener("import-status-update", update_status_message);
     }
 
     require(["./messages",
              "scripts/interaction/bookmarks_interface",
              "scripts/interaction/security",
-             "scripts/utilities/dom_manipulation"],
-            (messages_module, bookmarks_module, security_module, dom_module) =>
+             "scripts/utilities/dom_manipulation",
+             "scripts/utilities/events"],
+            (messages_module, bookmarks_module, security_module,
+             dom_module, events_module) =>
             {
                 messages = messages_module;
                 bookmarks = bookmarks_module;
                 security = security_module;
                 domanip = dom_module;
+                events = events_module;
 
                 initialize();
             });

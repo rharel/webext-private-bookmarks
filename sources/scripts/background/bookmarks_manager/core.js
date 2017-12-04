@@ -25,18 +25,6 @@
     /// Returns true iff bookmarks are locked.
     function is_locked()   { return !is_unlocked(); }
 
-    /// Emites an event - only within background page.
-    function emit_background_event(type, properties)
-    {
-        events.emitEvent(type, [properties]);
-    }
-    /// Emits an event.
-    function emit_event(type, properties)
-    {
-        emit_background_event(type, properties);
-        browser.runtime.sendMessage(Object.assign({type: type}, properties));
-    }
-
     /// Clears both front and back folders asynchronously.
     async function clear()
     {
@@ -86,7 +74,7 @@
         if (is_syncing) { is_pending_sync = true; return; }
 
         is_syncing = true;
-        emit_background_event("busy", true);
+        events.local.emit("busy-begin");
 
         try { await back.write(tree.prune(await front.get_tree()), back_key); }
         finally
@@ -97,7 +85,7 @@
                 is_pending_sync = false;
                 sync();
             }
-            else { emit_background_event("busy", false); }
+            else { events.local.emit("busy-end"); }
         }
     }
     /// The sync request's timeout duration (in milliseconds).
@@ -207,7 +195,7 @@
             return Promise.reject(new Error("Cannot lock when already locked."));
         }
 
-        emit_background_event("busy", true);
+        events.local.emit("busy-begin");
 
         pop_key();
         disable_dynamic_sync();
@@ -222,8 +210,8 @@
         }
         finally
         {
-            emit_event("lock");
-            emit_background_event("busy", false);
+            events.emit("lock");
+            events.local.emit("busy-end");
         }
     }
 
@@ -240,7 +228,7 @@
             return Promise.reject(new Error("Cannot unlock with inauthentic key."));
         }
 
-        emit_background_event("busy", true);
+        events.local.emit("busy-begin");
 
         try
         {
@@ -254,7 +242,7 @@
                 // If this is the first unlock there is nothing more to do beyond creating the
                 // front's root.
                 enable_dynamic_sync();
-                emit_event("unlock");
+                events.emit("unlock");
                 return;
             }
 
@@ -263,14 +251,12 @@
 
             function emit_progress_event()
             {
-                emit_event(
-                    "unlock-status-update",
-                    {
-                        index:   created_node_count,
-                        current: created_node_count,
-                        total:   total_node_count
-                    }
-                );
+                events.global.emit("unlock-status-update",
+                {
+                    index:   created_node_count,
+                    current: created_node_count,
+                    total:   total_node_count
+                });
             }
 
             emit_progress_event();
@@ -282,7 +268,7 @@
                 }
             );
             enable_dynamic_sync();
-            emit_event("unlock");
+            events.emit("unlock");
         }
         catch (error)
         {
@@ -292,22 +278,23 @@
             front.remove();
             throw error;
         }
-        finally { emit_background_event("busy", false); }
+        finally { events.local.emit("busy-end"); }
     }
 
-    define(["libraries/EventEmitter.min",
-            "scripts/background/bookmarks_manager/back",
+    define(["scripts/background/bookmarks_manager/back",
             "scripts/background/bookmarks_manager/backup",
             "scripts/background/bookmarks_manager/front",
             "scripts/background/bookmarks_manager/tree_utilities",
-            "scripts/utilities/cryptography"],
-           (EventEmitter, back_module, backup_module,
-            front_module, tree_module, cryptography_module) =>
+            "scripts/utilities/cryptography",
+            "scripts/utilities/events"],
+           (back_module, backup_module, front_module,
+            tree_module, cryptography_module, events_module) =>
            {
                back = back_module;
                front = front_module;
                tree = tree_module;
                crypto = cryptography_module;
+               events = events_module;
 
                const this_module =
                {
@@ -324,8 +311,6 @@
                     needs_setup: async () => { return !(await back.exists()); },
                     authenticate:     key => { return back.authenticate(key); },
                     load:              () => { return back.load(); },
-
-                    events: events = new EventEmitter(),
 
                     clear: clear,
                     setup: setup,

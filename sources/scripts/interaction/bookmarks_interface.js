@@ -3,7 +3,10 @@
     /// This module is an intermediary between non-background scripts and the bookmarks manger
     /// background script.
 
-    const this_module = { MESSAGE_TYPE: "bookmarks_interface" };
+    /// Set in define().
+    let events;
+
+    const this_module = {};
 
     ["add", "contains_url", "get_front_id", "get_front_title", "get_front_parent_title",
      "needs_setup", "authenticate", "load",
@@ -15,23 +18,18 @@
     {
         this_module[method_name] = (...arguments) =>
         {
-            return browser.runtime.sendMessage({
-                type: this_module.MESSAGE_TYPE,
+            return events.global.emit("bookmarks-interface",
+            {
                 method_name: method_name,
                 arguments:   arguments
             });
         }
     });
-    ["events"].forEach(property_name =>
-    {
-        this_module[property_name] = () =>
-        {
-            return browser.runtime.sendMessage({
-                type: this_module.MESSAGE_TYPE,
-                property_name: property_name
-            });
-        }
-    });
 
-    define(this_module);
+    define(["scripts/utilities/events"], events_module =>
+    {
+        events = events_module;
+
+        return this_module;
+    });
 })();
