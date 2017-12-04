@@ -281,13 +281,12 @@
     }
 
     define(["scripts/background/bookmarks_manager/back",
-            "scripts/background/bookmarks_manager/backup",
             "scripts/background/bookmarks_manager/front",
             "scripts/background/bookmarks_manager/tree_utilities",
             "scripts/utilities/cryptography",
             "scripts/utilities/events"],
-           (back_module, backup_module, front_module,
-            tree_module, cryptography_module, events_module) =>
+           (back_module, front_module, tree_module,
+            cryptography_module, events_module) =>
            {
                back = back_module;
                front = front_module;
@@ -321,6 +320,6 @@
                     is_locked:   is_locked,
                     is_unlocked: is_unlocked
                };
-               return Object.assign(this_module, backup_module);
+               return this_module;
            });
 })();
