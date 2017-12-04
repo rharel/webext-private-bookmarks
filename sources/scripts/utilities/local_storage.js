@@ -1,10 +1,13 @@
 (function()
 {
+    /// Just a shorthand.
+    const storage = browser.storage.local;
+
     /// Loads the value associated with the specified key asynchronously.
     /// Resolves to the associated value if it exists. If not, resolves to null.
     function load(key)
     {
-        return browser.storage.local.get(key).then(results =>
+        return storage.get(key).then(results =>
         {
             if (results.hasOwnProperty(key))
             {
@@ -17,10 +20,10 @@
     function save(key, value)
     {
         const item = {}; item[key] = value;
-        return browser.storage.local.set(item);
+        return storage.set(item);
     }
     /// Removes the specified key and associated value asynchronously.
-    function remove(key) { return browser.storage.local.remove(key); }
+    function remove(key) { return storage.remove(key); }
 
     define({
                 load:   load,
