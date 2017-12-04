@@ -1,7 +1,6 @@
 (function()
 {
-    /// This module is an intermediary between non-background scripts and the bookmarks manger
-    /// background script.
+    /// This module is an intermediary between non-background scripts and the bookmarks manager.
 
     /// Set in define().
     let events;
