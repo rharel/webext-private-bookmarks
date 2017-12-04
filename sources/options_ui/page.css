@@ -29,3 +29,6 @@ button.small > img
     opacity: 0;
 }
 .message-container > button { display: none; }
+
+#import-button-panel   { display: none; }
+#import-password-panel { display: none; }
