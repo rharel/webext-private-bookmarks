@@ -54,66 +54,65 @@
         return back.change_authentication(old_key, new_key);
     }
 
-    /// True iff a syncing operation is in progress.
-    let is_syncing = false;
-    /// True iff another syncing operation has been requested while another was already in progress.
-    let is_pending_sync = false;
+    /// True iff a saving operation is in progress.
+    let is_saving = false;
+    /// True iff a saving operation has been requested while another was already in progress.
+    let is_pending_save = false;
     /// Encrypts contents of the front folder, and saves it to the back.
     /// Rejects if locked.
-    async function sync()
+    async function save()
     {
         if (is_locked())
         {
-            return Promise.reject(new Error("Cannot sync when locked."));
+            return Promise.reject(new Error("Cannot save when locked."));
         }
 
-        // This function ensures that at most one syncing operation is active at a time. If another
-        // sync is initiated while another is in progress, it is deferred until the end of the
-        // first.
+        // This function ensures that at most one saving operation is active at a time. If a save
+        // is initiated while another is in progress, it is deferred until the end of the first.
 
-        if (is_syncing) { is_pending_sync = true; return; }
+        if (is_saving) { is_pending_save = true; return; }
 
-        is_syncing = true;
+        is_saving = true;
         events.local.emit("busy-begin");
 
         try { await back.write(tree.prune(await front.get_tree()), back_key); }
         finally
         {
-            is_syncing = false;
-            if (is_pending_sync)
+            is_saving = false;
+            if (is_pending_save)
             {
-                is_pending_sync = false;
-                sync();
+                is_pending_save = false;
+                save();
             }
             else { events.local.emit("busy-end"); }
         }
     }
-    /// The sync request's timeout duration (in milliseconds).
-    const SYNC_REQUEST_TIMEOUT_DURATION = 1000;
-    /// The timeout for a syncing request. See request_sync() for details.
-    let sync_request_timeout = null;
-    /// To avoid repetitive syncing when many items are moved in/out of the front, we batch these
-    /// changes as follows: When a change occurs, a sync is requested via this method. This sets
-    /// a delayed timeout for an invocation of sync(). If another change occurs while waiting, the
-    /// timeout is reset, so as to avoid calling sync() multiple times. Instead, sync() will be
+    /// The save request's timeout duration (in milliseconds).
+    const SAVE_REQUEST_TIMEOUT_DURATION = 1000;
+    /// The timeout for a saving request. See request_save() for details.
+    let save_request_timeout = null;
+    /// To avoid repetitive saving when many items are moved in/out of the front, we batch these
+    /// changes as follows: When a change occurs, a save is requested via this method. This sets
+    /// a delayed timeout for an invocation of save(). If another change occurs while waiting, the
+    /// timeout is reset, so as to avoid calling save() multiple times. Instead, save() will be
     /// called once for the whole batch.
-    function request_sync()
+    function request_save()
     {
-        if (sync_request_timeout !== null) { clearTimeout(sync_request_timeout); }
+        if (save_request_timeout !== null) { clearTimeout(save_request_timeout); }
 
-        sync_request_timeout = setTimeout(
+        save_request_timeout = setTimeout(
             () =>
             {
-                sync_request_timeout = null;
-                sync();
+                save_request_timeout = null;
+                save();
             },
-            SYNC_REQUEST_TIMEOUT_DURATION
+            SAVE_REQUEST_TIMEOUT_DURATION
         );
     }
-    /// Contains event listeners that invoke sync().
-    const sync_listeners =
+    /// Contains event listeners that invoke save().
+    const save_initiators =
     {
-        /// Syncs when a descendant of the front is changed.
+        /// Saves when a descendant of the front is changed.
         on_changed: async id =>
         {
             if (is_locked()) { return; }
@@ -121,19 +120,19 @@
             const node = (await browser.bookmarks.get(id))[0];
             if (await front.contains_node(node))
             {
-                request_sync();
+                request_save();
             }
         },
-        /// Syncs when a new descendant of the front is created.
+        /// Saves when a new descendant of the front is created.
         on_created: async (id, node) =>
         {
             if (is_unlocked() &&
                (await front.contains_node(node)))
             {
-                request_sync();
+                request_save();
             }
         },
-        /// Syncs when a descendant of the front is removed.
+        /// Saves when a descendant of the front is removed.
         on_removed: async (id, info) =>
         {
             // If the user deletes the front manually, this callback may be invoked wrongly, so make
@@ -144,10 +143,10 @@
             if (is_unlocked() &&
                (await front.contains_node(info.node)))
             {
-                request_sync();
+                request_save();
             }
         },
-        /// Syncs when a node is moved into the front.
+        /// Saves when a node is moved into the front.
         on_moved: async (id, info) =>
         {
             if (is_locked()) { return; }
@@ -155,7 +154,7 @@
             if (info.parentId    === front.get_id() ||
                 info.oldParentId === front.get_id())
             {
-                request_sync();
+                request_save();
                 return;
             }
 
@@ -165,25 +164,25 @@
             if ((await front.contains_node(new_parent)) ||
                 (await front.contains_node(old_parent)))
             {
-                request_sync();
+                request_save();
             }
         }
     };
-    /// Listens for changes to the front and syncs.
-    function enable_dynamic_sync()
+    /// Listens for changes to the front and saves.
+    function enable_dynamic_save()
     {
-        browser.bookmarks.onChanged.addListener(sync_listeners.on_changed);
-        browser.bookmarks.onCreated.addListener(sync_listeners.on_created);
-        browser.bookmarks.onRemoved.addListener(sync_listeners.on_removed);
-        browser.bookmarks.onMoved.addListener(sync_listeners.on_moved);
+        browser.bookmarks.onChanged.addListener(save_initiators.on_changed);
+        browser.bookmarks.onCreated.addListener(save_initiators.on_created);
+        browser.bookmarks.onRemoved.addListener(save_initiators.on_removed);
+        browser.bookmarks.onMoved.addListener(save_initiators.on_moved);
     }
-    /// Undoes the event hookup performed by enable_dynamic_sync().
-    function disable_dynamic_sync()
+    /// Undoes the event hookup performed by enable_dynamic_save().
+    function disable_dynamic_save()
     {
-        browser.bookmarks.onChanged.removeListener(sync_listeners.on_changed);
-        browser.bookmarks.onCreated.removeListener(sync_listeners.on_created);
-        browser.bookmarks.onRemoved.removeListener(sync_listeners.on_removed);
-        browser.bookmarks.onMoved.removeListener(sync_listeners.on_moved);
+        browser.bookmarks.onChanged.removeListener(save_initiators.on_changed);
+        browser.bookmarks.onCreated.removeListener(save_initiators.on_created);
+        browser.bookmarks.onRemoved.removeListener(save_initiators.on_removed);
+        browser.bookmarks.onMoved.removeListener(save_initiators.on_moved);
     }
 
     /// Clears the front.
@@ -198,7 +197,7 @@
         events.local.emit("busy-begin");
 
         pop_key();
-        disable_dynamic_sync();
+        disable_dynamic_save();
 
         try { await front.remove(); }
         catch (error)
@@ -241,7 +240,7 @@
             {
                 // If this is the first unlock there is nothing more to do beyond creating the
                 // front's root.
-                enable_dynamic_sync();
+                enable_dynamic_save();
                 events.emit("unlock");
                 return;
             }
@@ -267,14 +266,14 @@
                     emit_progress_event();
                 }
             );
-            enable_dynamic_sync();
+            enable_dynamic_save();
             events.emit("unlock");
         }
         catch (error)
         {
             // Undo any partial progress:
             pop_key();
-            disable_dynamic_sync();
+            disable_dynamic_save();
             front.remove();
             throw error;
         }
