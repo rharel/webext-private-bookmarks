@@ -1,5 +1,8 @@
 (function()
 {
+    /// Imported from other modules.
+    let memory;
+
     /// Just a shorthand.
     const storage = browser.storage.local;
 
@@ -13,11 +16,8 @@
         const back_folder   = await load("back_folder");
         const configuration = await load("configuration");
 
-        const text_encoder = new TextEncoder();
-        function size_in_bytes(object) { return text_encoder.encode(object).length; }
-
-        return size_in_bytes(back_folder) +
-               size_in_bytes(configuration);
+        return memory.size_in_bytes(back_folder) +
+               memory.size_in_bytes(configuration);
     }
 
     /// Loads the value associated with the specified key asynchronously.
@@ -42,11 +42,15 @@
     /// Removes the specified key and associated value asynchronously.
     function remove(key) { return storage.remove(key); }
 
-    define({
-                get_essential_bytes_in_use: get_essential_bytes_in_use,
+    define(["scripts/utilities/memory"], memory_module =>
+           {
+                memory = memory_module;
+                return  {
+                            get_essential_bytes_in_use: get_essential_bytes_in_use,
 
-                load:   load,
-                save:   save,
-                remove: remove
+                            load: load,
+                            save: save,
+                            remove: remove
+                        };
            });
 })();
