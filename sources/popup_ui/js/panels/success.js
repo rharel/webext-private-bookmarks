@@ -42,7 +42,7 @@
            {
                domanip = dom_module;
 
-               initialize();
+               domanip.when_ready(initialize);
 
                return   {
                             ID: "success",

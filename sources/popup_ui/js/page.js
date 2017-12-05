@@ -1,7 +1,7 @@
 (function()
 {
     /// Imported from other modules.
-    let CURRENT_VERSION, events, populate_with_elements;
+    let CURRENT_VERSION, domanip, events;
 
     /// Contains DOM elements. Populated by initialize().
     const DOM =
@@ -13,7 +13,7 @@
     /// Initializes this module.
     function initialize()
     {
-        populate_with_elements(DOM);
+        domanip.populate(DOM);
 
         {
             const {major, minor, release} = CURRENT_VERSION;
@@ -41,9 +41,9 @@
              dom_module, events_module) =>
             {
                 CURRENT_VERSION = version_module.CURRENT;
-                populate_with_elements = dom_module.populate;
+                domanip = dom_module;
                 events = events_module;
 
-                initialize();
+                domanip.when_ready(initialize);
             });
 })();

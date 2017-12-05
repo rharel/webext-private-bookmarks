@@ -55,6 +55,6 @@
                 bookmarks = bookmarks_module;
                 domanip = dom_module;
 
-                initialize();
+                domanip.when_ready(initialize);
             });
 })();

@@ -32,10 +32,20 @@
         }
     }
 
+    /// Executes the specified callback when the document has finished loading, or immediately if it
+    /// already has.
+    function when_ready(callback)
+    {
+        if (document.readyState !== "loading") { callback(); }
+        else { document.addEventListener("DOMContentLoaded", callback); }
+    }
+
     define({
                 disable: disable,
                 enable:  enable,
 
-                populate: populate
+                populate: populate,
+
+                when_ready: when_ready
            });
 })();

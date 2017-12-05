@@ -213,6 +213,6 @@
                 domanip = dom_module;
                 events = events_module;
 
-                initialize();
+                domanip.when_ready(initialize);
             });
 })();
