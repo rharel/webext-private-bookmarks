@@ -38,7 +38,7 @@
     }
 
     /// Initializes this module.
-    async function initialize()
+    function initialize()
     {
         domanip.populate(DOM);
         messages = new messages.Controller(DOM.data_message_container);
