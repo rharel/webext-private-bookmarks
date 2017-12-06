@@ -1,15 +1,15 @@
 (function()
 {
     /// Imported from other modules.
-    let CONFIGURATION_STORAGE_KEY, events;
+    let events;
 
-    /// Convert changes to storage to relevant events.
+    /// Convert changes to configuration to relevant events.
     browser.storage.onChanged.addListener((changes, area) =>
     {
         if (area === "local" &&
-            changes.hasOwnProperty(CONFIGURATION_STORAGE_KEY))
+            changes.hasOwnProperty("configuration"))
         {
-            const {oldValue, newValue} = changes[CONFIGURATION_STORAGE_KEY];
+            const {oldValue, newValue} = changes["configuration"];
 
             if (!oldValue ||
                 oldValue.do_limit_to_private_context !==
@@ -23,11 +23,9 @@
         }
     });
 
-    require(["scripts/meta/configuration",
-             "scripts/utilities/events"],
-            (configuration_module, events_module) =>
+    require(["scripts/utilities/events"],
+            events_module =>
             {
-                CONFIGURATION_STORAGE_KEY = configuration_module.STORAGE_KEY;
                 events = events_module;
             });
 })();
