@@ -124,10 +124,7 @@
             "context-requirement-change",
             on_context_requirement_change
         );
-        configuration.load().then(options =>
-        {
-            if (options !== null) { on_context_requirement_change(options); }
-        });
+        configuration.load().then(on_context_requirement_change);
     }
 
     define(["scripts/background/bookmarks_manager",

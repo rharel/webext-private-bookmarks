@@ -83,10 +83,7 @@
         });
         configuration.load().then(options =>
         {
-            if (options !== null)
-            {
-                update_private_window_monitoring(options.do_limit_to_private_context);
-            }
+            update_private_window_monitoring(options.do_limit_to_private_context);
         });
     }
 

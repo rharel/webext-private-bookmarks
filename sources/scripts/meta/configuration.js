@@ -51,8 +51,17 @@
     }
 
     /// Loads the configuration from local storage.
-    /// Resolves to the configuration object if it exists. If not, resolves to null.
-    function load()              { return storage.load(storage.Key.Configuration); }
+    /// If none exists, creates, saves and returns a default one.
+    async function load()
+    {
+        let value = await storage.load(storage.Key.Configuration);
+        if (value === null)
+        {
+            value = create();
+            await storage.save(storage.Key.Configuration, value);
+        }
+        return value;
+    }
     /// Saves a configuration to local storage asynchronously.
     function save(value) { return storage.save(storage.Key.Configuration, value); }
 
