@@ -50,25 +50,20 @@
         return configuration;
     }
 
-    /// The key for the extension's configuration in local storage.
-    const STORAGE_KEY = "configuration";
-
     /// Loads the configuration from local storage.
     /// Resolves to the configuration object if it exists. If not, resolves to null.
-    function load()              { return storage.load(STORAGE_KEY); }
+    function load()              { return storage.load(storage.Key.Configuration); }
     /// Saves a configuration to local storage asynchronously.
-    function save(configuration) { return storage.save(STORAGE_KEY, configuration); }
+    function save(value) { return storage.save(storage.Key.Configuration, value); }
 
     define(["scripts/meta/version",
-            "scripts/utilities/local_storage"],
+            "scripts/utilities/storage"],
            (version_module, storage_module) =>
            {
                 version = version_module;
                 storage = storage_module;
 
                 return  {
-                            STORAGE_KEY: STORAGE_KEY,
-
                             create: create,
                             update: update,
 

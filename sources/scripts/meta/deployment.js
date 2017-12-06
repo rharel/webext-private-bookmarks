@@ -9,10 +9,6 @@
         browser.tabs.create({ url: version.RELEASE_NOTES.url, active: true });
     }
 
-    /// The key in local storage for an object indicating what type of deployment this release was
-    /// part of (install/update). The object pointed to exists only up until the first user
-    /// interaction with the extension proceeding deployment.
-    const DEPLOYMENT_TYPE_STORAGE_KEY = "deployment";
     /// Executes one-time procedures during first user interaction with the current release.
     async function on_first_interaction(deployment_type)
     {
@@ -32,7 +28,7 @@
         let listener = events.global.add_listener(["options-open", "popup-open"], () =>
         {
             events.global.remove_listener(listener);
-            storage.remove(DEPLOYMENT_TYPE_STORAGE_KEY);
+            storage.remove(storage.Key.DeploymentType);
             on_first_interaction(deployment_type);
         });
     }
@@ -45,7 +41,7 @@
         if      (deployment_type === "install") { on_install(); }
         else if (deployment_type === "update")  { on_update();  }
 
-        await storage.save(DEPLOYMENT_TYPE_STORAGE_KEY, deployment_type);
+        await storage.save(storage.Key.DeploymentType, deployment_type);
         listen_for_first_interaction(deployment_type);
     }
     /// Handles extension installation.
@@ -62,7 +58,7 @@
     /// Initializes this module.
     async function initialize()
     {
-        const deployment_type = await storage.load(DEPLOYMENT_TYPE_STORAGE_KEY);
+        const deployment_type = await storage.load(storage.Key.DeploymentType);
         if (deployment_type !== null)
         {
             listen_for_first_interaction(deployment_type);
@@ -72,7 +68,7 @@
     define(["scripts/meta/configuration",
             "scripts/meta/version",
             "scripts/utilities/events",
-            "scripts/utilities/local_storage"],
+            "scripts/utilities/storage"],
            (configuration_module, version_module, events_module, storage_module) =>
            {
                 configuration = configuration_module;

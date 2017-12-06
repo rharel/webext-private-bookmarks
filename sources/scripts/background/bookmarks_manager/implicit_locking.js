@@ -50,16 +50,16 @@
     // When unlocking, we save the front's identifier in local storage, and remove it again when
     // locking. If on startup there is an identifier stored, we know there is are private bookmarks
     // that need to be deleted. The following implements this functionality.
-    const FRONT_ID_STORAGE_KEY = "front_folder_id";
+
     /// Deletes the front if it exists.
     async function clean_up_after_suspension()
     {
-        const front_id = await storage.load(FRONT_ID_STORAGE_KEY);
+        const front_id = await storage.load(storage.Key.FrontID);
 
         if (front_id !== null)
         {
             try     { await browser.bookmarks.removeTree(front_id); }
-            finally { storage.remove(FRONT_ID_STORAGE_KEY); }
+            finally { storage.remove(storage.Key.FrontID); }
         }
     }
 
@@ -70,11 +70,11 @@
 
         events.local.add_listener("unlock", () =>
         {
-            storage.save(FRONT_ID_STORAGE_KEY, core.get_front_id());
+            storage.save(storage.Key.FrontID, core.get_front_id());
         });
         events.local.add_listener("lock", () =>
         {
-            storage.remove(FRONT_ID_STORAGE_KEY);
+            storage.remove(storage.Key.FrontID);
         });
 
         events.local.add_listener("context-requirement-change", message =>
@@ -93,7 +93,7 @@
     require(["scripts/background/bookmarks_manager/core",
              "scripts/meta/configuration",
              "scripts/utilities/events",
-             "scripts/utilities/local_storage"],
+             "scripts/utilities/storage"],
             (core_module, configuration_module, events_module, storage_module) =>
             {
                 core = core_module;

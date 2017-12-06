@@ -3,8 +3,6 @@
     /// Imported from other modules.
     let crypto, storage;
 
-    /// The key for the folder in local storage.
-    const STORAGE_KEY = "back_folder";
     /// We encrypt this signature together with the rest of the data so that we can later quickly
     /// verify that a password is correct.
     const SIGNATURE = "private_bookmarks@rharel";
@@ -12,10 +10,10 @@
     /// Loads the folder asynchronously.
     /// Resolves to an object { signature: DOMString, bookmarks: DOMString } if the folder exists.
     /// If not, resolves to null.
-    function load()      { return storage.load(STORAGE_KEY); }
+    function load()      { return storage.load(storage.Key.Back); }
     /// Saves the specified value asynchronously.
     /// The specified value should be an object { signature: DOMString, bookmarks: DOMString }.
-    function save(value) { return storage.save(STORAGE_KEY, value); }
+    function save(value) { return storage.save(storage.Key.Back, value); }
 
     /// Returns true iff the folder exists.
     async function exists() { return (await load()) !== null; }
@@ -38,7 +36,7 @@
         {
             return Promise.reject(new Error("Cannot remove back, back doesn't exist."));
         }
-        return storage.remove(STORAGE_KEY);
+        return storage.remove(storage.Key.Back);
     }
 
     /// Returns true iff the specified key is authentic.
@@ -103,7 +101,7 @@
     }
 
     define(["scripts/utilities/cryptography",
-            "scripts/utilities/local_storage"],
+            "scripts/utilities/storage"],
            (cryptography_module, storage_module) =>
            {
                 crypto = cryptography_module;

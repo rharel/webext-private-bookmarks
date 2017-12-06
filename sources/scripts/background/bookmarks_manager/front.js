@@ -3,9 +3,6 @@
     /// Imported from other modules.
     let storage;
 
-    /// Key to the folder's spawn location information in storage.
-    /// The value stored is an object { parent_id:, index: }.
-    const SPAWN_LOCATION_STORAGE_KEY = "front_folder_spawn_location";
     /// The folder's display name.
     const TITLE = browser.i18n.getMessage("extension_name");
 
@@ -60,7 +57,7 @@
 
         const creation_details = { title: TITLE };
 
-        const spawn_location = await storage.load(SPAWN_LOCATION_STORAGE_KEY);
+        const spawn_location = await storage.load(storage.Key.FrontSpawnLocation);
         if (spawn_location !== null)
         {
             let parent_exists;
@@ -97,7 +94,7 @@
             // that the next time it is created, it will try to spawn there (if that location is
             // still available).
             const node = await get_node();
-            storage.save(SPAWN_LOCATION_STORAGE_KEY,
+            storage.save(storage.Key.FrontSpawnLocation,
             {
                 parent_id: node.parentId,
                 index:     node.index
@@ -153,7 +150,7 @@
         return false;
     }
 
-    define(["scripts/utilities/local_storage"],
+    define(["scripts/utilities/storage"],
            storage_module =>
            {
                 storage = storage_module;
