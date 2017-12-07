@@ -91,6 +91,9 @@
             if (results.hasOwnProperty(key)) { return results[key]; }
             else                             { return null; }
         },
+        /// Loads the values associated with the specified keys.
+        load_all: function(keys) { return this.area.get(keys); },
+
         /// Associates the specified value to the specified key and saves it asynchronously.
         save: function(key, value, do_record_modification_date = true)
         {
@@ -102,8 +105,24 @@
             const item = {}; item[key] = value;
             return this.area.set(item);
         },
+        /// Associates the specified keys to the specified values and saves them asynchronously.
+        save_all: function(key_value_mapping, do_record_modification_date = true)
+        {
+            for (const key in key_value_mapping)
+            {
+                if (do_record_modification_date &&
+                    KEYS_TO_SYNC.includes(key))
+                {
+                    key_value_mapping[key].date_modified = Date.now();
+                }
+            }
+            return this.area.set(key_value_mapping);
+        },
+
         /// Removes the specified key and associated value asynchronously.
-        remove: function(key) { return this.area.remove(key); }
+        remove:     function(key)  { return this.area.remove(key); },
+        /// Removes the specified keys and associated values asynchronously.
+        remove_all: function(keys) { return this.area.remove(keys); }
     };
 
     /// The two main handles to storage.
