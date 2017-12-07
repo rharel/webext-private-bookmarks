@@ -24,7 +24,12 @@
     };
 
     /// Keys for values that should be synced (when sync is enabled).
-    const KEYS_TO_SYNC = [Key.Back, Key.Configuration];
+    const KEYS_TO_SYNC = [
+        Key.Back,
+        Key.Configuration,
+        Key.FrontID,
+        Key.FrontSpawnLocation
+    ];
 
     /// A private encoder for this module.
     const text_encoder = new TextEncoder();
@@ -87,8 +92,13 @@
             else                             { return null; }
         },
         /// Associates the specified value to the specified key and saves it asynchronously.
-        save: function(key, value)
+        save: function(key, value, do_record_modification_date = true)
         {
+            if (do_record_modification_date &&
+                KEYS_TO_SYNC.includes(key))
+            {
+                value.date_modified = Date.now();
+            }
             const item = {}; item[key] = value;
             return this.area.set(item);
         },
@@ -100,7 +110,7 @@
     const local        = new Handle(browser.storage.local),
           synchronized = new Handle(browser.storage.sync);
 
-    /// Storage capacity in bytes.
+    /// Synchronized storage capacity in bytes.
     /// Technically, Firefox allows for 100KB. But, we leave a 20% margin in case internal extension
     /// mechanisms will require that space in the future.
     synchronized.CAPACITY_BYTES = 80000;
@@ -110,8 +120,11 @@
     function load(key) { return local.load(key); }
 
     /// Associates the specified value to the specified key and saves it asynchronously.
-    function save(key, value) { return local.save(key, value); }
-    
+    function save(key, value, do_record_modification_date = true)
+    {
+        return local.save(key, value, do_record_modification_date);
+    }
+
     /// Removes the specified key and associated value asynchronously.
     function remove(key) { return local.remove(key); }
 
