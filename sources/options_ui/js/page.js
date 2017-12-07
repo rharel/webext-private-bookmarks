@@ -51,34 +51,20 @@
         );
     }
 
-    /// Loads the configuration from local storage onto the controls on the page asynchronously.
-    function load_page_configuration()
+    /// Loads the configuration from local storage onto the controls on the page.
+    async function load_page_configuration()
     {
-        return configuration.load()
-            .then(options =>
-            {
-                if (options === null)
-                {
-                    messages.error(
-                        ErrorMessage.LoadingConfiguration,
-                        "options === null"
-                    );
-                }
-                else { apply_configuration_to_page(options); }
-            })
-            .catch(reason => messages.error(
-                ErrorMessage.LoadingConfiguration,
-                reason
-            ));
+        let options;
+        try           { options = await configuration.load(); }
+        catch (error) { messages.error(ErrorMessage.LoadingConfiguration, error); return; }
+
+        apply_configuration_to_page(options);
     }
-    /// Saves the configuration indicated by the controls on the page to local storage
-    /// asynchronously.
-    function save_page_configuration()
+    /// Saves the configuration indicated by the controls on the page to local storage.
+    async function save_page_configuration()
     {
-        return configuration.save(extract_configuration_from_page())
-            .catch(reason => messages.error(
-                ErrorMessage.SavingConfiguration, reason
-            ));
+        try           { await configuration.save(extract_configuration_from_page()); }
+        catch (error) { messages.error(ErrorMessage.SavingConfiguration, error); }
     }
 
     /// Hooks up events from all option controls so that when they are changed the new configuration
