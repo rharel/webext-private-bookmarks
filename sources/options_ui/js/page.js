@@ -91,14 +91,7 @@
 
         // Changes to configuration may also originate from other parts of the extension (namely
         // the syncing module), so listen for them.
-        browser.storage.onChanged.addListener((changes, area) =>
-        {
-            if (area === "local" &&
-                changes.hasOwnProperty(storage.Key.Configuration))
-            {
-                load_page_configuration();
-            }
-        });
+        events.global.add_listener("configuration-change", () => load_page_configuration());
 
         events.global.emit("options-open");
     }

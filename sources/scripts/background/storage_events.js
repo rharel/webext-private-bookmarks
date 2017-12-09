@@ -9,6 +9,9 @@
         if (area === "local" &&
             changes.hasOwnProperty(storage.Key.Configuration))
         {
+            // FIXME: Causes a message receiver error on startup.
+            events.emit("configuration-change");
+
             const {oldValue, newValue} = changes[storage.Key.Configuration];
 
             if (!oldValue ||
