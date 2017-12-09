@@ -6,10 +6,13 @@
     /// Returns a JSON object containing encrypted bookmarks' data.
     async function export_encrypted_data()
     {
-        const data   = (await back.load()).bookmarks;
-        data.version = CURRENT_VERSION;
+        const data = await back.load();
+        if (data === null) { return null; }
 
-        return data;
+        const exported_data = data.bookmarks;
+        exported_data.version = CURRENT_VERSION;
+
+        return exported_data;
     }
     /// Returns a JSON object containing plaintext bookmarks' data.
     async function export_plain_data()

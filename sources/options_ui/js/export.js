@@ -28,8 +28,9 @@
     async function export_encrypted_data()
     {
         const data = await bookmarks.export_encrypted_data();
-        const uri  = encodeURIComponent(JSON.stringify(data));
+        if (data === null) { return; }
 
+        const uri = encodeURIComponent(JSON.stringify(data));
         offer_download(uri, "encrypted_private_bookmarks.json");
     }
     /// Offers the plaintext private bookmark data for download.
