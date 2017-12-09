@@ -3,15 +3,15 @@
     /// Imported from other modules.
     let bookmarks, notification;
 
-    /// Lock in response to user command.
-    browser.commands.onCommand.addListener(async command =>
+    /// Handles user commands.
+    async function handle_command(command)
     {
         if (command === "lock" && bookmarks.is_unlocked())
         {
             await bookmarks.lock();
             notification.locked();
         }
-    });
+    }
 
     require(["scripts/background/bookmarks_manager",
              "scripts/utilities/notification"],
@@ -19,5 +19,7 @@
             {
                 bookmarks = bookmarks_module;
                 notification = notification_module;
+
+                browser.commands.onCommand.addListener(handle_command);
             });
 })();

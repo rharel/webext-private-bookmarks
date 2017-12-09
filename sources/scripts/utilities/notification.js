@@ -13,7 +13,7 @@
     const Identifier =
     {
         BookmarkAddition: "BookmarkAddition",
-        Locked: "Locked"
+        Locked:           "Locked"
     };
 
     /// Posts a notification with the specified message and display options.
@@ -65,7 +65,7 @@
 
     define({
                 Identifier: Identifier,
-                post: post,
+
                 item_added: notify_item_added,
                 locked:     notify_locked
            });

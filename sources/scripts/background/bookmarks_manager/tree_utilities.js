@@ -81,5 +81,5 @@
                 compute_size: compute_size,
                 duplicate: duplicate,
                 prune: prune
-           })
+           });
 })();

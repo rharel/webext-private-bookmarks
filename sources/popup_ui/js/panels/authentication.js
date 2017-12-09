@@ -80,10 +80,8 @@
     {
         domanip.populate(DOM);
 
-        const {minimum, maximum} = await security.get_password_length();
-        DOM.authentication_password_input
-            .setAttribute("maxlength", maximum.toString());
-
+        const maximum = (await security.get_password_length()).maximum;
+        DOM.authentication_password_input.setAttribute("maxlength", maximum.toString());
         DOM.authentication_password_input.addEventListener("keydown", event =>
         {
             // Authenticate on enter.

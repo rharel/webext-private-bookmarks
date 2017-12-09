@@ -294,32 +294,30 @@
                crypto = cryptography_module;
                events = events_module;
 
-               const this_module =
-               {
-                    add:  (url, title) => { return front.add(url, title); },
-                    contains_url:  url => { return front.contains_url(url); },
-                    get_front_id:   () => { return front.get_id(); },
+               return   {
+                            add:  (url, title) => { return front.add(url, title); },
+                            contains_url:  url => { return front.contains_url(url); },
+                            get_front_id:   () => { return front.get_id(); },
 
-                    get_front_title: async () => { return (await front.get_node()).title; },
-                    get_front_parent_title: async () =>
-                    {
-                          return (await front.get_parent()).title;
-                    },
+                            get_front_title: async () => { return (await front.get_node()).title; },
+                            get_front_parent_title: async () =>
+                            {
+                                  return (await front.get_parent()).title;
+                            },
 
-                    needs_setup: async () => { return !(await back.exists()); },
-                    authenticate:     key => { return back.authenticate(key); },
-                    load:              () => { return back.load(); },
+                            needs_setup: async () => { return !(await back.exists()); },
+                            authenticate:     key => { return back.authenticate(key); },
+                            load:              () => { return back.load(); },
 
-                    clear: clear,
-                    setup: setup,
-                    change_authentication: change_authentication,
+                            clear: clear,
+                            setup: setup,
+                            change_authentication: change_authentication,
 
-                    lock:   lock,
-                    unlock: unlock,
+                            lock:   lock,
+                            unlock: unlock,
 
-                    is_locked:   is_locked,
-                    is_unlocked: is_unlocked
-               };
-               return this_module;
+                            is_locked:   is_locked,
+                            is_unlocked: is_unlocked
+                        };
            });
 })();

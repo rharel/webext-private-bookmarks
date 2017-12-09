@@ -6,17 +6,22 @@
 
     document.querySelectorAll(`[${LOCALIZED_TEXT}]`).forEach(element =>
     {
-        const message = browser.i18n.getMessage(element.getAttribute(LOCALIZED_TEXT));
-
+        const message = browser.i18n.getMessage(
+            element.getAttribute(LOCALIZED_TEXT)
+        );
         if (message !== "") { element.textContent = message; }
     });
     document.querySelectorAll(`[${LOCALIZED_ATTRIBUTE}]`).forEach(element =>
     {
-        const message = browser.i18n.getMessage(element.getAttribute(LOCALIZED_ATTRIBUTE_VALUE));
-
+        const message = browser.i18n.getMessage(
+            element.getAttribute(LOCALIZED_ATTRIBUTE_VALUE)
+        );
         if (message !== "")
         {
-            element.setAttribute(element.getAttribute(LOCALIZED_ATTRIBUTE), message);
+            element.setAttribute(
+                element.getAttribute(LOCALIZED_ATTRIBUTE),
+                message
+            );
         }
     });
 })();

@@ -70,7 +70,7 @@
     {
         const icon = bookmarks.is_unlocked() ? "unlocked-bookmarks.svg" :
                                                "locked-bookmarks.svg";
-        const path = `icons/main/${icon}`;
+        const path = `/icons/main/${icon}`;
         browser.browserAction.setIcon({
             path:
             {
