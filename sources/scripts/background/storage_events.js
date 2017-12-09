@@ -4,7 +4,7 @@
     let events, storage;
 
     /// Convert changes to configuration to relevant events.
-    browser.storage.onChanged.addListener((changes, area) =>
+    function handle_changes(changes, area)
     {
         if (area === "local" &&
             changes.hasOwnProperty(storage.Key.Configuration))
@@ -12,8 +12,8 @@
             const {oldValue, newValue} = changes[storage.Key.Configuration];
 
             if (!oldValue ||
-                oldValue.do_limit_to_private_context !==
-                newValue.do_limit_to_private_context)
+                 oldValue.do_limit_to_private_context !==
+                 newValue.do_limit_to_private_context)
             {
                 events.emit("context-requirement-change",
                 {
@@ -21,7 +21,7 @@
                 });
             }
         }
-    });
+    }
 
     require(["scripts/utilities/events",
              "scripts/utilities/storage"],
@@ -29,5 +29,7 @@
             {
                 events = events_module;
                 storage = storage_module;
+
+                browser.storage.onChanged.addListener(handle_changes);
             });
 })();
