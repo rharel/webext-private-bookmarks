@@ -61,17 +61,13 @@
         /// Clears the specified message container and hides it.
         clear: function()
         {
-            this.container.removeAttribute("title");
-            this.message.textContent = "";
-
-            this._disable_buttons();
+            this._prepare_display("", "");
             this.hide();
         },
         /// Displays and retrieves user response to a yes/no question.
         confirm: function(text)
         {
-            this.container.className = "warning message-container";
-            this.message.textContent = text;
+            this._prepare_display("warning", text);
 
             const getting_user_response = new Promise(resolve =>
             {
@@ -93,33 +89,24 @@
         /// the specified container.
         error: function(text, debug_info)
         {
-            console.error(`${text}\n` +
-                          `Debug info: ${debug_info}`);
+            console.error(`${text}\n` + `Debug info: ${debug_info}`);
 
-            this.container.className = "error message-container";
-            this.message.textContent = text;
+            this._prepare_display("error", text);
 
             if (debug_info) { this.container.title = debug_info; }
 
-            this._disable_buttons();
             this.show();
         },
         /// Displays a neutral information message with the specified text.
         info: function(text)
         {
-            this.container.className = "info message-container";
-            this.message.textContent = text;
-
-            this._disable_buttons();
+            this._prepare_display("info", text);
             this.show();
         },
         /// Displays a success message.
         success: function()
         {
-            this.container.className = "success message-container";
-            this.message.textContent = SUCCESS_MESSAGE;
-
-            this._disable_buttons();
+            this._prepare_display("success", SUCCESS_MESSAGE);
             this.show();
         },
 
@@ -127,6 +114,15 @@
         {
             if (this.first_button)  { Controller._disable_button(this.first_button);  }
             if (this.second_button) { Controller._disable_button(this.second_button); }
+        },
+        _prepare_display: function(style_class, text)
+        {
+            this.container.className = `${style_class} message-container`;
+            this.container.removeAttribute("title");
+
+            this.message.textContent = text;
+
+            this._disable_buttons();
         }
     };
     define({ Controller: Controller });
