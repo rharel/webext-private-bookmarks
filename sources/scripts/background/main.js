@@ -1,17 +1,28 @@
 (function()
 {
+    function initialize_and_then(do_something)
+    {
+        require(["require", "scripts/utilities/storage"],
+                (require, storage) =>
+                {
+                    storage.initialize().then(() => do_something(require));
+                });
+    }
     browser.runtime.onInstalled.addListener(details =>
     {
-        require(["scripts/meta/deployment"],
-                deployment_module =>
-                {
-                    deployment_module.on_deploy(details);
-                });
+        initialize_and_then(require =>
+            require(["scripts/meta/deployment"], deployment_module =>
+            {
+                deployment_module.on_deploy(details);
+            })
+        );
     });
-    require(["scripts/background/bookmarks_manager",
-             "scripts/background/browser_action",
-             "scripts/background/commands",
-             "scripts/background/page_action",
-             "scripts/background/storage_events",
-             "scripts/meta/deployment"]);
+    initialize_and_then(require =>
+        require(["scripts/background/bookmarks_manager",
+                 "scripts/background/browser_action",
+                 "scripts/background/commands",
+                 "scripts/background/page_action",
+                 "scripts/background/storage_events",
+                 "scripts/meta/deployment"])
+    );
 })();

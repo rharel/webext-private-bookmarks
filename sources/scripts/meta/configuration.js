@@ -1,7 +1,7 @@
 (function()
 {
     /// Imported from other modules.
-    let storage, version;
+    let version;
 
     /// Returns a new configuration object with default values for all options.
     function create()
@@ -50,34 +50,14 @@
         return configuration;
     }
 
-    /// Loads the configuration from local storage.
-    /// If none exists, creates, saves and returns a default one.
-    async function load()
-    {
-        let value = await storage.load(storage.Key.Configuration);
-        if (value === null)
-        {
-            value = create();
-            await storage.save(storage.Key.Configuration, value);
-        }
-        return value;
-    }
-    /// Saves a configuration to local storage asynchronously.
-    function save(value) { return storage.save(storage.Key.Configuration, value); }
-
-    define(["scripts/meta/version",
-            "scripts/utilities/storage"],
-           (version_module, storage_module) =>
+    define(["scripts/meta/version"],
+           version_module =>
            {
                 version = version_module;
-                storage = storage_module;
 
                 return  {
                             create: create,
                             update: update,
-
-                            load: load,
-                            save: save
                         };
            });
 })();

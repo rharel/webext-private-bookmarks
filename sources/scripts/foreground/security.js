@@ -51,15 +51,15 @@
     /// Returns a hexadecimal string.
     async function hash(value) { return convert.from_hex_bytes(await crypto.digest(value)); }
 
-    define(["scripts/meta/configuration",
-            "scripts/utilities/cryptography",
+    define(["scripts/utilities/cryptography",
+            "scripts/utilities/storage",
             "scripts/utilities/string_conversion"],
-           (configuration, cryptography_module, conversion_module) =>
+           (cryptography_module, storage, conversion_module) =>
            {
                crypto = cryptography_module;
                convert = conversion_module;
 
-               const loading = configuration.load().then(options =>
+               const loading = storage.load(storage.Key.Configuration).then(options =>
                {
                    if (options.do_disable_password_requirements)
                    {

@@ -14,7 +14,7 @@
     {
         if (deployment_type !== "update") { return; }
 
-        const options = await configuration.load();
+        const options = await storage.load(storage.Key.Configuration);
 
         if (options.do_show_release_notes &&
             version.RELEASE_NOTES.is_relevant_to_users)
@@ -38,21 +38,19 @@
     {
         const deployment_type = details.reason;
         
-        if      (deployment_type === "install") { on_install(); }
-        else if (deployment_type === "update")  { on_update();  }
+        if (deployment_type === "update") { await on_update(); }
 
         await storage.save(storage.Key.DeploymentType, deployment_type);
         listen_for_first_interaction(deployment_type);
     }
-    /// Handles extension installation.
-    function on_install() { configuration.save(configuration.create()); }
     /// Handles extension update.
-    function on_update()
+    async function on_update()
     {
-        configuration.load().then(options =>
-        {
-            configuration.save(configuration.update(options));
-        });
+        const options = await storage.load(storage.Key.Configuration);
+        return storage.save(
+            storage.Key.Configuration,
+            configuration.update(options)
+        );
     }
 
     /// Initializes this module.

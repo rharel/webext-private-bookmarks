@@ -1,7 +1,7 @@
 (function()
 {
     /// Imported from other modules.
-    let configuration, domanip, events, messages, version;
+    let domanip, events, messages, storage, version;
 
     /// Contains DOM elements. Populated by initialize().
     const DOM =
@@ -55,7 +55,7 @@
     async function load_page_configuration()
     {
         let options;
-        try           { options = await configuration.load(); }
+        try           { options = await storage.load(storage.Key.Configuration); }
         catch (error) { messages.error(ErrorMessage.LoadingConfiguration, error); return; }
 
         apply_configuration_to_page(options);
@@ -63,7 +63,13 @@
     /// Saves the configuration indicated by the controls on the page to local storage.
     async function save_page_configuration()
     {
-        try           { await configuration.save(extract_configuration_from_page()); }
+        try
+        {
+            await storage.save(
+                storage.Key.Configuration,
+                extract_configuration_from_page()
+            );
+        }
         catch (error) { messages.error(ErrorMessage.SavingConfiguration, error); }
     }
 
@@ -105,18 +111,18 @@
     });
     require(["./data", "./export", "./import"]);
     require(["./messages",
-             "scripts/meta/configuration",
              "scripts/meta/version",
              "scripts/utilities/dom_manipulation",
-             "scripts/utilities/events"],
-            (messages_module, configuration_module, version_module,
-             dom_module, events_module) =>
+             "scripts/utilities/events",
+             "scripts/utilities/storage"],
+            (messages_module, version_module,
+             dom_module, events_module, storage_module) =>
             {
                 messages = messages_module;
-                configuration = configuration_module;
                 version = version_module;
                 domanip = dom_module;
                 events = events_module;
+                storage = storage_module;
 
                 domanip.when_ready(initialize);
 

@@ -1,7 +1,7 @@
 (function()
 {
     /// Imported from other modules.
-    let bookmarks, configuration, events, notification;
+    let bookmarks, events, notification, storage;
 
     /// True iff the extension's privacy context setting is set to private.
     let do_limit_to_private_context = false;
@@ -51,7 +51,7 @@
             "context-requirement-change",
             handle_context_requirement_change
         );
-        configuration.load().then(handle_context_requirement_change);
+        storage.load(storage.Key.Configuration).then(handle_context_requirement_change);
 
         /// When a bookmark is removed we may need to update the page action's visibility.
         browser.bookmarks.onRemoved.addListener(update_in_active_tabs);
@@ -72,15 +72,15 @@
     }
 
     define(["scripts/background/bookmarks_manager",
-            "scripts/meta/configuration",
             "scripts/utilities/events",
-            "scripts/utilities/notification"],
-           (bookmarks_module, configuration_module, events_module, notification_module) =>
+            "scripts/utilities/notification",
+            "scripts/utilities/storage"],
+           (bookmarks_module, events_module, notification_module, storage_module) =>
            {
                 bookmarks = bookmarks_module;
-                configuration = configuration_module;
                 events = events_module;
                 notification = notification_module;
+                storage = storage_module;
 
                 initialize();
            });

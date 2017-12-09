@@ -1,7 +1,7 @@
 (function()
 {
     /// Imported from other modules.
-    let bookmarks, configuration, events;
+    let bookmarks, events, storage;
 
     /// True iff the extension's privacy context setting is set to private.
     let do_limit_to_private_context = false;
@@ -124,17 +124,17 @@
             "context-requirement-change",
             on_context_requirement_change
         );
-        configuration.load().then(on_context_requirement_change);
+        storage.load(storage.Key.Configuration).then(on_context_requirement_change);
     }
 
     define(["scripts/background/bookmarks_manager",
-            "scripts/meta/configuration",
-            "scripts/utilities/events"],
-           (bookmarks_module, configuration_module, events_module) =>
+            "scripts/utilities/events",
+            "scripts/utilities/storage"],
+           (bookmarks_module, events_module, storage_module) =>
            {
                 bookmarks = bookmarks_module;
-                configuration = configuration_module;
                 events = events_module;
+                storage = storage_module;
 
                 initialize();
            });

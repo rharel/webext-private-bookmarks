@@ -6,7 +6,7 @@
     /// the front and suspension of the extension. This module implements this behavior.
 
     /// Imported from other modules.
-    let configuration, core, events, storage;
+    let core, events, storage;
 
     /// Resolves to true iff there is at least one private normal/popup window open.
     async function is_private_browsing()
@@ -81,20 +81,18 @@
         {
             update_private_window_monitoring(message.do_limit_to_private_context);
         });
-        configuration.load().then(options =>
+        storage.load(storage.Key.Configuration).then(options =>
         {
             update_private_window_monitoring(options.do_limit_to_private_context);
         });
     }
 
     require(["scripts/background/bookmarks_manager/core",
-             "scripts/meta/configuration",
              "scripts/utilities/events",
              "scripts/utilities/storage"],
-            (core_module, configuration_module, events_module, storage_module) =>
+            (core_module, events_module, storage_module) =>
             {
                 core = core_module;
-                configuration = configuration_module;
                 events = events_module;
                 storage = storage_module;
 

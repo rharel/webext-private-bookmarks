@@ -1,5 +1,8 @@
 (function()
 {
+    /// Imported from other modules.
+    let configuration;
+
     /// Keys for data in storage.
     const Key =
     {
@@ -20,7 +23,9 @@
         FrontID: "front_folder_id",
         /// The location in which the front should be spawned at.
         /// It is an object { parent_id: string, index: integer }.
-        FrontSpawnLocation: "front_folder_spawn_location"
+        FrontSpawnLocation: "front_folder_spawn_location",
+        /// Maps synchronized keys to their last modification date.
+        SyncRecords: "sync_records"
     };
 
     /// Keys for values that should be synced (when sync is enabled).
@@ -73,7 +78,7 @@
         get_to_be_synced_bytes_in_use: async function()
         {
             // FIXME when getBytesInUse() is implemented in Firefox.
-            // return storage.getBytesInUse(ESSENTIAL_KEYS);
+            // return storage.getBytesInUse(KEYS_TO_SYNC);
 
             let sum = 0;
             KEYS_TO_SYNC.forEach(async key =>
@@ -95,29 +100,13 @@
         load_all: function(keys) { return this.area.get(keys); },
 
         /// Associates the specified value to the specified key and saves it asynchronously.
-        save: function(key, value, do_record_modification_date = true)
+        save: function(key, value)
         {
-            if (do_record_modification_date &&
-                KEYS_TO_SYNC.includes(key))
-            {
-                value.date_modified = Date.now();
-            }
             const item = {}; item[key] = value;
             return this.area.set(item);
         },
         /// Associates the specified keys to the specified values and saves them asynchronously.
-        save_all: function(key_value_mapping, do_record_modification_date = true)
-        {
-            for (const key in key_value_mapping)
-            {
-                if (do_record_modification_date &&
-                    KEYS_TO_SYNC.includes(key))
-                {
-                    key_value_mapping[key].date_modified = Date.now();
-                }
-            }
-            return this.area.set(key_value_mapping);
-        },
+        save_all: function(key_value_mapping) { return this.area.set(key_value_mapping); },
 
         /// Removes the specified key and associated value asynchronously.
         remove:     function(key)  { return this.area.remove(key); },
@@ -136,26 +125,67 @@
 
     /// Loads the value associated with the specified key asynchronously.
     /// Resolves to the associated value if it exists. If not, resolves to null.
-    function load(key) { return local.load(key); }
-
+    function load(key)        { return local.load(key); }
     /// Associates the specified value to the specified key and saves it asynchronously.
-    function save(key, value, do_record_modification_date = true)
+    function save(key, value) { return local.save(key, value); }
+    /// Removes the specified key and associated value asynchronously.
+    function remove(key)      { return local.remove(key); }
+
+    /// Creates initial synchronization records.
+    function create_sync_records()
     {
-        return local.save(key, value, do_record_modification_date);
+        const records = {};
+        const now     = Date.now();
+
+        KEYS_TO_SYNC.forEach(key => records[key] = now);
+
+        return records;
     }
 
-    /// Removes the specified key and associated value asynchronously.
-    function remove(key) { return local.remove(key); }
+    /// Assigned true iff vital local keys are either initialized or about to be.
+    let invoked_vital_local_key_initialization = false;
+    /// Initializes vital local keys. These are keys that are expected to always exist in local
+    /// storage.
+    async function initialize_vital_local_keys()
+    {
+        if (invoked_vital_local_key_initialization) { return; }
 
-    define({
-                Key:          Key,
-                KEYS_TO_SYNC: KEYS_TO_SYNC,
+        invoked_vital_local_key_initialization = true;
 
-                local:        local,
-                synchronized: synchronized,
+        // Maps with their initializer methods.
+        const vital_local_keys = {};
+        vital_local_keys[Key.Configuration] = configuration.create;
+        vital_local_keys[Key.SyncRecords]   = create_sync_records;
 
-                load:   load,
-                save:   save,
-                remove: remove
+        const initializing = [];
+        for (const key in vital_local_keys)
+        {
+            if ((await local.load(key)) === null)
+            {
+                const initial_value = vital_local_keys[key]();
+                initializing.push(local.save(key, initial_value));
+            }
+        }
+        return Promise.all(initializing);
+    }
+
+    define(["scripts/meta/configuration"],
+           configuration_module =>
+           {
+               configuration = configuration_module;
+
+               return   {
+                           Key:          Key,
+                           KEYS_TO_SYNC: KEYS_TO_SYNC,
+
+                           local:        local,
+                           synchronized: synchronized,
+
+                           initialize: initialize_vital_local_keys,
+
+                           load:   load,
+                           save:   save,
+                           remove: remove
+                        };
            });
 })();
