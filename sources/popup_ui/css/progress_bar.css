@@ -34,5 +34,5 @@
     background-size: 200%;  /* Avoid reaching image edge during animation. */
     height: var(--bar-height);
     transition: width 0.25s linear;
-    width: 0%;
+    width: 0;
 }
