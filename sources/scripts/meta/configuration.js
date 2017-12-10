@@ -14,11 +14,13 @@
                     /// True iff the extension is limited to private contexts exclusively.
                     do_limit_to_private_context: true,
                     /// True iff release notes may be displayed proceeding an update.
-                    do_show_release_notes: true
+                    do_show_release_notes: true,
+                    /// True iff preferences and bookmarks should be synced across devices.
+                    do_sync_data_across_devices: false
                 };
     }
     /// Updates a configuration to the latest version.
-    /// Supports migration from any earlier version in the 0.0.* range.
+    /// Supports migration from any earlier version in the 0.*.* range.
     function update(configuration)
     {
         const previous_release = configuration.version.release;
@@ -28,9 +30,11 @@
         {
             configuration.security = { disable_password_requirements: false };
         }
-        // Release 13: structure is flattened and properties renamed.
+        // Release 13: structure is flattened, existing properties renamed, and a new syncing option
+        // is added.
         if (previous_release < 13)
         {
+            // Flatten and rename existing properties
             configuration.do_disable_password_requirements = (
                 configuration.security.disable_password_requirements
             );
@@ -43,6 +47,9 @@
             delete configuration.general;
             delete configuration.notification;
             delete configuration.security;
+
+            // Add an opt-in to sync data across devices.
+            configuration.do_sync_data_across_devices = false;
         }
         // Update the version value.
         configuration.version = version.CURRENT;

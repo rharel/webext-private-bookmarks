@@ -23,6 +23,7 @@
                  "scripts/background/commands",
                  "scripts/background/page_action",
                  "scripts/background/storage_events",
+                 "scripts/background/storage_synchronization",
                  "scripts/meta/deployment"])
     );
 })();

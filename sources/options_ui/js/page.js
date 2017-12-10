@@ -9,6 +9,7 @@
         do_disable_password_requirements_checkbox: null,
         do_limit_to_private_context_checkbox: null,
         do_show_release_notes_checkbox: null,
+        do_sync_data_across_devices_checkbox: null,
         top_level_message_container: null,
         release_notes_link: null
     };
@@ -35,6 +36,9 @@
                     do_show_release_notes: (
                         DOM.do_show_release_notes_checkbox.checked
                     ),
+                    do_sync_data_across_devices: (
+                        DOM.do_sync_data_across_devices_checkbox.checked
+                    )
                 };
     }
     /// Applies the specified configuration to the controls on the page.
@@ -48,6 +52,9 @@
         );
         DOM.do_show_release_notes_checkbox.checked = (
             options.do_show_release_notes
+        );
+        DOM.do_sync_data_across_devices_checkbox.checked = (
+            options.do_sync_data_across_devices
         );
     }
 
@@ -91,7 +98,9 @@
 
         initialize_options_change_listeners();
 
-        load_page_configuration();
+        load_page_configuration().then(
+            () => require(["./data", "./export", "./import", "./synchronization"])
+        );
 
         DOM.release_notes_link.href = version.RELEASE_NOTES.url;
 
@@ -109,7 +118,6 @@
             scripts: "/scripts"
         }
     });
-    require(["./data", "./export", "./import"]);
     require(["./messages",
              "scripts/meta/version",
              "scripts/utilities/dom_manipulation",

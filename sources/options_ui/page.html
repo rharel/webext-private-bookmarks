@@ -7,6 +7,7 @@
     </title>
 
     <link rel="stylesheet" href="/stylesheets/photon.css">
+    <link rel="stylesheet" href="/stylesheets/tooltip.css">
     <link rel="stylesheet" href="page.css">
 
     <script src="/scripts/foreground/localization.js" defer></script>
@@ -32,6 +33,14 @@
                 </label>
             </div>
             <div class="browser-style panel-formElements-item">
+                <input id="do-disable-password-requirements-checkbox" class="option"
+                       type="checkbox">
+                <label for="do-disable-password-requirements-checkbox"
+                       data-localized="disable_password_requirements_option">
+                    Disable password requirements (allows less secure passwords)
+                </label>
+            </div>
+            <div class="browser-style panel-formElements-item">
                 <input id="do-show-release-notes-checkbox" class="option"
                        type="checkbox">
                 <label for="do-show-release-notes-checkbox"
@@ -39,13 +48,34 @@
                     Let me know what's new after an update
                 </label>
             </div>
+        </div>
+        <div class="panel-section panel-section-header">
+            <div class="text-section-header" data-localized="sync_section_header">
+                Sync
+            </div>
+        </div>
+        <div class="panel-section-formElements">
             <div class="browser-style panel-formElements-item">
-                <input id="do-disable-password-requirements-checkbox" class="option"
+                <input id="do-sync-data-across-devices-checkbox" class="option"
                        type="checkbox">
-                <label for="do-disable-password-requirements-checkbox"
-                       data-localized="disable_password_requirements_option">
-                    Disable password requirements (allows less secure passwords)
+                <label for="do-sync-data-across-devices-checkbox"
+                       data-localized="do_sync_across_devices_option">
+                    Sync bookmarks and preferences across devices
                 </label>
+            </div>
+            <div id="sync-data-usage-statistics" class="browser-style panel-formElements-item">
+                <span id="sync-data-usage">
+                    Your data takes up ?KB out of ?KB available (?%).
+                </span>
+                <a class="has-long-tooltip"
+                   data-localized="sync_data_capacity_info_title"
+                   data-localized-attribute="data-tooltip"
+                   data-localized-attribute-value="sync_data_capacity_info">
+                    Why is this here?
+                </a>
+            </div>
+            <div id="sync-message-container" class="message-container">
+                <span class="message">(message text)</span>
             </div>
         </div>
         <div class="panel-section panel-section-header">

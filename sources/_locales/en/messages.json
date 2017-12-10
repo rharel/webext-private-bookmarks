@@ -34,6 +34,37 @@
         "message": "Disable password requirements (allows less secure passwords)"
     },
 
+    "sync_section_header":
+    {
+        "message": "Sync"
+    },
+    "do_sync_across_devices_option":
+    {
+        "message": "Sync bookmarks and preferences across devices"
+    },
+    "sync_data_usage":
+    {
+        "message": "Your data takes up $TAKEN_KB$KB out of $CAPACITY_KB$KB available ($PERCENTAGE_TAKEN$%).",
+        "placeholders":
+        {
+            "taken_kb":         { "content": "$1" },
+            "capacity_kb":      { "content": "$2" },
+            "percentage_taken": { "content": "$3" }
+        }
+    },
+    "sync_data_capacity_info_title":
+    {
+        "message": "Why is this here?"
+    },
+    "sync_data_capacity_info":
+    {
+        "message": "The browser imposes a limit on how much data an extension is allowed to sync."
+    },
+    "sync_data_capacity_exceeded":
+    {
+        "message": "Syncing is suspended while data capacity is exceeded :("
+    },
+
     "export_section_header":
     {
         "message": "Export"
