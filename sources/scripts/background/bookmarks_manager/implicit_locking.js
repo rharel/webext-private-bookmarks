@@ -58,8 +58,12 @@
 
         if (front_id !== null)
         {
-            try     { await browser.bookmarks.removeTree(front_id); }
-            finally { storage.remove(storage.Key.FrontID); }
+            try
+            {
+                await browser.bookmarks.removeTree(front_id);
+                storage.remove(storage.Key.FrontID);
+            }
+            catch (error) { }
         }
     }
 
