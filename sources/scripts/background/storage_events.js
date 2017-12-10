@@ -11,7 +11,7 @@
         {
             const {oldValue, newValue} = changes[storage.Key.Configuration];
 
-            if (newValue) { events.emit("configuration-change"); }
+            if (newValue) { events.emit("configuration-change", { new_value: newValue }); }
             
             if (!oldValue ||
                  oldValue.do_limit_to_private_context !==
