@@ -23,18 +23,8 @@
         FrontID: "front_folder_id",
         /// The location in which the front should be spawned at.
         /// It is an object { parent_id: string, index: integer }.
-        FrontSpawnLocation: "front_folder_spawn_location",
-        /// Maps synchronized keys to their last modification date.
-        SyncRecords: "sync_records"
+        FrontSpawnLocation: "front_folder_spawn_location"
     };
-
-    /// Keys for values that should be synced (when sync is enabled).
-    const KEYS_TO_SYNC = [
-        Key.Back,
-        Key.Configuration,
-        Key.FrontID,
-        Key.FrontSpawnLocation
-    ];
 
     /// A private encoder for this module.
     const text_encoder = new TextEncoder();
@@ -72,19 +62,6 @@
             // return storage.getBytesInUse(null);
 
             return size_in_bytes(await this.area.get(null));  // Null gets entire contents.
-        },
-        /// Gets the number of bytes in use taken up by essential data. Right now, that equals the
-        /// back folder and configuration.
-        get_to_be_synced_bytes_in_use: async function()
-        {
-            // FIXME when getBytesInUse() is implemented in Firefox.
-            // return storage.getBytesInUse(KEYS_TO_SYNC);
-
-            let sum = 0;
-            KEYS_TO_SYNC.forEach(async key =>
-                sum += size_in_bytes(await this.load(key))
-            );
-            return sum;
         },
 
         /// Loads the value associated with the specified key.
@@ -131,17 +108,6 @@
     /// Removes the specified key and associated value asynchronously.
     function remove(key)      { return local.remove(key); }
 
-    /// Creates initial synchronization records.
-    function create_sync_records()
-    {
-        const records = {};
-        const now     = Date.now();
-
-        KEYS_TO_SYNC.forEach(key => records[key] = now);
-
-        return records;
-    }
-
     /// Assigned true iff vital local keys are either initialized or about to be.
     let invoked_vital_local_key_initialization = false;
     /// Initializes vital local keys. These are keys that are expected to always exist in local
@@ -155,7 +121,6 @@
         // Maps with their initializer methods.
         const vital_local_keys = {};
         vital_local_keys[Key.Configuration] = configuration.create;
-        vital_local_keys[Key.SyncRecords]   = create_sync_records;
 
         const initializing = [];
         for (const key in vital_local_keys)
@@ -176,7 +141,6 @@
 
                return   {
                            Key:          Key,
-                           KEYS_TO_SYNC: KEYS_TO_SYNC,
 
                            local:        local,
                            synchronized: synchronized,
