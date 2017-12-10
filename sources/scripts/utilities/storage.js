@@ -46,7 +46,11 @@
     }
 
     /// Creates a storage interface for the specified area.
-    function Handle(area) { this.area = area; }
+    function Handle(area_name)
+    {
+        this.area_name = area_name;
+        this.area      = browser.storage[area_name];
+    }
     Handle.prototype =
     {
         /// Indicates whether there is any data in storage.
@@ -92,8 +96,8 @@
     };
 
     /// The two main handles to storage.
-    const local        = new Handle(browser.storage.local),
-          synchronized = new Handle(browser.storage.sync);
+    const local        = new Handle("local"),
+          synchronized = new Handle("sync");
 
     /// Synchronized storage capacity in bytes.
     /// Technically, Firefox allows for 100KB. But, we leave a 20% margin in case internal extension
