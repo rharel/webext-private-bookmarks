@@ -78,7 +78,15 @@
             else                             { return null; }
         },
         /// Loads the values associated with the specified keys.
-        load_all: function(keys) { return this.area.get(keys); },
+        load_all: async function(keys)
+        {
+            const results = await this.area.get(keys);
+            keys.forEach(key =>
+            {
+                if (!results.hasOwnProperty(key)) { results[key] = null; }
+            });
+            return results;
+        },
 
         /// Associates the specified value to the specified key and saves it asynchronously.
         save: function(key, value)
