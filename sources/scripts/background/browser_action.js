@@ -106,6 +106,37 @@
         }
     }
 
+    /// Assigned the identifier of an open menu page to delegate to (if it exists).
+    let menu_tab_id = null;
+    /// Clears the menu tab identifier when the tab is closed.
+    browser.tabs.onRemoved.addListener(id =>
+    {
+        if (id === menu_tab_id) { cancel_delegation(); }
+    });
+    /// Focuses the open menu tab.
+    async function focus_menu_tab()
+    {
+        const tab = await browser.tabs.get(menu_tab_id);
+
+        await browser.tabs.update(tab.id, { active: true });
+        await browser.windows.update(tab.windowId, { focused: true });
+    }
+    /// Instead of opening the menu in a popup, redirects to an already open tab containing the
+    /// menu.
+    function delegate_to(tab_id)
+    {
+        menu_tab_id = tab_id;
+        browser.browserAction.setPopup({ popup: "" });
+        browser.browserAction.onClicked.addListener(focus_menu_tab);
+    }
+    /// Undoes the effect of delegate_to().
+    function cancel_delegation()
+    {
+        browser.browserAction.onClicked.removeListener(focus_menu_tab);
+        browser.browserAction.setPopup({ popup: "/popup_ui/page.html" });
+        menu_tab_id = null;
+    }
+
     /// Initializes this module.
     function initialize()
     {
@@ -114,6 +145,11 @@
 
         events.local.add_listener(["lock", "unlock"], update_icon);
         update_icon();
+
+        events.global.add_listener("menu-open", page =>
+        {
+            if (page.hasOwnProperty("tab_id")) { delegate_to(page.tab_id); }
+        });
 
         function on_context_requirement_change(new_requirements)
         {

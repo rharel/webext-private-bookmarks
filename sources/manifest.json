@@ -48,6 +48,11 @@
         {
             "suggested_key": { "default": "Ctrl+Shift+L" },
             "description": "Locks private bookmarks"
+        },
+        "open-menu":
+        {
+            "suggested_key": { "default": "Alt+Shift+8" },
+            "description": "Opens the main menu"
         }
     },
     "default_locale": "en",

@@ -25,7 +25,7 @@
     /// Listens for first user interaction with the extension proceeding deployment.
     async function listen_for_first_interaction(deployment_type)
     {
-        let listener = events.global.add_listener(["options-open", "popup-open"], () =>
+        let listener = events.global.add_listener(["options-open", "menu-open"], () =>
         {
             events.global.remove_listener(listener);
             storage.remove(storage.Key.DeploymentType);
