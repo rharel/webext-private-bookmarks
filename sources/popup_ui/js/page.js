@@ -1,7 +1,7 @@
 (function()
 {
     /// Imported from other modules.
-    let CURRENT_VERSION, domanip, events;
+    let domanip, events, version;
 
     /// Contains DOM elements. Populated by initialize().
     const DOM =
@@ -15,11 +15,12 @@
     {
         domanip.populate(DOM);
 
-        {
-            const {major, minor, release} = CURRENT_VERSION;
-            DOM.extension_version.textContent = `${major}.${minor}.${release}`;
-        }
-
+        DOM.extension_version.textContent = version.format(
+            /* include minor:    */ true,
+            /* include release:  */ true,
+            /* include tag:      */ true,
+            /* include revision: */ false
+        );
         DOM.options_button.addEventListener("click", () => { browser.runtime.openOptionsPage(); });
 
         events.global.emit("popup-open");
@@ -40,7 +41,7 @@
             (panels_controller_module, version_module,
              dom_module, events_module) =>
             {
-                CURRENT_VERSION = version_module.CURRENT;
+                version = version_module;
                 domanip = dom_module;
                 events = events_module;
 
