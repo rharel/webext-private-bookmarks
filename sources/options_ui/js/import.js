@@ -72,8 +72,7 @@
     /// Determines whether the specified object is an encrypted backup.
     function is_encrypted(data)
     {
-        return data.hasOwnProperty("iv") &&
-               data.hasOwnProperty("ciphertext");
+        return data.hasOwnProperty("version");  // Only encrypted exports are tagged with version.
     }
 
     /// Assigned the JSON contents of the selected files.

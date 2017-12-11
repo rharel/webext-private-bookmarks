@@ -1,7 +1,7 @@
 (function()
 {
     /// Imported from other modules.
-    let crypto, storage;
+    let crypto, storage, string_utilities;
 
     /// We encrypt this signature together with the rest of the data so that we can later quickly
     /// verify that a password is correct.
@@ -63,49 +63,97 @@
     /// Rejects if the folder does not exists.
     async function change_authentication(old_key, new_key)
     {
-        return write(await read(old_key, false), new_key, false)
+        const raw = await read_raw(old_key);
+        return write_raw(raw.data, new_key, raw.is_compressed);
     }
 
-    /// Decrypts the specified data with the specified key and returns it.
-    /// Rejects if the folder does not exist.
-    async function read(key, do_parse_json = true)
+    /// Decrypts the specified data with the specified key.
+    /// Rejects if decryption fails.
+    async function read_raw_from(folder, key)
     {
-        const data = await load();
-        if (data === null)
+        const encrypted = folder.bookmarks;
+        return {
+                    data: await crypto.decrypt(
+                        encrypted.iv,
+                        encrypted.ciphertext, key
+                    ),
+                    is_compressed: folder.hasOwnProperty("is_compressed") &&
+                                   folder.is_compressed
+               };
+    }
+    /// Decrypts data with the specified key.
+    /// Rejects if the folder does not exist or if decryption fails.
+    async function read_raw(key)
+    {
+        const folder = await load();
+        if (folder === null)
         {
             return Promise.reject(new Error("Cannot read from back, back doesn't exist."));
         }
-
-        const encrypted_bookmarks = data.bookmarks;
-        const bookmarks_json = await crypto.decrypt(
-            encrypted_bookmarks.iv,
-            encrypted_bookmarks.ciphertext, key
-        );
-
-        if (do_parse_json) { return JSON.parse(bookmarks_json); }
-        else               { return bookmarks_json; }
+        return read_raw_from(folder, key);
     }
+    /// Unpacks the specified data with the specified key.
+    /// Rejects if decryption fails.
+    ///
+    /// Unpacking entails: decryption => [decompression] => de-conversion from JSON.
+    async function read_from(folder, key)
+    {
+        const raw = await read_raw_from(folder, key);
+        const json = (
+            raw.is_compressed ?
+            string_utilities.decompress(raw.data) :
+            raw.data
+        );
+        return JSON.parse(json);
+    }
+    /// Unpacks data with the specified key.
+    /// Rejects if the folder does not exist or if decryption fails.
+    ///
+    /// Unpacking entails: decryption => [decompression] => de-conversion from JSON.
+    async function read(key)
+    {
+        const folder = await load();
+        if (folder === null)
+        {
+            return Promise.reject(new Error("Cannot read from back, back doesn't exist."));
+        }
+        return read_from(folder, key);
+    }
+
     /// Encrypts the specified data with the specified key and writes it to the folder, overwriting
     /// its previous contents.
-    async function write(bookmarks, key, do_stringify_json = true)
+    async function write_raw(data, key, is_compressed)
     {
-        if (do_stringify_json) { bookmarks = JSON.stringify(bookmarks); }
-
         const encrypted_signature = await crypto.encrypt(SIGNATURE, key),
-              encrypted_bookmarks = await crypto.encrypt(bookmarks, key);
-
+              encrypted_data      = await crypto.encrypt(data, key);
         return save({
             signature: encrypted_signature,
-            bookmarks: encrypted_bookmarks
+            bookmarks: encrypted_data,
+            is_compressed: is_compressed
         });
+    }
+    /// Packs the specified data with the specified key and writes it to the folder, overwriting
+    /// its previous contents.
+    ///
+    /// Packing entails: conversion to JSON => [compression] => encryption.
+    async function write(data, key, do_compress = true)
+    {
+        const json = JSON.stringify(data);
+        return write_raw(
+            do_compress ? string_utilities.compress(json) : json,
+            key,
+            do_compress
+        );
     }
 
     define(["scripts/utilities/cryptography",
-            "scripts/utilities/storage"],
-           (cryptography_module, storage_module) =>
+            "scripts/utilities/storage",
+            "scripts/utilities/string_utilities"],
+           (cryptography_module, storage_module, string_utilities_module) =>
            {
                 crypto = cryptography_module;
                 storage = storage_module;
+                string_utilities = string_utilities_module;
 
                 return  {
                             load: load,
@@ -119,8 +167,9 @@
                             authenticate:          authenticate,
                             change_authentication: change_authentication,
 
-                            read:  read,
-                            write: write
+                            read:      read,
+                            read_from: read_from,
+                            write:     write
                         };
            });
 })();

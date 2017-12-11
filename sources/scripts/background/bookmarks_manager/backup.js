@@ -9,10 +9,9 @@
         const data = await back.load();
         if (data === null) { return null; }
 
-        const exported_data = data.bookmarks;
-        exported_data.version = CURRENT_VERSION;
+        data.version = CURRENT_VERSION;
 
-        return exported_data;
+        return data;
     }
     /// Returns a JSON object containing plaintext bookmarks' data.
     async function export_plain_data()
@@ -35,17 +34,21 @@
         return browser.i18n.getMessage("import_folder_title", [dd, mm, yyyy]);
     }
     /// Decrypts the specified bookmark data using the specified key and imports it to the front.
-    async function import_encrypted_data(encrypted_bookmarks, key)
+    async function import_encrypted_data(data, key)
     {
         if (!front.exists())
         {
             return Promise.reject(new Error("Cannot import data while locked."));
         }
-        const bookmarks_json = await crypto.decrypt(
-            encrypted_bookmarks.iv,
-            encrypted_bookmarks.ciphertext, key
-        );
-        return import_plain_data(JSON.parse(bookmarks_json))
+        if (data.version.release < 13)
+        {
+            data =
+            {
+                bookmarks: data,
+                is_compressed: false
+            };
+        }
+        return import_plain_data(await back.read_from(data, key));
     }
     /// Imports the specified bookmark data to the front.
     async function import_plain_data(bookmarks)

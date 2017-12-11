@@ -1,14 +1,14 @@
 (function()
 {
     /// Imported from other modules.
-    let convert;
+    let string_utilities;
 
     /// Hashes the specified string.
     /// Resolves to a Uint8Array containing the hash.
     async function digest(plaintext)
     {
         return new Uint8Array(await crypto.subtle.digest(
-            "SHA-256", convert.to_utf8_bytes(plaintext)
+            "SHA-256", string_utilities.to_utf8_bytes(plaintext)
         ));
     }
 
@@ -28,11 +28,11 @@
             /* Usage:       */ ["encrypt"]
         );
         const ciphertext = new Uint8Array(await crypto.subtle.encrypt(
-            algorithm, encryption_key, convert.to_utf8_bytes(plaintext)
+            algorithm, encryption_key, string_utilities.to_utf8_bytes(plaintext)
         ));
         return  {
-                    iv:         convert.from_base64_bytes(iv),
-                    ciphertext: convert.from_base64_bytes(ciphertext)
+                    iv:         string_utilities.from_base64_bytes(iv),
+                    ciphertext: string_utilities.from_base64_bytes(ciphertext)
                 };
     }
     /// Decrypts the specified ciphertext with the specified key and initialization vector.
@@ -42,22 +42,22 @@
     async function decrypt(iv, ciphertext, key)
     {
         const hashed_key     = await digest(key);
-        const algorithm      = { name: "AES-GCM", iv: convert.to_base64_bytes(iv) };
+        const algorithm      = { name: "AES-GCM", iv: string_utilities.to_base64_bytes(iv) };
         const decryption_key = await crypto.subtle.importKey(
             "raw", hashed_key, algorithm,
             /* Extractable: */ false,
             /* Usage:       */ ["decrypt"]
         );
         const plaintext = await crypto.subtle.decrypt(
-            algorithm, decryption_key, convert.to_base64_bytes(ciphertext)
+            algorithm, decryption_key, string_utilities.to_base64_bytes(ciphertext)
         );
-        return convert.from_utf8_bytes(plaintext);
+        return string_utilities.from_utf8_bytes(plaintext);
     }
 
-    define(["scripts/utilities/string_conversion"],
-           conversion_module =>
+    define(["scripts/utilities/string_utilities"],
+           string_utilities_module =>
            {
-               convert = conversion_module;
+               string_utilities = string_utilities_module;
 
                return   {
                             digest: digest,

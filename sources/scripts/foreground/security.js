@@ -1,7 +1,7 @@
 (function()
 {
     /// Imported from other modules.
-    let convert, crypto;
+    let string_utilities, crypto;
 
     /// Password length requirements.
     let password_length =
@@ -49,15 +49,20 @@
 
     /// Hashes the specified value.
     /// Returns a hexadecimal string.
-    async function hash(value) { return convert.from_hex_bytes(await crypto.digest(value)); }
+    async function hash(value)
+    {
+        return string_utilities.from_hex_bytes(
+            await crypto.digest(value)
+        );
+    }
 
     define(["scripts/utilities/cryptography",
             "scripts/utilities/storage",
-            "scripts/utilities/string_conversion"],
-           (cryptography_module, storage, conversion_module) =>
+            "scripts/utilities/string_utilities"],
+           (cryptography_module, storage, string_utilities_module) =>
            {
                crypto = cryptography_module;
-               convert = conversion_module;
+               string_utilities = string_utilities_module;
 
                const loading = storage.load(storage.Key.Configuration).then(options =>
                {

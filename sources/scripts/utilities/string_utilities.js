@@ -1,5 +1,42 @@
 (function()
 {
+    /// Imported from other modules.
+    let LZ_string;
+
+    /// Converts UTF-16 text to UTF-8.
+    ///
+    /// Modified version of: https://github.com/pieroxy/lz-string/issues/94#issuecomment-317224401
+    function utf_16_to_8(text)
+    {
+        let result = "";
+        for(let i = 0; i < text.length; ++i)
+        {
+            const code = text.charCodeAt(i);
+            result += String.fromCharCode(~~(code / 256));
+            result += String.fromCharCode(code % 256);
+        }
+        return result;
+    }
+    /// Converts UTF-8 text to UTF-16.
+    ///
+    /// Modified version of: https://github.com/pieroxy/lz-string/issues/94#issuecomment-317224401
+    function utf_8_to_16(text)
+    {
+        let result = "";
+        for(let i = 0; i < text.length; i += 2)
+        {
+            const code = text.charCodeAt(i) * 256 +
+                         text.charCodeAt(i + 1);
+            result += String.fromCharCode(code)
+        }
+        return result;
+    }
+
+    /// Compresses the specified text.
+    function compress(text)   { return utf_16_to_8(LZ_string.compress(text)); }
+    /// Decompresses the specified text.
+    function decompress(text) { return LZ_string.decompress(utf_8_to_16(text)); }
+
     /// A private encoder/decoder for this module.
     const text_encoder = new TextEncoder(),
           text_decoder = new TextDecoder();
@@ -38,9 +75,11 @@
         return text;
     }
 
-    define(["libraries/base64"],
-           base64_module =>
+    define(["libraries/base64",
+            "libraries/LZ_string.min"],
+           (base64_module, LZ_string_module) =>
            {
+               LZ_string = LZ_string_module;
                return   {
                             to_base64_bytes:   base64_module.toByteArray,
                             from_base64_bytes: base64_module.fromByteArray,
@@ -50,6 +89,12 @@
 
                             to_utf8_bytes:   to_utf8_bytes,
                             from_utf8_bytes: from_utf8_bytes,
+
+                            utf_8_to_16: utf_8_to_16,
+                            utf_16_to_8: utf_16_to_8,
+
+                            compress:   compress,
+                            decompress: decompress
                         };
            });
 })();
