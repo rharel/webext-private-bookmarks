@@ -42,7 +42,7 @@
 
                return   {
                             ID: "error",
-                            TITLE: browser.i18n.getMessage("error_title"),
+                            TITLE: browser.i18n.getMessage("menu_panel_title_error"),
 
                             on_activate: on_activate
                         };

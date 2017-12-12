@@ -14,7 +14,7 @@
     /// Enumerates possible informational messages.
     const InfoMessage =
     {
-        DataCapacityExceeded: browser.i18n.getMessage("sync_data_capacity_exceeded"),
+        DataCapacityExceeded: browser.i18n.getMessage("info_sync_data_capacity_exceeded"),
     };
 
     /// Updates the data usage statistics display.
@@ -41,7 +41,7 @@
         const percentage_taken = Math.round(100 * taken_kb / capacity_kb);
 
         DOM.sync_data_usage.textContent = browser.i18n.getMessage(
-            "sync_data_usage",
+            "info_sync_data_usage",
             [taken_kb.toString(),
              capacity_kb.toString(),
              percentage_taken.toString()]

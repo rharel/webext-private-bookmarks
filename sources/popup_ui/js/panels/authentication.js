@@ -104,7 +104,7 @@
 
                return   {
                             ID: "authentication",
-                            TITLE: browser.i18n.getMessage("authentication_title"),
+                            TITLE: browser.i18n.getMessage("menu_panel_title_authentication"),
 
                             on_activate:   on_activate,
                             on_deactivate: on_deactivate,

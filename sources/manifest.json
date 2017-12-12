@@ -84,7 +84,7 @@
             "128": "icons/main/unlocked-bookmarks.svg",
             "256": "icons/main/unlocked-bookmarks.svg"
         },
-        "default_title": "__MSG_page_action_default_title__"
+        "default_title": "__MSG_page_action_title__"
     },
 	"permissions": ["bookmarks", "notifications", "storage", "tabs"]
 }

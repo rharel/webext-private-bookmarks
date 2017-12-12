@@ -10,7 +10,7 @@
     const MAIN_MENU_TRANSITION =
     {
         id: "main_menu",
-        label: browser.i18n.getMessage("go_to_main_menu_command")
+        label: browser.i18n.getMessage("command_go_to_menu")
     };
 
     /// Contains DOM elements. Populated by initialize().
@@ -49,7 +49,7 @@
             await locking;
             transition_to("success",
                           {
-                                details: browser.i18n.getMessage("locked_successfully"),
+                                details: browser.i18n.getMessage("success_lock"),
                                 transition: MAIN_MENU_TRANSITION
                           });
         }
@@ -86,7 +86,7 @@
                     transition_to("success",
                                   {
                                         details: browser.i18n.getMessage(
-                                            "unlocked_successfully",
+                                            "success_unlock",
                                             [title,
                                              parent_title === "" ? "(no title)" : parent_title]
                                         ),
@@ -113,7 +113,7 @@
 
         transition_to("authentication",
         {
-            message: browser.i18n.getMessage("enter_current_password_instruction"),
+            message: browser.i18n.getMessage("direction_enter_current_password"),
 
             on_acceptance: async old_hashed_password =>
             {
@@ -125,7 +125,7 @@
                     {
                         transition_to("success",
                         {
-                            details: browser.i18n.getMessage("password_changed_successfully"),
+                            details: browser.i18n.getMessage("success_password_change"),
                             transition: MAIN_MENU_TRANSITION
                         });
                     },

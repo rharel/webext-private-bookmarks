@@ -13,13 +13,13 @@
     /// Enumerates possible error messages.
     const ErrorMessage =
     {
-        ClearanceFailed: browser.i18n.getMessage("error_clearing_data"),
+        ClearanceFailed: browser.i18n.getMessage("error_data_clearance"),
     };
 
     /// Prompts the user to confirm data-clearance, and does so if confirmed.
     async function clear()
     {
-        const question = browser.i18n.getMessage("confirm_data_clearance_question");
+        const question = browser.i18n.getMessage("confirm_data_clearance");
         const is_confirmed = await messages.confirm(question);
 
         if (is_confirmed)

@@ -17,8 +17,8 @@
     /// Enumerates possible error messages.
     const ErrorMessage =
     {
-        LoadingConfiguration: browser.i18n.getMessage("error_loading_options"),
-        SavingConfiguration:  browser.i18n.getMessage("error_saving_options")
+        LoadingConfiguration: browser.i18n.getMessage("error_options_load"),
+        SavingConfiguration:  browser.i18n.getMessage("error_options_save")
     };
 
     /// Extracts the configuration indicated by the controls on the page.

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title data-localized="popup_title">
+    <title data-localized="menu_title">
         Private Bookmarks
     </title>
 
@@ -44,16 +44,16 @@
     </div>
     <div id="error-panel" class="deactivated centering panel">
         <div>
-            <span data-localized="error_message_beginning">
+            <span data-localized="menu_panel_error_message_begin">
                 Oops! There was an error.
                 You can help by
             </span>
             <a id="error-report-button"
-               data-localized="error_message_ending"
+               data-localized="menu_panel_error_message_end"
                href="https://github.com/rharel/webext-private-bookmarks/issues" target="_blank">
                 reporting it
             </a><br><br>
-            <span data-localized="error_message_addendum">
+            <span data-localized="menu_panel_error_message_addendum">
                 Private Bookmarks is still in early development.
                 Sorry for the inconvenience.
             </span>
@@ -64,7 +64,7 @@
         <button id="setup-password-button" class="large browser-style default disabled"
                 disabled>
             <img src="/icons/main/password_white.svg">
-            <label data-localized="choose_password_command">Choose a password</label>
+            <label data-localized="command_choose_password">Choose a password</label>
         </button>
     </div>
     <div id="password-setup-panel" class="deactivated form panel">
@@ -77,7 +77,7 @@
                     </span>
                 </div>
                 <div>
-                    <a data-localized="password_allowed_characters_label"
+                    <a data-localized="tooltip_password_allowed_characters"
                        data-tooltip="a-z, A-Z, 0-9, ~!@#$%^&*_-+=, [space]">
                         Allowed characters
                     </a>
@@ -87,7 +87,7 @@
                 <input id="new-password-input" type="password"
                        size="20" placeholder="Password"
                        data-localized-attribute="placeholder"
-                       data-localized-attribute-value="password_field_placeholder">
+                       data-localized-attribute-value="field_placeholder_password">
                 <img id="new-password-validation-icon" class="validation-icon"
                      src="">
             </div>
@@ -95,7 +95,7 @@
                 <input id="repeated-new-password-input" type="password"
                        size="20" placeholder="Repeat password"
                        data-localized-attribute="placeholder"
-                       data-localized-attribute-value="repeated_password_field_placeholder">
+                       data-localized-attribute-value="field_placeholder_repeated_password">
                 <img id="repeated-new-password-validation-icon" class="validation-icon"
                      src="">
             </div>
@@ -104,13 +104,13 @@
                 <button id="confirm-new-password-button"
                         class="browser-style default disabled"
                         disabled>
-                    <label data-localized="confirm_cancel_positive">Confirm</label>
+                    <label data-localized="response_confirm_cancel_positive">Confirm</label>
                     <img src="/icons/main/password_white.svg">
                 </button>
                 <button id="cancel-password-setup-button"
                         class="browser-style default deactivated disabled negative"
                         disabled>
-                    <label data-localized="confirm_cancel_negative">Cancel</label>
+                    <label data-localized="response_confirm_cancel_negative">Cancel</label>
                     <img src="/icons/main/incorrect_white.svg">
                 </button>
             </div>
@@ -123,20 +123,20 @@
                 <input id="authentication-password-input" type="password"
                        size="20" placeholder="Password"
                        data-localized-attribute="placeholder"
-                       data-localized-attribute-value="password_field_placeholder">
+                       data-localized-attribute-value="field_placeholder_password">
             </div>
             <div id="authentication-buttons-container"
                  class="browser-style panel-formElements-item">
                 <button id="confirm-authentication-button"
                         class="browser-style default disabled"
                         disabled>
-                    <label data-localized="confirm_cancel_positive">Confirm</label>
+                    <label data-localized="response_confirm_cancel_positive">Confirm</label>
                     <img src="/icons/main/password_white.svg">
                 </button>
                 <button id="cancel-authentication-button"
                         class="browser-style default disabled negative"
                         disabled>
-                    <label data-localized="confirm_cancel_negative">Cancel</label>
+                    <label data-localized="response_confirm_cancel_negative">Cancel</label>
                     <img src="/icons/main/incorrect_white.svg">
                 </button>
             </div>
@@ -148,19 +148,19 @@
                     class="large browser-style default private disabled"
                     disabled>
                 <img src="/icons/main/lock_white.svg">
-                <label data-localized="lock_command">Lock</label>
+                <label data-localized="command_lock">Lock</label>
             </button>
             <button id="unlock-button"
                     class="large browser-style default private disabled"
                     disabled>
                 <img src="/icons/main/unlock_white.svg">
-                <label data-localized="unlock_command">Unlock</label>
+                <label data-localized="command_unlock">Unlock</label>
             </button>
         </div>
         <div class="secondary-buttons-container">
             <button id="change-password-button" class="browser-style default disabled"
                     disabled>
-                <label data-localized="change_password_command">Change password</label>
+                <label data-localized="command_change_password">Change password</label>
                 <img src="/icons/main/password_white.svg">
             </button>
         </div>

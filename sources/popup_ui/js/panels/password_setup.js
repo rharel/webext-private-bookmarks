@@ -208,7 +208,7 @@
 
                return   {
                             ID: "password_setup",
-                            TITLE: browser.i18n.getMessage("password_setup_title"),
+                            TITLE: browser.i18n.getMessage("menu_panel_title_password_setup"),
 
                             on_activate:   on_activate,
                             on_deactivate: on_deactivate,

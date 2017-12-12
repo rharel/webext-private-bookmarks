@@ -18,9 +18,9 @@
     /// Enumerates possible error messages.
     const ErrorMessage =
     {
-        InvalidFile:           browser.i18n.getMessage("import_error_invalid_file"),
-        PlainImportFailed:     browser.i18n.getMessage("import_error_plain_import_failed"),
-        EncryptedImportFailed: browser.i18n.getMessage("import_error_encrypted_import_failed")
+        InvalidFile:           browser.i18n.getMessage("error_import_file_parse"),
+        PlainImportFailed:     browser.i18n.getMessage("error_import_plain"),
+        EncryptedImportFailed: browser.i18n.getMessage("error_import_encrypted")
     };
 
     /// Disables the import button.
@@ -45,7 +45,7 @@
         if (await bookmarks.is_locked())
         {
             disable_import_button(
-                browser.i18n.getMessage("disabled_due_to_locked_state")
+                browser.i18n.getMessage("requirement_unlocked_state")
             );
         }
         else { enable_import_button(); }

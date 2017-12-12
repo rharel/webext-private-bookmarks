@@ -1,7 +1,7 @@
 (function()
 {
     /// The message displayed upon success.
-    const SUCCESS_MESSAGE = browser.i18n.getMessage("success_title");
+    const SUCCESS_MESSAGE = browser.i18n.getMessage("menu_panel_title_success");
 
     /// Creates a new message controller for the specified container.
     ///

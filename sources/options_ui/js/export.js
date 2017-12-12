@@ -48,7 +48,7 @@
         domanip.disable(DOM.export_plain_data_button);
 
         DOM.export_plain_data_button.title = (
-            `(${browser.i18n.getMessage("disabled_due_to_locked_state")})`
+            `(${browser.i18n.getMessage("requirement_unlocked_state")})`
         );
         DOM.export_plain_data_button.removeEventListener("click", export_plain_data);
     }

@@ -11,7 +11,7 @@
     /// The button's title when disabled.
     const TITLE_WHEN_DISABLED = (
         browser.i18n.getMessage("extension_name") +
-        ` (${browser.i18n.getMessage("disabled_due_to_invalid_privacy_context")})`
+        ` (${browser.i18n.getMessage("requirement_private_context")})`
     );
 
     /// Enables the browser action in the specified tab.

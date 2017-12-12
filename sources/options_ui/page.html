@@ -19,7 +19,7 @@
     </div>
     <div class="panel">
         <div class="panel-section panel-section-header">
-            <div class="text-section-header" data-localized="general_section_header">
+            <div class="text-section-header" data-localized="options_section_title_general">
                 General
             </div>
         </div>
@@ -28,7 +28,7 @@
                 <input id="do-limit-to-private-context-checkbox" class="option"
                        type="checkbox">
                 <label for="do-limit-to-private-context-checkbox"
-                       data-localized="privacy_context_option">
+                       data-localized="options_item_require_private_context">
                     Disable Private Bookmarks outside of private browsing
                 </label>
             </div>
@@ -36,7 +36,7 @@
                 <input id="do-disable-password-requirements-checkbox" class="option"
                        type="checkbox">
                 <label for="do-disable-password-requirements-checkbox"
-                       data-localized="disable_password_requirements_option">
+                       data-localized="options_item_disable_password_requirements">
                     Disable password requirements (allows less secure passwords)
                 </label>
             </div>
@@ -44,13 +44,13 @@
                 <input id="do-show-release-notes-checkbox" class="option"
                        type="checkbox">
                 <label for="do-show-release-notes-checkbox"
-                       data-localized="whats_new_notification_option">
+                       data-localized="options_item_verbose_update">
                     Let me know what's new after an update
                 </label>
             </div>
         </div>
         <div class="panel-section panel-section-header">
-            <div class="text-section-header" data-localized="sync_section_header">
+            <div class="text-section-header" data-localized="options_section_title_sync">
                 Sync
             </div>
         </div>
@@ -59,7 +59,7 @@
                 <input id="do-sync-data-across-devices-checkbox" class="option"
                        type="checkbox">
                 <label for="do-sync-data-across-devices-checkbox"
-                       data-localized="do_sync_across_devices_option">
+                       data-localized="options_item_enable_sync">
                     Sync bookmarks and preferences across devices
                 </label>
             </div>
@@ -68,9 +68,9 @@
                     Your data takes up ?KB out of ?KB available (?%).
                 </span>
                 <a class="has-long-tooltip"
-                   data-localized="sync_data_capacity_info_title"
+                   data-localized="tooltip_sync_data_usage"
                    data-localized-attribute="data-tooltip"
-                   data-localized-attribute-value="sync_data_capacity_info">
+                   data-localized-attribute-value="info_sync_data_capacity">
                     Why is this here?
                 </a>
             </div>
@@ -79,38 +79,38 @@
             </div>
         </div>
         <div class="panel-section panel-section-header">
-            <div class="text-section-header" data-localized="export_section_header">
+            <div class="text-section-header" data-localized="options_section_title_export">
                 Export
             </div>
         </div>
         <div class="panel-section-formElements">
             <div class="browser-style panel-formElements-item"
-                 data-localized="export_plain_data_requirements">
+                 data-localized="info_export_plain_requirements">
                 Exporting plain data requires unlocked bookmarks.
             </div>
             <div class="browser-style panel-formElements-item">
                 <button id="export-encrypted-data-button" class="browser-style default">
-                    <label data-localized="export_encrypted_data_command">
+                    <label data-localized="command_export_encrypted">
                         Export encrypted data...
                     </label>
                 </button>
             </div>
             <div class="browser-style panel-formElements-item">
                 <button id="export-plain-data-button" class="browser-style default">
-                    <label data-localized="export_plain_data_command">
+                    <label data-localized="command_export_plain">
                         Export plain data...
                     </label>
                 </button>
             </div>
         </div>
         <div class="panel-section panel-section-header">
-            <div class="text-section-header" data-localized="import_section_header">
+            <div class="text-section-header" data-localized="options_section_title_import">
                 Import
             </div>
         </div>
         <div class="panel-section-formElements">
             <div class="browser-style panel-formElements-item"
-                 data-localized="import_requirements">
+                 data-localized="info_import_requirements">
                 Importing requires unlocked bookmarks.
             </div>
             <div class="browser-style panel-formElements-item">
@@ -126,11 +126,11 @@
                 <input id="import-password-input" type="password"
                        size="20" placeholder="Password"
                        data-localized-attribute="placeholder"
-                       data-localized-attribute-value="password_field_placeholder">
+                       data-localized-attribute-value="field_placeholder_password">
             </div>
             <div id="import-button-panel" class="browser-style panel-formElements-item">
                 <button id="import-button" class="browser-style default">
-                    <label data-localized="import_command">
+                    <label data-localized="command_import">
                         Import
                     </label>
                 </button>
@@ -141,14 +141,14 @@
             </div>
         </div>
         <div class="panel-section panel-section-header">
-            <div class="text-section-header" data-localized="data_section_header">
+            <div class="text-section-header" data-localized="options_section_title_data">
                 Data
             </div>
         </div>
         <div class="panel-section-formElements">
             <div class="browser-style panel-formElements-item">
                 <button id="clear-data-button" class="browser-style default negative">
-                    <label data-localized="clear_data_command">
+                    <label data-localized="command_clear_data">
                         Clear...
                     </label>
                 </button>
@@ -156,13 +156,13 @@
             <div id="data-message-container" class="message-container">
                 <span class="message">(message text)</span>
                 <button class="browser-style default positive small">
-                    <label data-localized="yes_no_positive">
+                    <label data-localized="response_yes_no_positive">
                         Yes
                     </label>
                     <img src="/icons/main/correct_white.svg">
                 </button>
                 <button class="browser-style default negative small">
-                    <label data-localized="yes_no_negative">
+                    <label data-localized="response_yes_no_negative">
                         No
                     </label>
                     <img src="/icons/main/incorrect_white.svg">
@@ -170,18 +170,18 @@
             </div>
         </div>
         <div class="panel-section panel-section-header">
-            <div class="text-section-header" data-localized="support_section_header">
+            <div class="text-section-header" data-localized="options_section_title_support">
                 Support
             </div>
         </div>
         <div class="panel-section-formElements">
             <div class="panel-formElements-item">
-                <span data-localized="feedback_label">
+                <span data-localized="direction_post_feedback">
                     Something's not working? Got a question and/or suggestion?
                 </span>
                 <a class="inline-with-margin"
                    href="https://github.com/rharel/webext-private-bookmarks/issues" target="_blank"
-                   data-localized="post_feedback_command">
+                   data-localized="command_post_feedback">
                     Post an issue
                 </a>
             </div>
@@ -189,7 +189,7 @@
                 <a id="release-notes-link"
                    href="https://rharel.github.io/webext-private-bookmarks/release-notes/"
                    target="_blank"
-                   data-localized="view_release_notes_command">
+                   data-localized="command_view_release_notes">
                     View release notes
                 </a>
             </div>

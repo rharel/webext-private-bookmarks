@@ -18,11 +18,11 @@
             {
                 transition_to("success",
                 {
-                    details: browser.i18n.getMessage("password_setup_complete"),
+                    details: browser.i18n.getMessage("success_password_setup"),
                     transition:
                     {
                         id: "main_menu",
-                        label: browser.i18n.getMessage("go_to_main_menu_command")
+                        label: browser.i18n.getMessage("command_go_to_menu")
                     }
                 });
             }
@@ -56,7 +56,7 @@
 
                return   {
                             ID: "get_started",
-                            TITLE: browser.i18n.getMessage("get_started_title"),
+                            TITLE: browser.i18n.getMessage("menu_panel_title_welcome"),
 
                             on_activate:   on_activate,
                             on_deactivate: on_deactivate,

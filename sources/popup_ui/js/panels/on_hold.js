@@ -60,7 +60,7 @@
 
                return   {
                             ID: "on_hold",
-                            TITLE: browser.i18n.getMessage("on_hold_title"),
+                            TITLE: browser.i18n.getMessage("menu_panel_title_busy"),
 
                             on_activate:   on_activate,
                             on_deactivate: on_deactivate

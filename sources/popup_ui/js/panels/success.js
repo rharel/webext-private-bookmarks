@@ -46,7 +46,7 @@
 
                return   {
                             ID: "success",
-                            TITLE: browser.i18n.getMessage("success_title"),
+                            TITLE: browser.i18n.getMessage("menu_panel_title_success"),
 
                             on_activate:   on_activate,
                             on_transition: handler => { transition_to = handler; },
