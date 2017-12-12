@@ -12,10 +12,11 @@
         minor:   minor,
         release: release
     };
-    if (components.length === 5)
+    if (components.length === 4)
     {
-        CURRENT.tag      = components[3];
-        CURRENT.revision = components[4];
+        const n = components[3].length;
+        CURRENT.tag      = components[3][n - 1];
+        CURRENT.revision = parseInt(components[3].slice(0, n - 1));
     }
 
     /// Release notes are hosted here.
@@ -37,7 +38,8 @@
         }
         if (include_tag)
         {
-            result += ` (${CURRENT.tag}`;
+            const full_name = { a: "alpha",  b: "beta" };
+            result += ` (${full_name[CURRENT.tag]}`;
             if (include_revision) { result += `-${CURRENT.revision}`; }
             result += ")";
         }
