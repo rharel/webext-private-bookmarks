@@ -49,8 +49,21 @@
 
     /// Pulls data from synchronized to local storage asynchronously.
     function pull(keys) { return copy(keys, synchronized, local); }
-    /// Pushes data from local to synchronized storage asynchronously.
-    function push(keys) { return copy(keys, local, synchronized); }
+    /// Pushes data from local to synchronized storage.
+    async function push(keys)
+    {
+        if (keys.hasOwnProperty(Key.Back) &&
+           (await local.load(Key.Back)).is_fresh)
+        {
+            // Do not push a fresh back folder to avoid the following scenario:
+            // 1. User enables sync on device with data.
+            // 2. User enables sync on another device with a fresh install of the extension.
+            // 3. Fresh install pushes an empty folder to sync storage.
+            // 4. User loses data on the first device when synced.
+            delete keys[Key.Back];
+        }
+        return copy(keys, local, synchronized);
+    }
 
     /// Pulls all data from synchronized to local storage asynchronously.
     function pull_all() { return pull(Object.values(Key)); }
