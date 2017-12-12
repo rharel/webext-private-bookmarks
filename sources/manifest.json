@@ -1,17 +1,17 @@
 {
-	"manifest_version": 2,
+    "manifest_version": 2,
 
-	"name":    "__MSG_extension_name__",
-	"author":  "Raoul Harel",
-	"version": "0.1.13.1a",
+    "name":    "__MSG_extension_name__",
+    "author":  "Raoul Harel",
+    "version": "0.1.13.1a",
 
-	"description":  "__MSG_extension_description__",
-	"homepage_url": "https://github.com/rharel/webext-private-bookmarks",
+    "description":  "__MSG_extension_description__",
+    "homepage_url": "https://github.com/rharel/webext-private-bookmarks",
 
     "applications": 
-	{
+    {
         "gecko": 
-		{
+        {
             "id": "private-bookmarks@rharel",
             "strict_min_version": "55.0"
         }
@@ -56,16 +56,16 @@
         }
     },
     "default_locale": "en",
-	"icons":
+    "icons":
     {
-		"16":  "icons/main/private-bookmarks.svg",
-		"32":  "icons/main/private-bookmarks.svg",
-		"48":  "icons/main/private-bookmarks.svg",
+        "16":  "icons/main/private-bookmarks.svg",
+        "32":  "icons/main/private-bookmarks.svg",
+        "48":  "icons/main/private-bookmarks.svg",
         "64":  "icons/main/private-bookmarks.svg",
-		"96":  "icons/main/private-bookmarks.svg",
-		"128": "icons/main/private-bookmarks.svg",
+        "96":  "icons/main/private-bookmarks.svg",
+        "128": "icons/main/private-bookmarks.svg",
         "256": "icons/main/private-bookmarks.svg"
-	},
+    },
     "options_ui":
     {
         "browser_style": true,
@@ -86,5 +86,5 @@
         },
         "default_title": "__MSG_page_action_title__"
     },
-	"permissions": ["bookmarks", "notifications", "storage", "tabs"]
+    "permissions": ["bookmarks", "notifications", "storage", "tabs"]
 }
