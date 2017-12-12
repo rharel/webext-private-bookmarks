@@ -40,9 +40,6 @@
             else                       { insertions[key] = source_value; }
         });
 
-        for (const key in insertions) { console.log(`${target.area_name} += ${key}`); }
-        for (const key of deletions)  { console.log(`${target.area_name} -= ${key}`); }
-
         const copying = [];
         if (Object.keys(insertions).length > 0) { copying.push(target.save_all(insertions));  }
         if (deletions.length > 0)               { copying.push(target.remove_all(deletions)); }
@@ -61,28 +58,18 @@
     function push_all() { return push(Object.values(Key)); }
 
     /// Invoked when sync was enabled on this device. Pushes local data to synchronized storage.
-    function on_internal_enable()
-    {
-        console.log("Sync was enabled on this device.");
-        return push_all();
-    }
+    function on_internal_enable() { return push_all(); }
     /// Invoked when sync was enabled on this device. Pulls synchronized data to local storage.
-    function on_external_enable()
-    {
-        console.log("Sync was enabled on another device.");
-        return pull_all();
-    }
+    function on_external_enable() { return pull_all(); }
 
     /// Invoked when sync was disabled on this device. Clears synchronized data.
     function on_internal_disable()
     {
-        console.log("Sync was disabled on this device.");
         return synchronized.remove_all(Object.values(Key));
     }
     /// Invoked when sync was disabled from another device. Turns on sync in local configuration.
     function on_external_disable()
     {
-        console.log("Sync was disabled on another device.");
         options.do_sync_data_across_devices = false;
         return local.save(Key.Configuration, options);
     }
@@ -121,7 +108,6 @@
             }
             if (options.do_sync_data_across_devices)
             {
-                console.log("Pushing...");
                 push(Object.keys(changes));
             }
         }
@@ -141,7 +127,6 @@
             }
             else if (options.do_sync_data_across_devices)
             {
-                console.log("Pulling...");
                 pull(Object.keys(changes));
             }
         }
