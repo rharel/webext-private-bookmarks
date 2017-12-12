@@ -64,7 +64,7 @@
     async function change_authentication(old_key, new_key)
     {
         const raw = await read_raw(old_key);
-        return write_raw(raw.data, new_key, raw.is_compressed);
+        return write_raw(raw.data, new_key, raw.is_compressed, raw.is_fresh);
     }
 
     /// Decrypts the specified data with the specified key.
@@ -77,8 +77,8 @@
                         encrypted.iv,
                         encrypted.ciphertext, key
                     ),
-                    is_compressed: folder.hasOwnProperty("is_compressed") &&
-                                   folder.is_compressed
+                    is_compressed: !!folder.is_compressed,
+                    is_fresh:      !!folder.is_fresh
                };
     }
     /// Decrypts data with the specified key.
@@ -122,14 +122,15 @@
 
     /// Encrypts the specified data with the specified key and writes it to the folder, overwriting
     /// its previous contents.
-    async function write_raw(data, key, is_compressed)
+    async function write_raw(data, key, is_compressed, is_fresh)
     {
         const encrypted_signature = await crypto.encrypt(SIGNATURE, key),
               encrypted_data      = await crypto.encrypt(data, key);
         return save({
             signature: encrypted_signature,
             bookmarks: encrypted_data,
-            is_compressed: is_compressed
+            is_compressed: is_compressed,
+            is_fresh:      is_fresh
         });
     }
     /// Packs the specified data with the specified key and writes it to the folder, overwriting
@@ -142,7 +143,8 @@
         return write_raw(
             do_compress ? string_utilities.compress(json) : json,
             key,
-            do_compress
+            do_compress,
+            data === null
         );
     }
 
