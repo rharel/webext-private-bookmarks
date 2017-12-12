@@ -17,6 +17,12 @@
     /// Only those entries with different values at the target are copied over.
     async function copy(keys, source, target)
     {
+        if (await local.get_bytes_in_use() >
+            synchronized.CAPACITY_BYTES)
+        {
+            return;
+        }
+        
         const insertions = {};
         const deletions  = [];
 
