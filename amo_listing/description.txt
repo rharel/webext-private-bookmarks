@@ -1,11 +1,11 @@
-Private Bookmarks enables a special password-protected bookmark folder. Your private bookmarks are encrypted with your chosen password. This is not an online service, and no data leaves your machine.
+Private Bookmarks enables a special password-protected bookmark folder. Your private bookmarks are encrypted with your chosen password. This is not an online service, and you are in control of what data leaves your machine (if at all).
 
-When you unlock your private bookmarks, a new 'Private Bookmarks' folder appears under 'Other Bookmarks'. You can add/remove items to it and when ready, lock it. Whenever an item is added/removed, the contents of the folder are encrypted and stored on your machine. When locked, the folder itself is removed from your browser's bookmarks collection. You can also move the folder wherever you want to, and the next time you unlock it will appear there.
+When you unlock your private bookmarks, a new 'Private Bookmarks' folder appears under 'Other Bookmarks'. You can add/remove items to it and when ready, lock it. Whenever an item is added/removed, the contents of the folder are encrypted and stored on your machine. When locked, the folder itself is removed from your browser's bookmarks collection. You can also move the folder wherever you want to, and the next time you unlock it will appear there. Syncing is an opt-in feature.
 
 By default, Private Bookmarks can only be accessed when in private browsing (to help avoid accidents), however that can be changed via the options page.
 
 <b>Be aware!</b>
-This extension is still in early development, so bugs are to be expected, and you should backup your bookmarks if they are important.
+This extension is still in early development, so bugs are to be expected, and you should backup your bookmarks periodically to be safe.
 
 <b>Auto-locking</b>
 There are a few cases where the extension auto locks your private bookmarks:
@@ -19,10 +19,11 @@ There are a few cases where the extension auto locks your private bookmarks:
 You can export both encrypted/plain versions of your private bookmark data from within the options page. However, to import an encrypted backup file you must remember the password you used when that backup was made.
 
 <b>Keyboard shortcuts</b>
-Both of these shortcuts are available while private bookmarks are unlocked:
+The following shortcuts are available:
 <ul>
-<li>Ctrl+Shift+8 adds the current page to your private bookmarks.</li>
-<li>Ctrl+Shift+L locks the folder.</li>
+<li>Alt+Shift+8 opens the menu in a new tab. If you have selected the "disable outside of private browsing" option (it is on by default) the tab will open in a private window.</li>
+<li>Ctrl+Shift+8 adds the current page to your private bookmarks (requires unlocked bookmarks).</li>
+<li>Ctrl+Shift+L locks the folder (requires unlocked bookmarks).</li>
 </ul>
 
 <b>Something's not working? Got a question and/or suggestion?</b> <a href="https://github.com/rharel/webext-private-bookmarks/issues">Post an issue.</a>
