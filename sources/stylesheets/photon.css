@@ -57,10 +57,47 @@
 }
 body, html
 {
+    background: transparent;
+    box-sizing: border-box;
     color: var(--grey-90);
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    font: caption;
     font-size: 15px;
     line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    -moz-user-select: none;
 }
+
+/* General */
+.browser-style
+{
+    -moz-appearance: none;
+    margin-bottom: 6px;
+}
+.section-header
+{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    font-size: 1.385em;
+    font-weight: lighter;
+    padding: 16px;
+}
+.section
+{
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+.section-item
+{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 12px;
+}
+.section-item:last-child { margin-bottom: 0; }
 
 /* Anchors */
 a
@@ -87,16 +124,32 @@ a[href*="//"]::after
 }
 a.inline-with-margin { margin-left: 8px; }
 
+/* Input - General */
+label + input { margin-left: 6px; }
+
 /* Buttons */
 button
 {
     align-items: center;
+    background-color: #0996f8;
+    border: 0;
+    box-shadow: 0 0 0 0 transparent;
+    color: white;
     display: flex;
+    font: caption;
     font-size: 1em;
     height: auto;
     padding: 8px;
+    transition-duration: 250ms;
+    transition-property: box-shadow;
 }
+button:focus { box-shadow: 0 0 0 2px rgba(97, 181, 255, 0.75); }
+button:hover { background-color: #0670cc; }
+button:active { background-color: #005bab; }
+button.disabled { opacity: 0.5; }
+
 button > label { flex-grow: 1; }
+button > label + img { margin-left: 6px; }
 button > img
 {
     height: 28px;
@@ -118,6 +171,48 @@ button.negative
 }
 button.negative:hover  { background-color: var(--red-70); }
 button.negative:active { background-color: var(--red-80); }
+
+/* Checkboxes */
+input[type="checkbox"] { display: none; }
+input[type="checkbox"] + label { -moz-user-select: none; }
+input[type="checkbox"] + label::before
+{
+    background-color: #fff;
+    background-position: center;
+    border: 1px solid #b1b1b1;
+    content: "";
+    display: inline-block;
+    height: 16px;
+    margin-right: 6px;
+    vertical-align: text-top;
+    width: 16px;
+}
+input[type="checkbox"]:hover + label::before
+{
+    background-color: #fbfbfb;
+    border-color: #b1b1b1;
+}
+input[type="checkbox"]:hover:active + label::before
+{
+    background-color: #ebebeb;
+    border-color: #858585;
+}
+input[type="checkbox"]:checked + label::before
+{
+    background-color: #0996f8;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBkPSJNNy43LDEyLjkgQzcuNCwxMy4zIDYuOCwxMy40IDYuNCwxMyBMMy4yLDkuOCBDMi44LDkuNCAyLjgsOC42IDMuMiw4LjIgQzMuNiw3LjggNC40LDcuOCA0LjgsOC4yIEw2LjksMTAuMyBMMTEuMSw0LjQgQzExLjUsMy45IDEyLjIsMy44IDEyLjcsNC4xIEMxMy4yLDQuNSAxMy4zLDUuMiAxMyw1LjcgTDcuNywxMi45IEw3LjcsMTIuOSBaIiBmaWxsPSIjZmZmIiAvPgo8L3N2Zz4K);
+    border-color: #0670cc;
+}
+input[type="checkbox"]:checked:hover + label::before
+{
+    background-color: #0670cc;
+    border-color: #005bab;
+}
+input[type="checkbox"]:checked:hover:active + label::before
+{
+    background-color: #005bab;
+    border-color: #004480;
+}
 
 /* Messages */
 .message-container

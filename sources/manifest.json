@@ -23,7 +23,7 @@
     },
     "browser_action":
     {
-        "browser_style": true,
+        "browser_style": false,
         "default_area": "navbar",
         "default_icon":
         {
@@ -68,7 +68,7 @@
     },
     "options_ui":
     {
-        "browser_style": true,
+        "browser_style": false,
         "page": "options_ui/page.html"
     },
     "page_action":

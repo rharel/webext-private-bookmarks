@@ -18,13 +18,11 @@
         <span class="message">(message text)</span>
     </div>
     <div class="panel">
-        <div class="panel-section panel-section-header">
-            <div class="text-section-header" data-localized="options_section_title_general">
-                General
-            </div>
+        <div class="section-header" data-localized="options_section_title_general">
+            General
         </div>
-        <div class="panel-section-formElements">
-            <div class="browser-style panel-formElements-item">
+        <div class="section">
+            <div class="browser-style section-item">
                 <input id="do-limit-to-private-context-checkbox" class="option"
                        type="checkbox">
                 <label for="do-limit-to-private-context-checkbox"
@@ -32,7 +30,7 @@
                     Disable Private Bookmarks outside of private browsing
                 </label>
             </div>
-            <div class="browser-style panel-formElements-item">
+            <div class="browser-style section-item">
                 <input id="do-disable-password-requirements-checkbox" class="option"
                        type="checkbox">
                 <label for="do-disable-password-requirements-checkbox"
@@ -40,7 +38,7 @@
                     Disable password requirements (allows less secure passwords)
                 </label>
             </div>
-            <div class="browser-style panel-formElements-item">
+            <div class="browser-style section-item">
                 <input id="do-show-release-notes-checkbox" class="option"
                        type="checkbox">
                 <label for="do-show-release-notes-checkbox"
@@ -49,13 +47,11 @@
                 </label>
             </div>
         </div>
-        <div class="panel-section panel-section-header">
-            <div class="text-section-header" data-localized="options_section_title_sync">
-                Sync
-            </div>
+        <div class="section-header" data-localized="options_section_title_sync">
+            Sync
         </div>
-        <div class="panel-section-formElements">
-            <div class="browser-style panel-formElements-item">
+        <div class="section">
+            <div class="browser-style section-item">
                 <input id="do-sync-data-across-devices-checkbox" class="option"
                        type="checkbox">
                 <label for="do-sync-data-across-devices-checkbox"
@@ -63,7 +59,7 @@
                     Sync bookmarks and preferences across devices
                 </label>
             </div>
-            <div id="sync-data-usage-statistics" class="browser-style panel-formElements-item">
+            <div id="sync-data-usage-statistics" class="browser-style section-item">
                 <span id="sync-data-usage">
                     Your data takes up ?KB out of ?KB available (?%).
                 </span>
@@ -78,48 +74,44 @@
                 <span class="message">(message text)</span>
             </div>
         </div>
-        <div class="panel-section panel-section-header">
-            <div class="text-section-header" data-localized="options_section_title_export">
-                Export
-            </div>
+        <div class="section-header" data-localized="options_section_title_export">
+            Export
         </div>
-        <div class="panel-section-formElements">
-            <div class="browser-style panel-formElements-item"
+        <div class="section">
+            <div class="browser-style section-item"
                  data-localized="info_export_plain_requirements">
                 Exporting plain data requires unlocked bookmarks.
             </div>
-            <div class="browser-style panel-formElements-item">
-                <button id="export-encrypted-data-button" class="browser-style default">
+            <div class="browser-style section-item">
+                <button id="export-encrypted-data-button" class="browser-style">
                     <label data-localized="command_export_encrypted">
                         Export encrypted data...
                     </label>
                 </button>
             </div>
-            <div class="browser-style panel-formElements-item">
-                <button id="export-plain-data-button" class="browser-style default">
+            <div class="browser-style section-item">
+                <button id="export-plain-data-button" class="browser-style">
                     <label data-localized="command_export_plain">
                         Export plain data...
                     </label>
                 </button>
             </div>
         </div>
-        <div class="panel-section panel-section-header">
-            <div class="text-section-header" data-localized="options_section_title_import">
-                Import
-            </div>
+        <div class="section-header" data-localized="options_section_title_import">
+            Import
         </div>
-        <div class="panel-section-formElements">
-            <div class="browser-style panel-formElements-item"
+        <div class="section">
+            <div class="browser-style section-item"
                  data-localized="info_import_requirements">
                 Importing requires unlocked bookmarks.
             </div>
-            <div class="browser-style panel-formElements-item">
+            <div class="browser-style section-item">
                 <label for="import-file-input" data-localized="import_data_file_label">
                     Backup file:
                 </label>
                 <input id="import-file-input" type="file" accept=".json" multiple>
             </div>
-            <div id="import-password-panel" class="browser-style panel-formElements-item">
+            <div id="import-password-panel" class="browser-style section-item">
                 <label for="import-password-input" data-localized="import_password_label">
                     File's password:
                 </label>
@@ -128,8 +120,8 @@
                        data-localized-attribute="placeholder"
                        data-localized-attribute-value="field_placeholder_password">
             </div>
-            <div id="import-button-panel" class="browser-style panel-formElements-item">
-                <button id="import-button" class="browser-style default">
+            <div id="import-button-panel" class="browser-style section-item">
+                <button id="import-button" class="browser-style">
                     <label data-localized="command_import">
                         Import
                     </label>
@@ -140,14 +132,12 @@
                 <span class="message">(message text)</span>
             </div>
         </div>
-        <div class="panel-section panel-section-header">
-            <div class="text-section-header" data-localized="options_section_title_data">
-                Data
-            </div>
+        <div class="section-header" data-localized="options_section_title_data">
+            Data
         </div>
-        <div class="panel-section-formElements">
-            <div class="browser-style panel-formElements-item">
-                <button id="clear-data-button" class="browser-style default negative">
+        <div class="section">
+            <div class="browser-style section-item">
+                <button id="clear-data-button" class="browser-style negative">
                     <label data-localized="command_clear_data">
                         Clear...
                     </label>
@@ -155,13 +145,13 @@
             </div>
             <div id="data-message-container" class="message-container">
                 <span class="message">(message text)</span>
-                <button class="browser-style default positive small">
+                <button class="browser-style positive small">
                     <label data-localized="response_yes_no_positive">
                         Yes
                     </label>
                     <img src="/icons/main/correct_white.svg">
                 </button>
-                <button class="browser-style default negative small">
+                <button class="browser-style negative small">
                     <label data-localized="response_yes_no_negative">
                         No
                     </label>
@@ -169,13 +159,11 @@
                 </button>
             </div>
         </div>
-        <div class="panel-section panel-section-header">
-            <div class="text-section-header" data-localized="options_section_title_support">
-                Support
-            </div>
+        <div class="section-header" data-localized="options_section_title_support">
+            Support
         </div>
-        <div class="panel-section-formElements">
-            <div class="panel-formElements-item">
+        <div class="section">
+            <div class="section-item">
                 <span data-localized="direction_post_feedback">
                     Something's not working? Got a question and/or suggestion?
                 </span>
@@ -185,7 +173,7 @@
                     Post an issue
                 </a>
             </div>
-            <div class="panel-formElements-item">
+            <div class="section-item">
                 <a id="release-notes-link"
                    href="https://rharel.github.io/webext-private-bookmarks/release-notes/"
                    target="_blank"

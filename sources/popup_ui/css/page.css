@@ -2,9 +2,6 @@
 body
 {
     background-color: white;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
     height: 384px;
     overflow: hidden;
     width: 256px;
@@ -13,8 +10,7 @@ body
 /* Header */
 #header { height: 1.5em; }
 
-/* Buttons - regular */
-
+/* General */
 .deactivated { display: none; }
 
 /* Buttons - large */
@@ -193,7 +189,10 @@ img.validation-icon[src*="incorrect_white"]
 #footer
 {
     align-items: center;
+    background-color: rgba(0, 0, 0, 0.06);
     border: 1px solid var(--grey-40);
+    display: flex;
+    flex-direction: row;
     height: 3em;
     justify-content: space-between;
     padding-left: 8px;
