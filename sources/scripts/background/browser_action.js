@@ -7,7 +7,10 @@
     let do_limit_to_private_context = false;
 
     /// The button's title when enabled.
-    const TITLE_WHEN_ENABLED = browser.i18n.getMessage("extension_name");
+    const TITLE_WHEN_ENABLED = (
+        browser.i18n.getMessage("extension_name") +
+        " (Alt+Shift+8)"
+    );
     /// The button's title when disabled.
     const TITLE_WHEN_DISABLED = (
         browser.i18n.getMessage("extension_name") +
