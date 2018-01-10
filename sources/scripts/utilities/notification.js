@@ -16,6 +16,9 @@
         Locked:           "Locked"
     };
 
+    /// Maps a message identifier to its timeout.
+    const timeout = {};
+
     /// Posts a notification with the specified message and display options.
     ///
     /// Display options are specified via an object with all-optional keys:
@@ -36,7 +39,12 @@
                 iconUrl: options.icon_url
             }
         );
-        setTimeout(() => browser.notifications.clear(id), options.lifetime);
+        if (timeout.hasOwnProperty(id)) { clearTimeout(timeout[id]); }
+        timeout[id] = setTimeout(() =>
+        {
+            browser.notifications.clear(id);
+            delete timeout[id];
+        }, options.lifetime);
 
         return id;
     }
