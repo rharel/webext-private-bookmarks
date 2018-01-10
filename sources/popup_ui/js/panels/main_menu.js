@@ -26,14 +26,18 @@
     {
         for (const button of Object.values(DOM)) { domanip.disable(button, true); }
     }
+    /// Gets the active main button.
+    async function get_main_active_button()
+    {
+        if (await bookmarks.is_locked()) { return DOM.unlock_button; }
+        else                             { return DOM.lock_button; }
+    }
     /// Enables/disables buttons based on the bookmarks folder state.
     async function update_button_activation_status()
     {
         disable_all_buttons();
 
-        if (await bookmarks.is_locked()) { domanip.enable(DOM.unlock_button, true); }
-        else                             { domanip.enable(DOM.lock_button, true);   }
-
+        domanip.enable(await get_main_active_button(), true);
         domanip.enable(DOM.change_password_button, true);
     }
 
@@ -137,7 +141,11 @@
     }
 
     /// Invoked when this panel is activated.
-    function on_activate() { update_button_activation_status(); }
+    async function on_activate()
+    {
+        await update_button_activation_status();
+        (await get_main_active_button()).focus();
+    }
     /// Invoked when this panel is deactivated.
     function on_deactivate() { disable_all_buttons(); }
 
