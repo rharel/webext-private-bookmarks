@@ -1,7 +1,7 @@
 {
     "confirm_data_clearance":
     {
-        "message": "This will delete all private bookmarks and your password, are you sure?"
+        "message": "This will delete all private bookmarks and reset your password, are you sure?"
     },
 
     "command_change_password":
