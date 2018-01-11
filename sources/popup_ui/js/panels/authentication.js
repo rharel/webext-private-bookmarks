@@ -23,6 +23,7 @@
     /// Indicates to the user that an authentication attempt has been denied.
     function deny()
     {
+        DOM.authentication_password_input.focus();
         DOM.authentication_password_input.classList.remove("animated");
         setTimeout(() => { DOM.authentication_password_input.classList.add("animated") }, 50);
     }
