@@ -22,7 +22,7 @@
         {
             source += "(?=.*[a-zA-Z])(?=.*\\d)";
         }
-        source += "[a-zA-Z0-9~!@#$%^&*_\\-+= ]";
+        source += "[ -~]";  // Printable ASCII characters.
 
         const {minimum, maximum} = length_requirements;
         source += `{${minimum},${maximum}}$`;
