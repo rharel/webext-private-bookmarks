@@ -332,6 +332,10 @@
         }
     },
 
+    "tooltip_options_button":
+    {
+        "message": "Open options page"
+    },
     "tooltip_password_allowed_characters":
     {
         "message": "Allowed characters"
