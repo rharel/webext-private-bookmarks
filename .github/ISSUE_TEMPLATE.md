@@ -1,7 +1,12 @@
-If you are submitting a suggestion, be specific both about what is "missing" and what you propose to fill the gap.
+For suggestions, please fill in:
+ - What you wish you could do and why: ?
+ - What you propose as a solution: ?
 
-If you are submitting a bug, please let me know:
- - What went wrong (specifics).
- - What version of Firefox you are using.
- - What operating system you are using.
- - If you can, explain the procedure that caused the problem, so that I can reproduce it and investigate.
+For bug reports, please fill in:
+ - Firefox version: ?
+ - Operating system: ?
+ - Steps to reproduce: ?
+ - What was the expected behavior: ?
+ - What was the actual behavior: ?
+
+It is assumed that you are using the latest version of Private Bookmarks.

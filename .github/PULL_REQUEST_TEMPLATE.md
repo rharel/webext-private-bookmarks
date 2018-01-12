@@ -1,6 +1,5 @@
-_\<Describe request here\>_
-
 Checklist:
-- [ ] Commit messages are capitalzied.
+- [ ] Changes are rebased onto the latest `master`.
+- [ ] Commit messages are capitalized.
 - [ ] New code follows the existing code style.
-- [ ] This fixes issue number (if applicable): N/A
+- This fixes issue(s) number (if applicable): N/A
