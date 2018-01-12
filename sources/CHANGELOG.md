@@ -1,5 +1,10 @@
 ## Changelog
 
+### 0.1.14
+ * Allows all printable ASCII characters in passwords.
+ * Adds the option to toggle between a light/dark theme for the main panel.
+ * Fixes a bug causing notifications to be cleared earlier than intended.
+ 
 ### 0.1.13
  * Makes error display in the options page more consistent and adds animation.
  * Links to release notes from the options page.
