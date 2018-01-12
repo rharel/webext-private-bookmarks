@@ -16,7 +16,9 @@
                     /// True iff release notes may be displayed proceeding an update.
                     do_show_release_notes: true,
                     /// True iff preferences and bookmarks should be synced across devices.
-                    do_sync_data_across_devices: false
+                    do_sync_data_across_devices: false,
+                    /// True iff a dark theme is preferred.
+                    do_use_dark_theme: false
                 };
     }
     /// Updates a configuration to the latest version.
@@ -51,6 +53,12 @@
             // Add an opt-in to sync data across devices.
             configuration.do_sync_data_across_devices = false;
         }
+        // Release 14: The light/dark theme flag is added.
+        if (previous_release < 14)
+        {
+            configuration.do_use_dark_theme = false;
+        }
+
         // Update the version value.
         configuration.version = version.CURRENT;
 

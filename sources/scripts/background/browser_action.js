@@ -163,7 +163,14 @@
             "context-requirement-change",
             on_context_requirement_change
         );
-        storage.load(storage.Key.Configuration).then(on_context_requirement_change);
+        storage.load(storage.Key.Configuration).then(configuration =>
+        {
+            on_context_requirement_change(configuration);
+            localStorage.setItem(
+                "theme",
+                configuration.do_use_dark_theme ? "dark" : "light"
+            );
+        });
     }
 
     define(["scripts/background/bookmarks_manager",

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/page.css">
     <link rel="stylesheet" href="css/progress_bar.css">
 
+    <script src="js/theme.js"></script>
     <script src="/scripts/foreground/localization.js" defer></script>
     <script src="/libraries/require.min.js" data-main="js/page" defer></script>
 </head>
@@ -25,8 +26,8 @@
 
     <!-- Interactive panels -->
     <div id="on-hold-panel" class="deactivated centering panel">
-        <img id="on-hold-animation-gear-A" src="/icons/main/options_gray.svg">
-        <img id="on-hold-animation-gear-B" src="/icons/main/options_gray.svg">
+        <img id="on-hold-animation-gear-A" src="/icons/main/gear_black.svg">
+        <img id="on-hold-animation-gear-B" src="/icons/main/gear_black.svg">
         <div id="on-hold-progress-bar">
             <div id="on-hold-progress-indicator" class="progress-indicator"></div>
         </div>
@@ -169,8 +170,12 @@
             <span data-localized="extension_name">Private Bookmarks</span>
             <span id="extension-version"></span>
         </div>
-        <img id="options-button" class="icon"
-             src="/icons/main/options_gray.svg" title="Open options page"
+        <img id="theme-button" class="icon-button"
+             src="/icons/photon/theme_black.svg" title="Switch color theme"
+             data-localized-attribute="title"
+             data-localized-attribute-value="tooltip_theme_button">
+        <img id="options-button" class="icon-button"
+             src="/icons/main/gear_black.svg" title="Open options page"
              data-localized-attribute="title"
              data-localized-attribute-value="tooltip_options_button">
     </div>

@@ -343,5 +343,9 @@
     "tooltip_sync_data_usage":
     {
         "message": "Why is this here?"
+    },
+    "tooltip_theme_button":
+    {
+        "message": "Switch color theme"
     }
 }

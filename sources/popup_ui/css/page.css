@@ -153,11 +153,6 @@ img.validation-icon[src*="incorrect_white"]
 }
 
 /* Panel - Authentication */
-@keyframes flash-red
-{
-    0%   { box-shadow: unset;            }
-    100% { box-shadow: 0 0 24px #d70022; }
-}
 #authentication-password-input.animated
 {
     animation: flash-red 0.2s 2;
@@ -189,29 +184,21 @@ img.validation-icon[src*="incorrect_white"]
 #footer
 {
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.06);
     border: 1px solid var(--grey-40);
     display: flex;
     flex-direction: row;
     height: 3em;
-    justify-content: space-between;
     padding-left: 8px;
 }
-#extension-info
-{
-    color: var(--grey-60);
-    font-size: 0.85em;
-}
-#options-button
+#extension-info { font-size: 0.85em; }
+#extension-info + .icon-button { margin-left: 4px; }
+#footer > .icon-button
 {
     cursor: pointer;
     height: 28px;
-    margin: 4px;
     padding: 4px;
     width: 28px;
 }
-#options-button:hover  { filter: invert(100%); }
-#options-button:active { filter: invert(0%);   }
 
 /* Media responsiveness */
 @media (min-width: 768px)
