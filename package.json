@@ -1,6 +1,6 @@
 {
   "name": "@rharel/webext-private-bookmarks",
-  "version": "0.1.14.1a",
+  "version": "0.1.15.1a",
   "description": "WebExtension that enables a special password-protected bookmark folder.",
   "directories": {
     "test": "tests"
