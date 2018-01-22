@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.1.15
+ * Fixes a bug that causes the menu panel to be inaccessible if it is first opened in a tab and then navigated away from.
+
 ### 0.1.14
  * Allows all printable ASCII characters in passwords.
  * Adds the option to toggle between a light/dark theme for the main panel.

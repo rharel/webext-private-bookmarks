@@ -12,13 +12,10 @@
         notification.locked();
     }
 
+    /// The URL of the menu page.
+    const MENU_PAGE_URL = browser.runtime.getURL("/popup_ui/page.html?is_in_tab");
     /// Assigned the identifier of an open menu tab (if it exists).
     let menu_tab_id = null;
-    /// Clears the menu tab identifier when the tab is closed.
-    browser.tabs.onRemoved.addListener(id =>
-    {
-        if (id === menu_tab_id) { menu_tab_id = null; }
-    });
     /// Focuses an open menu tab.
     async function focus_menu_tab()
     {
@@ -32,7 +29,6 @@
     {
         if (menu_tab_id !== null) { focus_menu_tab(); return; }
 
-        const menu_page_url = browser.runtime.getURL("/popup_ui/page.html?is_in_tab");
         const options = await storage.load(storage.Key.Configuration);
         if (options.do_limit_to_private_context)
         {
@@ -42,7 +38,7 @@
             {
                 const new_window = await browser.windows.create({
                     incognito: true,
-                    url: menu_page_url
+                    url: MENU_PAGE_URL
                 });
                 menu_tab_id = new_window.tabs[0].id;
             }
@@ -50,7 +46,7 @@
             {
                 const tab = await browser.tabs.create({
                     active: true,
-                    url: menu_page_url,
+                    url: MENU_PAGE_URL,
                     windowId: windows[private_window_index].id
                 });
                 menu_tab_id = tab.id;
@@ -60,10 +56,35 @@
         {
             const tab = await browser.tabs.create({
                 active: true,
-                url: menu_page_url
+                url: MENU_PAGE_URL
             });
             menu_tab_id = tab.id;
         }
+
+        function hook()
+        {
+            browser.tabs.onRemoved.addListener(on_removed);
+            browser.tabs.onUpdated.addListener(on_updated);
+            events.local.emit("menu-tab-hooked", { id: menu_tab_id });
+        }
+        function unhook()
+        {
+            menu_tab_id = null;
+            browser.tabs.onRemoved.removeListener(on_removed);
+            browser.tabs.onUpdated.removeListener(on_updated);
+            events.local.emit("menu-tab-unhooked");
+        }
+        function on_removed(id) { if (id === menu_tab_id) { unhook(); } }
+        function on_updated(id, changes, new_state)
+        {
+            if (id === menu_tab_id &&
+                changes.hasOwnProperty("url") &&
+                new_state.url !== MENU_PAGE_URL)
+            {
+                unhook();
+            }
+        }
+        hook();
         focus_menu_tab();
     }
 

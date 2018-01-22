@@ -111,11 +111,6 @@
 
     /// Assigned the identifier of an open menu page to delegate to (if it exists).
     let menu_tab_id = null;
-    /// Clears the menu tab identifier when the tab is closed.
-    browser.tabs.onRemoved.addListener(id =>
-    {
-        if (id === menu_tab_id) { cancel_delegation(); }
-    });
     /// Focuses the open menu tab.
     async function focus_menu_tab()
     {
@@ -149,10 +144,8 @@
         events.local.add_listener(["lock", "unlock"], update_icon);
         update_icon();
 
-        events.global.add_listener("menu-open", page =>
-        {
-            if (page.hasOwnProperty("tab_id")) { delegate_to(page.tab_id); }
-        });
+        events.local.add_listener("menu-tab-hooked", tab => { delegate_to(tab.id); });
+        events.local.add_listener("menu-tab-unhooked", cancel_delegation);
 
         function on_context_requirement_change(new_requirements)
         {
