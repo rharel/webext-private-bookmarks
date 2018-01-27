@@ -161,13 +161,11 @@
     },
     "menu_panel_error_message_begin":
     {
-        "message": "Oops! There was an error. You can help by",
-        "description": "Forms one sentence together with error_message_ending"
+        "message": "Oops! There was an error. You can help by"
     },
     "menu_panel_error_message_end":
     {
-        "message": "reporting it",
-        "description": "Forms one sentence together with error_message_beginning."
+        "message": "reporting it"
     },
     "menu_panel_title_authentication":
     {
