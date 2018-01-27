@@ -220,6 +220,14 @@
     {
         "message": "Disable password requirements (allows less secure passwords)"
     },
+    "options_item_enable_idle_auto_lock_begin":
+    {
+        "message": "Auto-lock when idle for more than"
+    },
+    "options_item_enable_idle_auto_lock_end":
+    {
+        "message": "minutes"
+    },
     "options_item_enable_sync":
     {
         "message": "Sync bookmarks and preferences across devices"

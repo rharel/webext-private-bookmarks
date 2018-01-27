@@ -39,6 +39,32 @@
                 </label>
             </div>
             <div class="browser-style section-item">
+                <input id="do-auto-lock-when-idle-checkbox" class="option"
+                       type="checkbox">
+                <label for="do-auto-lock-when-idle-checkbox"
+                       data-localized="options_item_enable_idle_auto_lock_begin">
+                    Auto-lock when idle for more than
+                </label> &nbsp;
+                <select id="idle-auto-lock-threshold-minutes-field" class="option">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30" selected>30</option>
+                    <option value="35">35</option>
+                    <option value="40">40</option>
+                    <option value="45">45</option>
+                    <option value="50">50</option>
+                    <option value="55">55</option>
+                    <option value="60">60</option>
+                </select> &nbsp;
+                <label for="idle-auto-lock-threshold-minutes-field"
+                       data-localized="options_item_enable_idle_auto_lock_end">
+                    minutes
+                </label>
+            </div>
+            <div class="browser-style section-item">
                 <input id="do-show-release-notes-checkbox" class="option"
                        type="checkbox">
                 <label for="do-show-release-notes-checkbox"

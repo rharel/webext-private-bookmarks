@@ -6,10 +6,12 @@
     /// Contains DOM elements. Populated by initialize().
     const DOM =
     {
+        do_auto_lock_when_idle_checkbox: null,
         do_disable_password_requirements_checkbox: null,
         do_limit_to_private_context_checkbox: null,
         do_show_release_notes_checkbox: null,
         do_sync_data_across_devices_checkbox: null,
+        idle_auto_lock_threshold_minutes_field: null,
         top_level_message_container: null,
         release_notes_link: null
     };
@@ -38,7 +40,17 @@
                     ),
                     do_sync_data_across_devices: (
                         DOM.do_sync_data_across_devices_checkbox.checked
-                    )
+                    ),
+
+                    idle_auto_lock:
+                    {
+                        is_enabled: (
+                            DOM.do_auto_lock_when_idle_checkbox.checked
+                        ),
+                        threshold_minutes: (
+                            parseInt(DOM.idle_auto_lock_threshold_minutes_field.value)
+                        )
+                    }
                 };
     }
     /// Applies the specified configuration to the controls on the page.
@@ -55,6 +67,16 @@
         );
         DOM.do_sync_data_across_devices_checkbox.checked = (
             options.do_sync_data_across_devices
+        );
+
+        DOM.do_auto_lock_when_idle_checkbox.checked = (
+            options.idle_auto_lock.is_enabled
+        );
+        DOM.idle_auto_lock_threshold_minutes_field.disabled = (
+            !options.idle_auto_lock.is_enabled
+        );
+        DOM.idle_auto_lock_threshold_minutes_field.value = (
+            options.idle_auto_lock.threshold_minutes.toString()
         );
     }
 
@@ -84,10 +106,38 @@
     /// indicated by the page is saved.
     function initialize_options_change_listeners()
     {
-        const checkboxes = document.querySelectorAll("input[type='checkbox'].option");
-        checkboxes.forEach(checkbox =>
+        document.querySelectorAll("input[type='checkbox'].option")
+                .forEach(item =>
         {
-            checkbox.addEventListener("change", save_page_configuration);
+            item.addEventListener("change", save_page_configuration);
+        });
+        document.querySelectorAll("select.option")
+                .forEach(item =>
+        {
+            item.addEventListener("change", save_page_configuration);
+        });
+
+        // Replace the simple event handler with one that first requests the necessary API
+        // permissions for the idle auto-locking feature.
+        DOM.do_auto_lock_when_idle_checkbox.removeEventListener("change", save_page_configuration);
+        DOM.do_auto_lock_when_idle_checkbox.addEventListener("change", () =>
+        {
+            const box = DOM.do_auto_lock_when_idle_checkbox;
+            const idle_api_permission = { permissions: ["idle"] };
+            if (box.checked)
+            {
+                browser.permissions.request(idle_api_permission).then(is_granted =>
+                {
+                    if (is_granted) { save_page_configuration(); }
+                    else            { box.checked = false; }
+                    DOM.idle_auto_lock_threshold_minutes_field.disabled = !box.checked;
+                });
+            }
+            else
+            {
+                save_page_configuration();
+                DOM.idle_auto_lock_threshold_minutes_field.disabled = !box.checked;
+            }
         });
     }
     /// Initializes this module.
@@ -104,8 +154,8 @@
 
         DOM.release_notes_link.href = version.RELEASE_NOTES.url;
 
-        // Changes to configuration may also originate from other parts of the extension (namely
-        // the syncing module), so listen for them.
+        // Changes to configuration may also originate from other parts of the extension, so listen
+        // for them.
         events.global.add_listener("configuration-change", () => load_page_configuration());
 
         events.global.emit("options-open");
@@ -133,6 +183,5 @@
                 storage = storage_module;
 
                 domanip.when_ready(initialize);
-
             });
 })();

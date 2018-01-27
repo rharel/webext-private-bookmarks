@@ -18,7 +18,17 @@
                     /// True iff preferences and bookmarks should be synced across devices.
                     do_sync_data_across_devices: false,
                     /// True iff a dark theme is preferred.
-                    do_use_dark_theme: false
+                    do_use_dark_theme: false,
+
+                    /// Properties of the idle auto-lock feature.
+                    idle_auto_lock:
+                    {
+                        /// True iff the feature is enabled.
+                        is_enabled: false,
+                        /// The number of minutes of inactivity required for the system to be
+                        /// considered idle.
+                        threshold_minutes: 30
+                    }
                 };
     }
     /// Updates a configuration to the latest version.
@@ -57,6 +67,15 @@
         if (previous_release < 14)
         {
             configuration.do_use_dark_theme = false;
+        }
+        // Release 15: The idle auto-lock feature is added.
+        if (previous_release < 15)
+        {
+            configuration.idle_auto_lock =
+            {
+                is_enabled: false,
+                threshold_minutes: 30
+            };
         }
 
         // Update the version value.
