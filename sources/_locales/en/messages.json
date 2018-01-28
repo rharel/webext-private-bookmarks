@@ -47,6 +47,10 @@
     {
         "message": "Unlock"
     },
+    "command_view_faq":
+    {
+        "message": "View frequently asked questions"
+    },
     "command_view_release_notes":
     {
         "message": "View release notes"

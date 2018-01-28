@@ -2,6 +2,7 @@
 
 ### 0.1.15
  * Adds the option to auto-lock when the system's been idle for a user-specified amount of time.
+ * Adds a link to the FAQ to the options page.
  * Fixes a bug that causes the menu panel to be inaccessible if it is first opened in a tab and then navigated away from.
 
 ### 0.1.14
