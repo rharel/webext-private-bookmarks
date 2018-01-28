@@ -17,31 +17,56 @@
     /// Locks up if there are no private windows open.
     async function lock_if_not_private()
     {
-        if (core.is_unlocked() && !(await is_private_browsing())) { return core.lock(); }
+        if (!await is_private_browsing()) { return core.lock(); }
+    }
+
+    /// Indicates whether the extension is currently limited to private contexts.
+    let is_limited_to_private_context = false;
+
+    /// Begins window monitoring.
+    function start_monitoring()
+    {
+        browser.windows.onRemoved.addListener(lock_if_not_private);
+    }
+    /// Ends window monitoring.
+    function stop_monitoring()
+    {
+        browser.windows.onRemoved.removeListener(lock_if_not_private);
     }
     /// Enables/disables window monitoring based on the specified privacy context setting.
     function update_private_window_monitoring(do_limit_to_private_context)
     {
-        const onRemoved = browser.windows.onRemoved;
-
         if (do_limit_to_private_context &&
-            !onRemoved.hasListener(lock_if_not_private))
+            !is_limited_to_private_context)
         {
-            onRemoved.addListener(lock_if_not_private);
-            lock_if_not_private();
+            events.local.add_listener("unlock", start_monitoring);
+            events.local.add_listener("lock", stop_monitoring);
+
+            if (core.is_unlocked())
+            {
+                start_monitoring();
+                lock_if_not_private();
+            }
+
+            is_limited_to_private_context = true;
         }
         else if (!do_limit_to_private_context &&
-                 onRemoved.hasListener(lock_if_not_private))
+                 is_limited_to_private_context)
         {
-            onRemoved.removeListener(lock_if_not_private);
+            if (core.is_unlocked()) { stop_monitoring(); }
+
+            events.local.remove_listener("unlock", start_monitoring);
+            events.local.remove_listener("lock", stop_monitoring);
+
+            is_limited_to_private_context = false;
         }
     }
 
     /// Locks up if the front folder is removed by the user.
-    browser.bookmarks.onRemoved.addListener(id =>
+    function lock_if_removed(id)
     {
         if (core.is_unlocked() && id === core.get_front_id()) { core.lock(); }
-    });
+    }
 
     // Lock up when suspended. We don't want to leave our private bookmarks out in the open.
     // FIXME: Uncomment the following line when onSuspend becomes available in Firefox:
@@ -75,10 +100,12 @@
         events.local.add_listener("unlock", () =>
         {
             storage.save(storage.Key.FrontID, core.get_front_id());
+            browser.bookmarks.onRemoved.addListener(lock_if_removed);
         });
         events.local.add_listener("lock", () =>
         {
             storage.remove(storage.Key.FrontID);
+            browser.bookmarks.onRemoved.removeListener(lock_if_removed);
         });
 
         events.local.add_listener("context-requirement-change", message =>
