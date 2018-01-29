@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.1.16
+ * TBD
+
 ### 0.1.15
  * Adds the option to auto-lock when the system's been idle for a user-specified amount of time.
  * Adds a link to the FAQ to the options page.
