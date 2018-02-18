@@ -12,8 +12,7 @@
     /// Enumerates notification identifiers.
     const Identifier =
     {
-        BookmarkAddition: "BookmarkAddition",
-        Locked:           "Locked"
+        Locked: "Locked"
     };
 
     /// Maps a message identifier to its timeout.
@@ -48,17 +47,6 @@
 
         return id;
     }
-    /// Notifies that a new item has been added to the private bookmarks folder.
-    function notify_item_added()
-    {
-        return post(
-            browser.i18n.getMessage("notification_item_added"),
-            {
-                id: Identifier.BookmarkAddition,
-                title: browser.i18n.getMessage("notification_item_added_title")
-            }
-        );
-    }
     /// Notifies that private bookmarks have been locked.
     function notify_locked()
     {
@@ -74,7 +62,6 @@
     define({
                 Identifier: Identifier,
 
-                item_added: notify_item_added,
-                locked:     notify_locked
+                locked: notify_locked
            });
 })();

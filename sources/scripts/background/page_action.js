@@ -1,7 +1,7 @@
 (function()
 {
     /// Imported from other modules.
-    let bookmarks, events, notification, storage;
+    let bookmarks, events, storage;
 
     /// True iff the extension's privacy context setting is set to private.
     let do_limit_to_private_context = false;
@@ -49,8 +49,6 @@
     {
         await bookmarks.add(tab.url, tab.title);
         update_in_active_tabs();
-
-        notification.item_added();
     }
 
     /// Handles changes in context requirements.
@@ -111,13 +109,11 @@
 
     define(["scripts/background/bookmarks_manager",
             "scripts/utilities/events",
-            "scripts/utilities/notification",
             "scripts/utilities/storage"],
-           (bookmarks_module, events_module, notification_module, storage_module) =>
+           (bookmarks_module, events_module, storage_module) =>
            {
                 bookmarks = bookmarks_module;
                 events = events_module;
-                notification = notification_module;
                 storage = storage_module;
 
                 initialize();

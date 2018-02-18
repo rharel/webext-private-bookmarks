@@ -201,14 +201,6 @@
         "message": "Private Bookmarks"
     },
 
-    "notification_item_added_title":
-    {
-        "message": "Privately bookmarked!"
-    },
-    "notification_item_added":
-    {
-        "message": "The page has been added to your private bookmarks."
-    },
     "notification_locked_title":
     {
         "message": "Locked!"
