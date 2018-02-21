@@ -1,6 +1,7 @@
 ## Changelog
 
 ### 0.1.16
+ * Adds the ability to customize command shortcuts starting from Firefox 60 (#55).
  * No longer displays a "Privately Bookmarked!" page action notification (#57).
 
 ### 0.1.15

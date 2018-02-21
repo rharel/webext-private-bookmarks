@@ -56,6 +56,10 @@
         "message": "View release notes"
     },
 
+    "direction_customize_shortcut":
+    {
+        "message": "Click on a shortcut's key combination to record it. A valid combination must contain at least Ctrl/Alt and a key (A-Z, 0-9, F1-F12). Shift is optional. Make sure not to choose the same shortcut already in use by the browser or another extension."
+    },
     "direction_enter_current_password":
     {
         "message": "Enter your current password:"
@@ -254,6 +258,10 @@
     {
         "message": "Import"
     },
+    "options_section_title_shortcuts":
+    {
+        "message": "Shortcuts"
+    },
     "options_section_title_support":
     {
         "message": "Support"
@@ -265,7 +273,7 @@
 
     "page_action_title":
     {
-        "message": "Bookmark this page privately (Ctrl+Shift+8)"
+        "message": "Bookmark this page privately"
     },
 
     "password_length_requirements":
@@ -310,6 +318,19 @@
     {
         "message": "Yes",
         "description": "A positive response to a yes/no question."
+    },
+
+    "shortcut_bookmark_page_title":
+    {
+        "message": "Bookmark Page"
+    },
+    "shortcut_lock_bookmarks_title":
+    {
+        "message": "Lock Bookmarks"
+    },
+    "shortcut_open_menu_title":
+    {
+        "message": "Open Menu"
     },
 
     "success_lock":

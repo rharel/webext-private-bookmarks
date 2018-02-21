@@ -22,6 +22,17 @@ button.small > img
 }
 .fading-in { animation: fade-in 0.5s ease-out forwards; }
 
+.hidden { display: none; }
+
+.shortcut > .title { width: 10em; }
+.shortcut > .key-combination
+{
+    background-color: var(--grey-30);
+    border-radius: 5px;
+    padding: 0.25em 0.5em;
+}
+.shortcut > .key-combination.recording { background-color: var(--green-50); }
+
 .message-container
 {
     height: 0;

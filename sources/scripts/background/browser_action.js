@@ -8,8 +8,7 @@
 
     /// The button's title when enabled.
     const TITLE_WHEN_ENABLED = (
-        browser.i18n.getMessage("extension_name") +
-        " (Alt+Shift+8)"
+        browser.i18n.getMessage("extension_name")
     );
     /// The button's title when disabled.
     const TITLE_WHEN_DISABLED = (
