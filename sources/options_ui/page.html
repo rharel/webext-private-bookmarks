@@ -83,28 +83,80 @@
         </div>
         <div class="hidden shortcut-customization section">
             <div class="section-item" data-localized="direction_customize_shortcut">
-                Click on a shortcut's key combination to record it.
-                A valid combination must contain at least Ctrl/Alt and a key (A-Z, 0-9, F1-F12).
-                Shift is optional. Make sure not to choose the same shortcut already in use by the
-                browser or another extension.
+                Make sure not to choose a shortcut already in use by the browser or another
+                extension.
             </div>
-            <div class="shortcut section-item">
+            <div id="shortcut-bookmark-page" class="shortcut section-item">
                 <span class="title" data-localized="shortcut_bookmark_page_title">
-                    Bookmark page
+                    Bookmark Page
                 </span>
-                <span id="shortcut-bookmark-page" class="key-combination"></span>
+                <div class="mandatory-modifier">
+                    <span>
+                        <input id="bookmark-page-mandatory-modifier-alt"
+                               type="radio" name="bookmark-page-mandatory-modifier" value="Alt">
+                        <label for="bookmark-page-mandatory-modifier-alt">Alt</label>
+                    </span>
+                    <span>
+                        <input id="bookmark-page-mandatory-modifier-ctrl"
+                               type="radio" name="bookmark-page-mandatory-modifier" value="Ctrl">
+                        <label for="bookmark-page-mandatory-modifier-ctrl">Ctrl</label>
+                    </span>
+                </div>
+                <span class="separator">+</span>
+                <div class="optional-modifier">
+                    <input id="bookmark-page-optional-modifier" type="checkbox" value="Shift">
+                    <label for="bookmark-page-optional-modifier">Shift</label>
+                </div>
+                <span class="separator">+</span>
+                <select id="bookmark-page-key" class="key" title="Key"></select>
             </div>
-            <div class="shortcut section-item">
+            <div id="shortcut-lock-bookmarks" class="shortcut section-item">
                 <span class="title" data-localized="shortcut_lock_bookmarks_title">
-                    Lock
+                    Lock Bookmarks
                 </span>
-                <span id="shortcut-lock-bookmarks" class="key-combination"></span>
+                <div class="mandatory-modifier">
+                    <span>
+                        <input id="lock-bookmarks-mandatory-modifier-alt"
+                               type="radio" name="lock-bookmarks-mandatory-modifier" value="Alt">
+                        <label for="lock-bookmarks-mandatory-modifier-alt">Alt</label>
+                    </span>
+                    <span>
+                        <input id="lock-bookmarks-mandatory-modifier-ctrl"
+                               type="radio" name="lock-bookmarks-mandatory-modifier" value="Ctrl">
+                        <label for="lock-bookmarks-mandatory-modifier-ctrl">Ctrl</label>
+                    </span>
+                </div>
+                <span class="separator">+</span>
+                <div class="optional-modifier">
+                    <input id="lock-bookmarks-optional-modifier" type="checkbox" value="Shift">
+                    <label for="lock-bookmarks-optional-modifier">Shift</label>
+                </div>
+                <span class="separator">+</span>
+                <select id="lock-bookmarks-key" class="key" title="Key"></select>
             </div>
-            <div class="shortcut section-item">
+            <div id="shortcut-open-menu" class="shortcut section-item">
                 <span class="title" data-localized="shortcut_open_menu_title">
                     Open Menu
                 </span>
-                <span id="shortcut-open-menu" class="key-combination"></span>
+                <div class="mandatory-modifier">
+                    <span>
+                        <input id="open-menu-mandatory-modifier-alt"
+                               type="radio" name="open-menu-mandatory-modifier" value="Alt">
+                        <label for="open-menu-mandatory-modifier-alt">Alt</label>
+                    </span>
+                    <span>
+                        <input id="open-menu-mandatory-modifier-ctrl"
+                               type="radio" name="open-menu-mandatory-modifier" value="Ctrl">
+                        <label for="open-menu-mandatory-modifier-ctrl">Ctrl</label>
+                    </span>
+                </div>
+                <span class="separator">+</span>
+                <div class="optional-modifier">
+                    <input id="open-menu-optional-modifier" type="checkbox" value="Shift">
+                    <label for="open-menu-optional-modifier">Shift</label>
+                </div>
+                <span class="separator">+</span>
+                <select id="open-menu-key" class="key" title="Key"></select>
             </div>
         </div>
         <div class="section-header" data-localized="options_section_title_sync">

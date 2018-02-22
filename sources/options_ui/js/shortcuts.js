@@ -3,151 +3,80 @@
     /// Imported from other modules.
     let domanip;
 
-    const SHIFTED_DIGIT_CHARACTERS = ")!@#$%^&*(";
-    /// Restores the original digit from the character obtaining by shifting it (on QWERTY/AZERTY).
-    function restore_shifted_digit(key)
-    {
-        const index = SHIFTED_DIGIT_CHARACTERS.indexOf(key);
-        return index < 0 ? key : index.toString();
-    }
-
-    function is_digit(key)    { return /^[0-9]$/.test(key); }
-    function is_letter(key)   { return /^[a-zA-Z]$/.test(key); }
-    function is_function(key) { return /^[Ff][1-9][0-2]*$/.test(key); }
-
-    function Shortcut() { this.reset(); }
-    Shortcut.prototype =
-    {
-        is_valid: function()
-        {
-            return this.mandatory_modifier !== null &&
-                   this.key !== null;
-        },
-        is_full: function()
-        {
-            return this.is_valid() &&
-                   this.optional_modifier !== null;
-        },
-        set: function(key)
-        {
-            if      (key === "Alt")     { this.mandatory_modifier = "Alt"; }
-            else if (key === "Control") { this.mandatory_modifier = "Ctrl"; }
-            else if (key === "Shift")   { this.optional_modifier = "Shift"; }
-            else if (is_digit(key) || is_letter(key) || is_function(key))
-            {
-                this.key = key.toUpperCase();
-            }
-        },
-        reset: function()
-        {
-            this.mandatory_modifier = null;
-            this.optional_modifier = null;
-            this.key = null;
-        },
-        to_string: function()
-        {
-            return [this.mandatory_modifier, this.optional_modifier, this.key]
-                .filter(component => component !== null)
-                .join("+");
-        }
-    };
-    function ShortcutInput(command_name, on_recording_end)
-    {
-        this._command_name = command_name;
-        this._shortcut = new Shortcut();
-        this._on_recording_end = on_recording_end;
-    }
-    ShortcutInput.prototype =
-    {
-        begin_recording: function()
-        {
-            this._shortcut.reset();
-        },
-        _end_recording: async function()
-        {
-            const new_shortcut = this._shortcut.to_string();
-            await browser.commands.update({
-                name: this._command_name,
-                shortcut: new_shortcut
-            });
-            if (this._on_recording_end) { this._on_recording_end(new_shortcut); }
-        },
-        key_down: function(key)
-        {
-            this._shortcut.set(key);
-            if (this._shortcut.is_full()) { this._end_recording(); }
-        },
-        key_up: function()
-        {
-            if (this._shortcut.is_valid()) { this._end_recording(); }
-        },
-        to_string: function()
-        {
-            const shortcut_string = this._shortcut.to_string();
-            return shortcut_string !== "" ? shortcut_string : "...";
-        }
-    };
-
     /// Contains DOM elements. Populated by initialize().
     const DOM =
     {
-        shortcut_bookmark_page: null,
+        shortcut_bookmark_page:  null,
         shortcut_lock_bookmarks: null,
-        shortcut_open_menu: null
+        shortcut_open_menu:      null
     };
 
+    /// Gets the key combination displayed by the specified container.
+    function get_shortcut(control)
+    {
+        const mandatory_modifier = control.querySelector(".mandatory-modifier input:checked");
+        const optional_modifier = control.querySelector(".optional-modifier input");
+        const key = control.querySelector(".key");
+
+        return `${mandatory_modifier.value}` +
+               `${optional_modifier.checked ? `+${optional_modifier.value}` : ""}+` +
+               `${key.value}`;
+    }
+    /// Sets the specified container to display the specified key combination.
+    function set_shortcut(control, key_combination)
+    {
+        const components = key_combination.split("+");
+        control.querySelectorAll(".mandatory-modifier input").forEach(input =>
+        {
+            input.checked = input.value === components[0];
+        });
+        control.querySelector(".optional-modifier input").checked = components[1] === "Shift";
+        control.querySelector(".key").value = components[components.length - 1];
+    }
     /// Transforms user interaction to updates in the commands API.
     async function initialize_shortcut_inputs()
     {
-        let is_recording = false;
+        const digits = "0123456789".split("");
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+        const functions = "F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12".split(" ");
+        const specials = (
+            "Comma Period Home End PageUp PageDown " +
+            "Space Insert Delete Up Down Left Right"
+        ).split(" ");
+        const keys = digits.concat(letters).concat(functions).concat(specials);
+
+        document.querySelectorAll(".shortcut > select.key").forEach(node =>
+        {
+            for (let i = 0; i < keys.length; ++i)
+            {
+                const option = document.createElement("option");
+                option.textContent = keys[i];
+                node.appendChild(option);
+            }
+        });
+
         const controls =
         {
             "_execute_page_action": DOM.shortcut_bookmark_page,
-            "lock": DOM.shortcut_lock_bookmarks,
-            "open-menu": DOM.shortcut_open_menu
+            "lock":                 DOM.shortcut_lock_bookmarks,
+            "open-menu":            DOM.shortcut_open_menu
         };
         (await browser.commands.getAll()).forEach(command =>
         {
             const control = controls[command.name];
-            control.textContent = command.shortcut;
-            control.addEventListener("click", on_recording_request);
+            set_shortcut(control, command.shortcut);
 
-            const input = new ShortcutInput(command.name, on_recording_end);
-
-            function on_recording_request()
+            function save()
             {
-                if (is_recording) { return; }
-
-                input.begin_recording();
-                control.textContent = input.to_string();
-                control.classList.add("recording");
-                document.body.addEventListener("keydown", on_key_down);
-                document.body.addEventListener("keyup", on_key_up);
-
-                is_recording = true;
+                return browser.commands.update({
+                    name: command.name,
+                    shortcut: get_shortcut(control)
+                });
             }
-            function on_recording_end(new_shortcut)
+            control.querySelectorAll("input, select").forEach(element =>
             {
-                control.textContent = new_shortcut;
-                control.classList.remove("recording");
-                document.body.removeEventListener("keydown", on_key_down);
-                document.body.removeEventListener("keyup", on_key_up);
-
-                is_recording = false;
-            }
-            function on_key_down(event)
-            {
-                event.preventDefault();
-                if (event.repeat) { return; }
-
-                input.key_down(restore_shifted_digit(event.key));
-                control.textContent = input.to_string();
-            }
-            function on_key_up(event)
-            {
-                event.preventDefault();
-                input.key_up();
-            }
+                element.addEventListener("change", save);
+            });
         });
     }
 

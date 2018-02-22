@@ -25,13 +25,16 @@ button.small > img
 .hidden { display: none; }
 
 .shortcut > .title { width: 10em; }
-.shortcut > .key-combination
+.shortcut > .mandatory-modifier
 {
-    background-color: var(--grey-30);
-    border-radius: 5px;
-    padding: 0.25em 0.5em;
+    display: flex;
+    flex-direction: column;
 }
-.shortcut > .key-combination.recording { background-color: var(--green-50); }
+.shortcut > .separator
+{
+    margin-left: 1em;
+    margin-right: 1em;
+}
 
 .message-container
 {

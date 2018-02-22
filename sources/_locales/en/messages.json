@@ -58,7 +58,7 @@
 
     "direction_customize_shortcut":
     {
-        "message": "Click on a shortcut's key combination to record it. A valid combination must contain at least Ctrl/Alt and a key (A-Z, 0-9, F1-F12). Shift is optional. Make sure not to choose the same shortcut already in use by the browser or another extension."
+        "message": "Make sure not to choose a shortcut already in use by the browser or another extension."
     },
     "direction_enter_current_password":
     {
