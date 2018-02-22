@@ -26,5 +26,6 @@ The following shortcuts are available:
 <li>Ctrl+Shift+8 adds the current page to your private bookmarks (requires unlocked bookmarks).</li>
 <li>Ctrl+Shift+L locks the folder (requires unlocked bookmarks).</li>
 </ul>
+You can customize these shortcuts through the options page <b>starting with Firefox 60</b>.
 
 <b>Something's not working? Got a question and/or suggestion?</b> <a href="https://github.com/rharel/webext-private-bookmarks/issues">Post an issue.</a>
