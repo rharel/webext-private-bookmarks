@@ -2,6 +2,7 @@
 
 ### 0.1.17
  * Adds date to exported file names (#74).
+ * Adds shortcut for privately bookmarking all tabs in the current window at once (#80).
 
 ### 0.1.16
  * Adds the ability to customize command shortcuts starting from Firefox 60 (#55).

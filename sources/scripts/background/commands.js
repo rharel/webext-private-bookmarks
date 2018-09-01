@@ -3,6 +3,15 @@
     /// Imported from other modules.
     let bookmarks, events, notification, storage;
 
+    /// Bookmarks all tabs in the current window.
+    async function bookmark_all()
+    {
+        if (bookmarks.is_locked()) { return; }
+
+        const tabs = await browser.tabs.query({currentWindow: true});
+        tabs.forEach(tab => bookmarks.add(tab.url, tab.title));
+    }
+
     /// Locks private bookmarks and notifies the user.
     async function lock()
     {
@@ -93,8 +102,9 @@
     {
         switch (command)
         {
-            case "lock":      lock();                 return;
-            case "open-menu": open_menu_in_new_tab(); return;
+            case "bookmark-all": bookmark_all();         return;
+            case "lock":         lock();                 return;
+            case "open-menu":    open_menu_in_new_tab(); return;
         }
     }
 

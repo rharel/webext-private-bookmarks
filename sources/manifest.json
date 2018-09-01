@@ -53,6 +53,11 @@
         {
             "suggested_key": { "default": "Alt+Shift+8" },
             "description": "Opens the main menu"
+        },
+        "bookmark-all":
+        {
+            "suggested_key": { "default": "Ctrl+Shift+F8" },
+            "description": "Privately bookmarks all tabs in current window"
         }
     },
     "default_locale": "en",

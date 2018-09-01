@@ -7,6 +7,7 @@
     const DOM =
     {
         shortcut_bookmark_page:  null,
+        shortcut_bookmark_all:   null,
         shortcut_lock_bookmarks: null,
         shortcut_open_menu:      null
     };
@@ -58,6 +59,7 @@
         const controls =
         {
             "_execute_page_action": DOM.shortcut_bookmark_page,
+            "bookmark-all":         DOM.shortcut_bookmark_all,
             "lock":                 DOM.shortcut_lock_bookmarks,
             "open-menu":            DOM.shortcut_open_menu
         };

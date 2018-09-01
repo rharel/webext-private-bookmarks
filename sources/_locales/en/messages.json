@@ -324,6 +324,10 @@
     {
         "message": "Bookmark Page"
     },
+    "shortcut_bookmark_all_title":
+    {
+        "message": "Bookmark All in Window"
+    },
     "shortcut_lock_bookmarks_title":
     {
         "message": "Lock Bookmarks"
