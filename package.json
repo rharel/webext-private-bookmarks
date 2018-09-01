@@ -9,11 +9,13 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^4.0.1",
-    "requirejs": "^2.3.5"
+    "requirejs": "^2.3.5",
+    "web-ext": "^2.8.0"
   },
   "scripts": {
     "internationalize": "node scripts/internationalize.js",
-    "pack": "node scripts/pack.js"
+    "pack": "node scripts/pack.js",
+    "start:firefox": "web-ext run --source-dir ./sources/ --firefox firefoxdeveloperedition --verbose"
   },
   "repository": {
     "type": "git",
