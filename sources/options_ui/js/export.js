@@ -3,12 +3,40 @@
     /// Imported from other modules.
     let bookmarks, CURRENT_VERSION, domanip, events;
 
+    /// Prefixes the name of exported files.
+    const FILENAME_PREFIX = "Private Bookmarks";
+    /// Extension of exported files.
+    const FILENAME_EXTENSION = "json";
+
+    /// Enumerates exported file types.
+    const ExportType =
+    {
+        Encrypted: "encrypted",
+        Plain: "plain"
+    };
+
     /// Contains DOM elements. Populated by initialize().
     const DOM =
     {
         export_encrypted_data_button: null,
         export_plain_data_button: null,
     };
+
+    /// Composes an exported file name given its type.
+    ///
+    /// @param export_type
+    ///     A member of the ExportType enumeration
+    function compose_filename(export_type)
+    {
+        const today = new Date();
+        const locale = browser.i18n.getUILanguage();
+        return (
+            `${FILENAME_PREFIX} ` +
+            `[${export_type}] ` +
+            `(${today.toLocaleDateString(locale)})` +
+            `.${FILENAME_EXTENSION}`
+        );
+    }
 
     /// Offers the specified URI to the user for download.
     function offer_download(uri, filename)
@@ -31,7 +59,7 @@
         if (data === null) { return; }
 
         const uri = encodeURIComponent(JSON.stringify(data));
-        offer_download(uri, "encrypted_private_bookmarks.json");
+        offer_download(uri, compose_filename(ExportType.Encrypted));
     }
     /// Offers the plaintext private bookmark data for download.
     async function export_plain_data()
@@ -39,7 +67,7 @@
         const data = await bookmarks.export_plain_data();
         const uri  = encodeURIComponent(JSON.stringify(data));
 
-        offer_download(uri, "private_bookmarks.json");
+        offer_download(uri, compose_filename(ExportType.Plain));
     }
 
     /// Disables the plain backup button.
