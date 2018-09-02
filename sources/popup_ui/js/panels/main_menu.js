@@ -21,6 +21,24 @@
         change_password_button: null
     };
 
+    /// If the specified string has more characters than the specified limit,
+    /// returns a trimmed version of it. Returns the original string otherwise.
+    function trim_if_long(string, limit = 32)
+    {
+        if (string.length > limit) { return string.slice(0, limit) + "..."; }
+        else                       { return string; }
+    }
+
+    /// Formats a bookmarks folder name for display:
+    function format_folder_name(name)
+    {
+        name = name.trim();
+        return (
+            name.length === 0 ?
+                "(untitled)" : trim_if_long(name)
+        );
+    }
+
     /// Disables all buttons.
     function disable_all_buttons()
     {
@@ -84,15 +102,16 @@
                     await new Promise(resolve => { setTimeout(resolve, 1000); });
                     await unlocking;
 
-                    const title        = await bookmarks.get_front_title(),
-                          parent_title = await bookmarks.get_front_parent_title();
+                    const title =
+                        format_folder_name(await bookmarks.get_front_title());
+                    const parent_title =
+                        format_folder_name(await bookmarks.get_front_parent_title());
 
                     transition_to("success",
                                   {
                                         details: browser.i18n.getMessage(
                                             "success_unlock",
-                                            [title,
-                                             parent_title === "" ? "(no title)" : parent_title]
+                                            [title, parent_title]
                                         ),
                                         transition: MAIN_MENU_TRANSITION
                                   });

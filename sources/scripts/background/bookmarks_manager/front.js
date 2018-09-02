@@ -3,9 +3,6 @@
     /// Imported from other modules.
     let storage;
 
-    /// The folder's display name.
-    const TITLE = browser.i18n.getMessage("extension_name");
-
     /// The folder's identifier in the browser's bookmarks collection.
     let id = null;
 
@@ -55,7 +52,8 @@
             return Promise.reject(new Error("Cannot create front when it already exists."));
         }
 
-        const creation_details = { title: TITLE };
+        const options = await storage.load(storage.Key.Configuration);
+        const creation_details = { title: options.folder_title };
 
         const spawn_location = await storage.load(storage.Key.FrontSpawnLocation);
         if (spawn_location !== null)
@@ -99,6 +97,16 @@
                 parent_id: node.parentId,
                 index:     node.index
             });
+            // Remember the folder's title (up to a predefined character limit).
+            storage.load(storage.Key.Configuration).then(options =>
+            {
+                const CHARACTER_LIMIT = 128;
+                options.folder_title = node.title.slice(
+                    0, Math.min(node.title.length, CHARACTER_LIMIT)
+                );
+                storage.save(storage.Key.Configuration, options);
+            });
+            // Now remove the folder:
             await browser.bookmarks.removeTree(id);
         }
         catch (error) { throw error; }

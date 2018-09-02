@@ -28,7 +28,10 @@
                         /// The number of minutes of inactivity required for the system to be
                         /// considered idle.
                         threshold_minutes: 30
-                    }
+                    },
+
+                    /// String used to refer to the Private Bookmarks folder.
+                    folder_title: browser.i18n.getMessage("extension_name")
                 };
     }
     /// Updates a configuration to the latest version.
@@ -76,6 +79,11 @@
                 is_enabled: false,
                 threshold_minutes: 30
             };
+        }
+        // Release 17: The custom folder title feature is added.
+        if (previous_release < 17)
+        {
+            configuration.folder_title = browser.i18n.getMessage("extension_name");
         }
 
         // Update the version value.
