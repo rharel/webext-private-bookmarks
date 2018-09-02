@@ -12,6 +12,19 @@
         shortcut_open_menu:      null
     };
 
+    /// Gets the major version of the browser as an integer.
+    async function get_browser_version()
+    {
+        const version_string = (await browser.runtime.getBrowserInfo()).version;
+        const iDot = version_string.indexOf(".");
+        const iMajorEnd = (
+            iDot === -1 ?
+                version_string.length : iDot
+        );
+        const major = version_string.slice(0, iMajorEnd);
+        return parseInt(major);
+    }
+
     /// Gets the key combination displayed by the specified container.
     function get_shortcut(control)
     {
@@ -39,6 +52,12 @@
             "Ctrl",
             "Ctrl+Shift"
         ];
+        if (await get_browser_version() >= 63)
+        {
+            // This additional modifier combination is allowed
+            // starting with Firefox 63:
+            modifiers.splice(1, 0, "Alt+Ctrl");
+        }
         document.querySelectorAll(".shortcut > select.modifiers").forEach(node =>
         {
             for (let i = 0; i < modifiers.length; ++i)
