@@ -55,14 +55,12 @@
     --ink-80: #202340;
     --ink-90: #0f1126;
 }
-body, html
+body
 {
     background: transparent;
     box-sizing: border-box;
     color: var(--grey-90);
     cursor: default;
-    display: flex;
-    flex-direction: column;
     font: caption;
     font-size: 15px;
     line-height: 1.5;
@@ -86,8 +84,6 @@ body, html
 }
 .section
 {
-    display: flex;
-    flex-direction: column;
     padding: 16px;
 }
 .section-item
@@ -97,7 +93,6 @@ body, html
     flex-direction: row;
     margin-bottom: 12px;
 }
-.section-item:last-child { margin-bottom: 0; }
 
 /* Anchors */
 a
