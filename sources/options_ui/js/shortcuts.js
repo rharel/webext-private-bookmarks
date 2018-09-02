@@ -15,28 +15,40 @@
     /// Gets the key combination displayed by the specified container.
     function get_shortcut(control)
     {
-        const mandatory_modifier = control.querySelector(".mandatory-modifier input:checked");
-        const optional_modifier = control.querySelector(".optional-modifier input");
-        const key = control.querySelector(".key");
+        const modifiers = control.querySelector(".modifiers").value;
+        const key = control.querySelector(".key").value;
 
-        return `${mandatory_modifier.value}` +
-               `${optional_modifier.checked ? `+${optional_modifier.value}` : ""}+` +
-               `${key.value}`;
+        return `${modifiers}+${key}`;
     }
     /// Sets the specified container to display the specified key combination.
     function set_shortcut(control, key_combination)
     {
         const components = key_combination.split("+");
-        control.querySelectorAll(".mandatory-modifier input").forEach(input =>
-        {
-            input.checked = input.value === components[0];
-        });
-        control.querySelector(".optional-modifier input").checked = components[1] === "Shift";
-        control.querySelector(".key").value = components[components.length - 1];
+
+        control.querySelector(".modifiers").value =
+            components.slice(0, components.length - 1).join("+");
+        control.querySelector(".key").value =
+            components[components.length - 1];
     }
     /// Transforms user interaction to updates in the commands API.
     async function initialize_shortcut_inputs()
     {
+        const modifiers = [
+            "Alt",
+            "Alt+Shift",
+            "Ctrl",
+            "Ctrl+Shift"
+        ];
+        document.querySelectorAll(".shortcut > select.modifiers").forEach(node =>
+        {
+            for (let i = 0; i < modifiers.length; ++i)
+            {
+                const option = document.createElement("option");
+                option.textContent = modifiers[i];
+                node.appendChild(option);
+            }
+        });
+
         const digits = "0123456789".split("");
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
         const functions = "F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12".split(" ");
