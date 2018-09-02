@@ -279,7 +279,11 @@ input[type="checkbox"]:checked:hover:active + label::before
     );
     color: white;
 }
-.message-container.warning > .message { background-color: #000000AA; }
+.message-container.warning > .message
+{
+    background-color: #000000AA;
+    border-radius: inherit;
+}
 .message-container.warning > .message::before
 {
     background-image: url(/icons/photon/warning_white.svg);
