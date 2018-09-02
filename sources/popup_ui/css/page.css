@@ -1,9 +1,8 @@
 /* Top-level */
 body
 {
-    background-color: white;
-    height: 384px;
-    overflow: hidden;
+    margin: auto;
+    max-height: 384px;
     width: 256px;
 }
 
@@ -201,14 +200,14 @@ img.validation-icon[src*="incorrect_white"]
 }
 
 /* Media responsiveness */
-@media (min-width: 768px)
+@media screen and (min-width: 768px),
+       screen and (min-height: 512px)
 {
-    body
+    html
     {
+        align-items: center;
+        display: flex;
         height: 100vh;
         justify-content: center;
-        margin-left: auto;
-        margin-right: auto;
     }
-    .panel { flex-grow: 0.25; }
 }
