@@ -1,7 +1,7 @@
 (function()
 {
     /// Imported from other modules.
-    let bookmarks, events, storage;
+    let bookmarks, events, page_action, storage;
 
     /// Bookmarks all tabs in the current window.
     async function bookmark_all()
@@ -9,7 +9,17 @@
         if (bookmarks.is_locked()) { return; }
 
         const tabs = await browser.tabs.query({currentWindow: true});
-        tabs.forEach(tab => bookmarks.add(tab.url, tab.title));
+        const new_tabs = [];
+        await Promise.all(
+            tabs.filter(tab => !tab.url.startsWith("about:"))
+                .map(tab => bookmarks.contains_url(tab.url)
+                .then(hasUrl => { if (!hasUrl) { new_tabs.push(tab); }})
+            )
+        );
+        await Promise.all(
+            new_tabs.map(tab => bookmarks.add(tab.url, tab.title))
+        );
+        page_action.update();
     }
 
     /// Locks private bookmarks (asynchronous).
@@ -121,11 +131,13 @@
     }
 
     require(["scripts/background/bookmarks_manager",
+             "scripts/background/page_action",
              "scripts/utilities/events",
              "scripts/utilities/storage"],
-            (bookmarks_module, events_module, storage_module) =>
+            (bookmarks_module, page_action_module, events_module, storage_module) =>
             {
                 bookmarks = bookmarks_module;
+                page_action = page_action_module;
                 events = events_module;
                 storage = storage_module;
 

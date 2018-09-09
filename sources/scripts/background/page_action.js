@@ -117,5 +117,7 @@
                 storage = storage_module;
 
                 initialize();
+
+                return { update: update_in_active_tabs };
            });
 })();
