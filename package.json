@@ -15,7 +15,8 @@
   "scripts": {
     "internationalize": "node scripts/internationalize.js",
     "pack": "node scripts/pack.js",
-    "start:firefox": "web-ext run --source-dir ./sources/ --firefox firefoxdeveloperedition --verbose"
+    "start:firefox": "web-ext run --source-dir ./sources/ --verbose",
+    "start:firefoxDev": "web-ext run --source-dir ./sources/ --firefox firefoxdeveloperedition --verbose"
   },
   "repository": {
     "type": "git",
