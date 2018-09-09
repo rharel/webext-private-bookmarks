@@ -76,7 +76,7 @@
     }
 
     define(["libraries/base64",
-            "libraries/LZ_string.min"],
+            "libraries/LZ_string"],
            (base64_module, LZ_string_module) =>
            {
                LZ_string = LZ_string_module;

@@ -18,7 +18,7 @@
     },
     "background":
     {
-        "scripts": ["libraries/require.min.js",
+        "scripts": ["libraries/require.js",
                     "scripts/background/main.js"]
     },
     "browser_action":

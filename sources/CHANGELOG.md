@@ -7,6 +7,7 @@
  * Adds shortcut for privately bookmarking all tabs in the current window at once (#80).
  * Allows custom folder titles (#85).
  * Removes the last remaining use of the notification API.
+ * Removes minified libraries, uses un-minified versions instead.
 
 ### 0.1.16
  * Adds the ability to customize command shortcuts starting from Firefox 60 (#55).
