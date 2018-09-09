@@ -20,6 +20,15 @@
                     /// True iff a dark theme is preferred.
                     do_use_dark_theme: false,
 
+                    /// Backup-reminder options.
+                    backup_reminder:
+                    {
+                        /// True iff the feature is enabled.
+                        is_enabled: true,
+                        /// The minimal number of days between reminders.
+                        interval_days: 7
+                    },
+
                     /// Properties of the idle auto-lock feature.
                     idle_auto_lock:
                     {
@@ -80,10 +89,15 @@
                 threshold_minutes: 30
             };
         }
-        // Release 17: The custom folder title feature is added.
+        // Release 17: The custom folder title and backup reminder features are added.
         if (previous_release < 17)
         {
             configuration.folder_title = browser.i18n.getMessage("extension_name");
+            configuration.backup_reminder =
+            {
+                is_enabled: true,
+                interval_days: 7
+            };
         }
 
         // Update the version value.

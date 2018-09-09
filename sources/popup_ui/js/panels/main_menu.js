@@ -1,7 +1,7 @@
 (function()
 {
     /// Imported from other modules.
-    let bookmarks, domanip;
+    let bookmarks, domanip, storage;
 
     /// Invoked when transitioning out of this panel.
     let transition_to;
@@ -16,6 +16,7 @@
     /// Contains DOM elements. Populated by initialize().
     const DOM =
     {
+        backup_reminder: null,
         lock_button: null,
         unlock_button: null,
         change_password_button: null
@@ -39,10 +40,54 @@
         );
     }
 
+    /// Gets the difference between the specified two dates in days.
+    ///
+    /// Credit to Shyam Habarakada @ https://stackoverflow.com/a/15289883
+    function days_difference(first, second)
+    {
+        const MS_PER_DAY = 1000 * 60 * 60 * 24;
+        const utc1 = Date.UTC(
+            first.getFullYear(), first.getMonth(), first.getDate()
+        );
+        const utc2 = Date.UTC(
+            second.getFullYear(), second.getMonth(), second.getDate()
+        );
+        return Math.floor((utc2 - utc1) / MS_PER_DAY);
+    }
+    /// Displays a backup reminder.
+    function display_backup_reminder()
+    {
+        DOM.backup_reminder.style.display = "unset";
+        DOM.backup_reminder.classList.add("fading-in");
+    }
+    /// Displays a backup reminder if the feature is enabled and enough time
+    /// has passed since the last.
+    async function remind_to_backup()
+    {
+        const options = (await storage.load(storage.Key.Configuration)).backup_reminder;
+
+        if (!options.is_enabled) { return; }
+
+        const previousString = await storage.load(storage.Key.LastBackupReminderDate);
+        const previous = previousString === null ?
+            new Date(0) :
+            new Date(previousString);
+
+        const today = new Date();
+
+        if (days_difference(previous, today) >= options.interval_days)
+        {
+            display_backup_reminder();
+            storage.save(storage.Key.LastBackupReminderDate, today.toJSON());
+        }
+    }
+
     /// Disables all buttons.
     function disable_all_buttons()
     {
-        for (const button of Object.values(DOM)) { domanip.disable(button, true); }
+        domanip.disable(DOM.lock_button, true);
+        domanip.disable(DOM.unlock_button, true);
+        domanip.disable(DOM.change_password_button, true);
     }
     /// Gets the active main button.
     async function get_main_active_button()
@@ -115,6 +160,7 @@
                                         ),
                                         transition: MAIN_MENU_TRANSITION
                                   });
+                    remind_to_backup();
                 }
                 catch (error)
                 {
@@ -176,14 +222,20 @@
         DOM.lock_button.addEventListener("click", lock);
         DOM.unlock_button.addEventListener("click", unlock);
         DOM.change_password_button.addEventListener("click", change_password);
+        DOM.backup_reminder.addEventListener("click", () =>
+        {
+            DOM.backup_reminder.style.display = "none";
+        })
     }
 
     define(["scripts/foreground/bookmarks_interface",
-            "scripts/utilities/dom_manipulation"],
-           (bookmarks_module, dom_module) =>
+            "scripts/utilities/dom_manipulation",
+            "scripts/utilities/storage"],
+           (bookmarks_module, dom_module, storage_module) =>
            {
                bookmarks = bookmarks_module;
                domanip = dom_module;
+               storage = storage_module;
 
                domanip.when_ready(initialize);
 

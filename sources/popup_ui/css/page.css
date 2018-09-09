@@ -199,6 +199,28 @@ img.validation-icon[src*="incorrect_white"]
     width: 28px;
 }
 
+/* Backup reminder */
+@keyframes fade-in
+{
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+.fading-in { animation: fade-in 0.25s 0.25s ease-out forwards; }
+
+#backup-reminder
+{
+    display: none;
+    opacity: 0;
+    background-color: var(--blue-60);
+    border-radius: 1em;
+    color: white;
+    font-size: 0.8em;
+    position: absolute;
+    bottom: auto;
+    padding: 1em;
+    width: 200px;
+}
+
 /* Media responsiveness */
 @media screen and (min-width: 768px),
        screen and (min-height: 512px)

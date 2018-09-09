@@ -23,7 +23,9 @@
         FrontID: "front_folder_id",
         /// The location in which the front should be spawned at.
         /// It is an object { parent_id: string, index: integer }.
-        FrontSpawnLocation: "front_folder_spawn_location"
+        FrontSpawnLocation: "front_folder_spawn_location",
+        /// Date of last backup reminder.
+        LastBackupReminderDate: "last_backup_reminder_date"
     };
 
     /// A private encoder for this module.

@@ -6,7 +6,9 @@
     /// Contains DOM elements. Populated by initialize().
     const DOM =
     {
+        backup_reminder_interval_days_field: null,
         do_auto_lock_when_idle_checkbox: null,
+        do_backup_reminder_checkbox: null,
         do_disable_password_requirements_checkbox: null,
         do_limit_to_private_context_checkbox: null,
         do_show_release_notes_checkbox: null,
@@ -42,6 +44,15 @@
                         DOM.do_sync_data_across_devices_checkbox.checked
                     ),
 
+                    backup_reminder:
+                    {
+                        is_enabled: (
+                            DOM.do_backup_reminder_checkbox.checked
+                        ),
+                        interval_days: (
+                            parseInt(DOM.backup_reminder_interval_days_field.value)
+                        )
+                    },
                     idle_auto_lock:
                     {
                         is_enabled: (
@@ -77,6 +88,16 @@
         );
         DOM.idle_auto_lock_threshold_minutes_field.value = (
             options.idle_auto_lock.threshold_minutes.toString()
+        );
+
+        DOM.do_backup_reminder_checkbox.checked = (
+            options.backup_reminder.is_enabled
+        );
+        DOM.backup_reminder_interval_days_field.disabled = (
+            !options.backup_reminder.is_enabled
+        );
+        DOM.backup_reminder_interval_days_field.value = (
+            options.backup_reminder.interval_days.toString()
         );
     }
 

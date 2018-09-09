@@ -11,6 +11,7 @@
     /// Contains DOM elements. Populated by initialize().
     const DOM =
     {
+        backup_reminder: null,
         success_details: null,
         success_transition_button: null,
         success_transition_button_label: null
@@ -24,6 +25,11 @@
         DOM.success_details.textContent = details;
         DOM.success_transition_button_label.textContent = transition.label;
         transition_target_id = transition.id;
+    }
+    /// Invoked when this panel is deactivated.
+    function on_deactivate(options)
+    {
+        DOM.backup_reminder.style.display = "none";
     }
 
     /// Initializes this module.
@@ -49,6 +55,7 @@
                             TITLE: browser.i18n.getMessage("menu_panel_title_success"),
 
                             on_activate:   on_activate,
+                            on_deactivate: on_deactivate,
                             on_transition: handler => { transition_to = handler; },
                         };
            });

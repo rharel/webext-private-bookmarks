@@ -64,6 +64,10 @@
     {
         "message": "Enter your current password:"
     },
+    "direction_make_backup":
+    {
+        "message": "Remember to backup your private bookmarks once in a while. You can export a backup from the options page. (tap to close)"
+    },
     "direction_post_feedback":
     {
         "message": "Something's not working? Got a question and/or suggestion?"
@@ -217,6 +221,14 @@
     "options_item_disable_password_requirements":
     {
         "message": "Disable password requirements (allows less secure passwords)"
+    },
+    "options_item_enable_backup_reminder_begin":
+    {
+        "message": "Remind me to make a backup every"
+    },
+    "options_item_enable_backup_reminder_end":
+    {
+        "message": "day(s)"
     },
     "options_item_enable_idle_auto_lock_begin":
     {

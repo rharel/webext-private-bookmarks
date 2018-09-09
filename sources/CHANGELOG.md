@@ -4,6 +4,7 @@
  * Allows more modifier combination for command shortcuts (#71).
  * Improves panel alignment when in overflow menu (#73).
  * Adds date to exported file names (#74).
+ * Adds option for periodic backup reminders (#75).
  * Adds shortcut for privately bookmarking all tabs in the current window at once (#80).
  * Allows custom folder titles (#85).
  * Removes the last remaining use of the notification API.
