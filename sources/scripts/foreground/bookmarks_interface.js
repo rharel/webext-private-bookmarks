@@ -15,12 +15,12 @@
      "import_encrypted_data", "import_plain_data"]
     .forEach(method_name =>
     {
-        this_module[method_name] = (...arguments) =>
+        this_module[method_name] = (...forwarded_arguments) =>
         {
             return events.global.emit("bookmarks-interface",
             {
                 method_name: method_name,
-                arguments:   arguments
+                arguments:   forwarded_arguments
             });
         }
     });
