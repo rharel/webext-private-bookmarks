@@ -236,7 +236,7 @@
     },
     "options_item_enable_idle_auto_lock_end":
     {
-        "message": "minutes"
+        "message": "minute(s)"
     },
     "options_item_enable_sync":
     {
