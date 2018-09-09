@@ -91,6 +91,6 @@
         },
         "default_title": "__MSG_page_action_title__"
     },
-    "permissions": ["bookmarks", "notifications", "storage", "tabs"],
+    "permissions": ["bookmarks", "storage", "tabs"],
     "optional_permissions": ["idle"]
 }

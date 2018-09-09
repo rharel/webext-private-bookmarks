@@ -1,7 +1,7 @@
 (function()
 {
     /// Imported from other modules.
-    let bookmarks, events, notification, storage;
+    let bookmarks, events, storage;
 
     /// Bookmarks all tabs in the current window.
     async function bookmark_all()
@@ -12,13 +12,10 @@
         tabs.forEach(tab => bookmarks.add(tab.url, tab.title));
     }
 
-    /// Locks private bookmarks and notifies the user.
-    async function lock()
+    /// Locks private bookmarks (asynchronous).
+    function lock()
     {
-        if (bookmarks.is_locked()) { return; }
-
-        await bookmarks.lock();
-        notification.locked();
+        if (bookmarks.is_unlocked()) { bookmarks.lock(); }
     }
 
     /// The URL of the menu page.
@@ -125,13 +122,11 @@
 
     require(["scripts/background/bookmarks_manager",
              "scripts/utilities/events",
-             "scripts/utilities/notification",
              "scripts/utilities/storage"],
-            (bookmarks_module, events_module, notification_module, storage_module) =>
+            (bookmarks_module, events_module, storage_module) =>
             {
                 bookmarks = bookmarks_module;
                 events = events_module;
-                notification = notification_module;
                 storage = storage_module;
 
                 initialize();
