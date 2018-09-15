@@ -4,7 +4,7 @@ body
     color: var(--grey-10);
 }
 
-a       { color: var(--blue-50); }
+a       { color: var(--blue-40); }
 a:hover { color: var(--blue-40); }
 
 input[type="password"]
