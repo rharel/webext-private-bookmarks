@@ -1,3 +1,5 @@
+"use strict";
+
 (function()
 {
     /// Imported from other modules.
@@ -31,9 +33,11 @@
     /// A private encoder for this module.
     const text_encoder = new TextEncoder();
 
-    /// Computes the size of the specified object in bytes. If the object is undefined or null,
-    /// returns 0. Otherwise, if the object is not a string, it is converted into JSON before
-    /// computation.
+    /// Computes the size of the specified object in bytes.
+    ///
+    /// \returns
+    ///     Zero if undefined or null, and otherwise the length in bytes
+    ///     of an encoded version of the object.
     function size_in_bytes(object)
     {
         if (typeof object === "undefined" || object === null )
@@ -50,15 +54,15 @@
     /// Creates a storage interface for the specified area.
     function Handle(area_name)
     {
-        this.area_name = area_name;
-        this.area      = browser.storage[area_name];
+        this.area = browser.storage[area_name];
     }
     Handle.prototype =
     {
         /// Indicates whether there is any data in storage.
         is_empty: async function()
         {
-            return Object.keys(await this.area.get(null)).length === 0;
+            const all_data = await this.area.get(null);
+            return Object.keys(all_data).length === 0;
         },
 
         /// Gets the number of bytes in use.
@@ -67,11 +71,14 @@
             // FIXME when getBytesInUse() is implemented in Firefox.
             // return storage.getBytesInUse(null);
 
-            return size_in_bytes(await this.area.get(null));  // Null gets entire contents.
+            const all_data = await this.area.get(null);
+            return size_in_bytes(all_data);
         },
 
         /// Loads the value associated with the specified key.
-        /// Resolves to the associated value if it exists. If not, resolves to null.
+        ///
+        /// \returns
+        ///     The associated value if it exists, and null otherwise.
         load: async function(key)
         {
             const results = await this.area.get(key);
@@ -90,19 +97,19 @@
             return results;
         },
 
-        /// Associates the specified value to the specified key and saves it asynchronously.
-        save: function(key, value)
+        /// Associates the specified value with the specified key and saves it.
+        save: async function(key, value)
         {
             const item = {}; item[key] = value;
-            return this.area.set(item);
+            await this.area.set(item);
         },
-        /// Associates the specified keys to the specified values and saves them asynchronously.
-        save_all: function(key_value_mapping) { return this.area.set(key_value_mapping); },
+        /// Associates the specified keys to the specified values and saves them.
+        save_all: async function(key_value_mapping) { await this.area.set(key_value_mapping); },
 
-        /// Removes the specified key and associated value asynchronously.
-        remove:     function(key)  { return this.area.remove(key); },
-        /// Removes the specified keys and associated values asynchronously.
-        remove_all: function(keys) { return this.area.remove(keys); }
+        /// Removes the specified key and associated value.
+        remove:     async function(key)  { await this.area.remove(key); },
+        /// Removes the specified keys and associated values.
+        remove_all: async function(keys) { await this.area.remove(keys); }
     };
 
     /// The two main handles to storage.
@@ -110,60 +117,46 @@
           synchronized = new Handle("sync");
 
     /// Synchronized storage capacity in bytes.
-    /// Technically, Firefox allows for 100KB. But, we leave a 20% margin in case internal extension
-    /// mechanisms will require that space in the future.
+    ///
+    /// Technically, Firefox allows for 100KB. But, we leave a 20% margin
+    /// in case an internal extension mechanisms will require that space
+    /// in the future.
     synchronized.CAPACITY_BYTES = 80000;
 
-    /// Loads the value associated with the specified key asynchronously.
+    /// Loads the value associated with the specified key.
     /// Resolves to the associated value if it exists. If not, resolves to null.
-    function load(key)        { return local.load(key); }
-    /// Associates the specified value to the specified key and saves it asynchronously.
-    function save(key, value) { return local.save(key, value); }
-    /// Removes the specified key and associated value asynchronously.
-    function remove(key)      { return local.remove(key); }
+    async function load(key) { return await local.load(key); }
+    /// Associates the specified value to the specified key and saves it.
+    async function save(key, value) { await local.save(key, value); }
+    /// Removes the specified key and associated value.
+    async function remove(key) { await local.remove(key); }
 
-    /// Assigned true iff vital local keys are either initialized or about to be.
-    let invoked_vital_local_key_initialization = false;
-    /// Initializes vital local keys. These are keys that are expected to always exist in local
-    /// storage.
-    async function initialize_vital_local_keys()
+    /// Initializes this module.
+    async function initialize()
     {
-        if (invoked_vital_local_key_initialization) { return; }
-
-        invoked_vital_local_key_initialization = true;
-
-        // Maps with their initializer methods.
-        const vital_local_keys = {};
-        vital_local_keys[Key.Configuration] = configuration.create;
-
-        const initializing = [];
-        for (const key in vital_local_keys)
+        if (await local.load(Key.Configuration) === null)
         {
-            if ((await local.load(key)) === null)
-            {
-                const initial_value = vital_local_keys[key]();
-                initializing.push(local.save(key, initial_value));
-            }
+            await local.save(
+                Key.Configuration,
+                configuration.create()
+            );
         }
-        return Promise.all(initializing);
     }
 
-    define(["scripts/meta/configuration"],
-           configuration_module =>
-           {
-               configuration = configuration_module;
+    define(["scripts/meta/configuration"], configuration_module =>
+    {
+        configuration = configuration_module;
+        return {
+            Key: Key,
 
-               return   {
-                           Key:          Key,
+            local:        local,
+            synchronized: synchronized,
 
-                           local:        local,
-                           synchronized: synchronized,
+            initialize: initialize,
 
-                           initialize: initialize_vital_local_keys,
-
-                           load:   load,
-                           save:   save,
-                           remove: remove
-                        };
-           });
+            load:   load,
+            save:   save,
+            remove: remove
+        };
+    });
 })();
