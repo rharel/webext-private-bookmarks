@@ -13,10 +13,10 @@
     "web-ext": "^2.8.0"
   },
   "scripts": {
-    "internationalize": "node scripts/internationalize.js",
-    "pack": "node scripts/pack.js",
-    "start:firefox": "web-ext run --source-dir ./sources/ --verbose",
-    "start:firefoxDev": "web-ext run --source-dir ./sources/ --firefox firefoxdeveloperedition --verbose"
+    "build": "web-ext build --source-dir ./sources/ --artifacts-dir ./distribution/ --overwrite-dest",
+    "lint": "web-ext lint --source-dir ./sources/",
+    "start:firefox": "web-ext run --source-dir ./sources/ --start-url about:addons --browser-console --verbose",
+    "start:firefoxDev": "web-ext run --source-dir ./sources/ --start-url about:addons --browser-console --verbose --firefox firefoxdeveloperedition"
   },
   "repository": {
     "type": "git",
