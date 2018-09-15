@@ -1,50 +1,59 @@
+"use strict";
+
 (function()
 {
     /// Imported from other modules.
     let version;
 
-    /// Returns a new configuration object with default values for all options.
+    /// \returns
+    ///     New configuration with default options.
     function create()
     {
-        return  {
-                    version: version.CURRENT,
+        return {
+            /// Identifies the extension version for which this configuration is applicable.
+            version: version.CURRENT,
 
-                    /// True iff no requirements should be imposed on passwords.
-                    do_disable_password_requirements: false,
-                    /// True iff the extension is limited to private contexts exclusively.
-                    do_limit_to_private_context: true,
-                    /// True iff release notes may be displayed proceeding an update.
-                    do_show_release_notes: true,
-                    /// True iff preferences and bookmarks should be synced across devices.
-                    do_sync_data_across_devices: false,
-                    /// True iff a dark theme is preferred.
-                    do_use_dark_theme: false,
+            /// True iff no requirements should be imposed on passwords.
+            do_disable_password_requirements: false,
+            /// True iff the extension is limited to private contexts.
+            do_limit_to_private_context: true,
+            /// True iff release notes may be displayed proceeding an update.
+            do_show_release_notes: true,
+            /// True iff preferences and bookmarks should be synced across devices.
+            do_sync_data_across_devices: false,
+            /// True iff a dark theme is preferred.
+            do_use_dark_theme: false,
 
-                    /// Backup-reminder options.
-                    backup_reminder:
-                    {
-                        /// True iff the feature is enabled.
-                        is_enabled: true,
-                        /// The minimal number of days between reminders.
-                        interval_days: 7
-                    },
+            /// Backup-reminder options.
+            backup_reminder:
+            {
+                /// True iff the feature is enabled.
+                is_enabled: true,
+                /// The minimal number of days between reminders.
+                interval_days: 7
+            },
 
-                    /// Properties of the idle auto-lock feature.
-                    idle_auto_lock:
-                    {
-                        /// True iff the feature is enabled.
-                        is_enabled: false,
-                        /// The number of minutes of inactivity required for the system to be
-                        /// considered idle.
-                        threshold_minutes: 30
-                    },
+            /// Properties of the idle auto-lock feature.
+            idle_auto_lock:
+            {
+                /// True iff the feature is enabled.
+                is_enabled: false,
+                /// The number of minutes of inactivity required for the system to be
+                /// considered idle.
+                threshold_minutes: 30
+            },
 
-                    /// String used to refer to the Private Bookmarks folder.
-                    folder_title: browser.i18n.getMessage("extension_name")
-                };
+            /// String used to refer to the Private Bookmarks folder.
+            folder_title: browser.i18n.getMessage("extension_name")
+        };
     }
-    /// Updates a configuration to the latest version.
-    /// Supports migration from any earlier version in the 0.*.* range.
+    /// Updates a configuration to the latest version from any version in the 0.*.* range.
+    ///
+    /// \param [in,out] configuration
+    ///     Configuration to update in-place.
+    ///
+    /// \returns
+    ///     The input configuration.
     function update(configuration)
     {
         const previous_release = configuration.version.release;
@@ -54,8 +63,8 @@
         {
             configuration.security = { disable_password_requirements: false };
         }
-        // Release 13: structure is flattened, existing properties renamed, and a new syncing option
-        // is added.
+        // Release 13: structure is flattened, existing properties renamed,
+        // and a new syncing option is added.
         if (previous_release < 13)
         {
             // Flatten and rename existing properties
@@ -100,20 +109,21 @@
             };
         }
 
-        // Update the version value.
+        // Mark as updated.
         configuration.version = version.CURRENT;
 
         return configuration;
     }
 
-    define(["scripts/meta/version"],
-           version_module =>
-           {
-                version = version_module;
-
-                return  {
-                            create: create,
-                            update: update,
-                        };
-           });
+    define(
+        ["scripts/meta/version"],
+        version_module =>
+        {
+            version = version_module;
+            return {
+                create: create,
+                update: update
+            };
+        }
+    );
 })();

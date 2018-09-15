@@ -43,12 +43,7 @@
     {
         domanip.populate(DOM);
 
-        DOM.extension_version.textContent = version.format(
-            /* include minor:    */ true,
-            /* include release:  */ true,
-            /* include tag:      */ true,
-            /* include revision: */ false
-        );
+        DOM.extension_version.textContent = version.format(version.CURRENT);
         DOM.options_button.addEventListener("click", () => { browser.runtime.openOptionsPage(); });
         DOM.theme_button.addEventListener("click", toggle_theme);
 
