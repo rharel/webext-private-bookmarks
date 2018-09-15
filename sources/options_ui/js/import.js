@@ -195,7 +195,7 @@
         update_import_button_availability();
 
         events.global.add_listener(["lock", "unlock"], update_import_button_availability);
-        events.global.add_listener("import-status-update", update_status_message);
+        events.global.add_listener(["import-status-update"], update_status_message);
     }
 
     require(["./messages",

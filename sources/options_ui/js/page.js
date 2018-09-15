@@ -176,7 +176,7 @@
 
         // Changes to configuration may also originate from other parts of the extension, so listen
         // for them.
-        events.global.add_listener("configuration-change", () => load_page_configuration());
+        events.global.add_listener(["configuration-change"], () => load_page_configuration());
 
         events.global.emit("options-open");
     }

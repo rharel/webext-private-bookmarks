@@ -143,8 +143,8 @@
         events.local.add_listener(["lock", "unlock"], update_icon);
         update_icon();
 
-        events.local.add_listener("menu-tab-hooked", tab => { delegate_to(tab.id); });
-        events.local.add_listener("menu-tab-unhooked", cancel_delegation);
+        events.local.add_listener(["menu-tab-hooked"], tab => { delegate_to(tab.id); });
+        events.local.add_listener(["menu-tab-unhooked"], cancel_delegation);
 
         function on_context_requirement_change(new_requirements)
         {
@@ -152,7 +152,7 @@
             update_in_active_tabs();
         }
         events.local.add_listener(
-            "context-requirement-change",
+            ["context-requirement-change"],
             on_context_requirement_change
         );
         storage.load(storage.Key.Configuration).then(configuration =>

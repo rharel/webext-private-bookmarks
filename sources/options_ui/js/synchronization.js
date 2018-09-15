@@ -73,7 +73,7 @@
 
         // Changes to configuration may also originate from other parts of the extension (namely
         // the syncing module), so listen for them.
-        events.global.add_listener("configuration-change", event => update(event.new_value));
+        events.global.add_listener(["configuration-change"], event => update(event.new_value));
         update(await storage.load(storage.Key.Configuration));
     }
 

@@ -49,8 +49,8 @@
 
         set_detection_interval_minutes(threshold_minutes);
 
-        events.local.add_listener("unlock", start_monitoring);
-        events.local.add_listener("lock", stop_monitoring);
+        events.local.add_listener(["unlock"], start_monitoring);
+        events.local.add_listener(["lock"], stop_monitoring);
 
         if (core.is_unlocked()) { start_monitoring(); }
 
@@ -63,8 +63,8 @@
     {
         if (!is_enabled) { return; }
 
-        events.local.remove_listener("unlock", start_monitoring);
-        events.local.remove_listener("lock", stop_monitoring);
+        events.local.remove_listener(["unlock"], start_monitoring);
+        events.local.remove_listener(["lock"], stop_monitoring);
 
         if (core.is_unlocked()) { stop_monitoring(); }
 
@@ -88,7 +88,7 @@
     /// Initializes this module.
     function initialize()
     {
-        events.local.add_listener("configuration-change", changes =>
+        events.local.add_listener(["configuration-change"], changes =>
         {
             update_activation_status(changes.new_value)
         });

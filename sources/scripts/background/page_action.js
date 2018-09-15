@@ -95,10 +95,10 @@
     /// Initializes this module.
     function initialize()
     {
-        events.local.add_listener("unlock", enable);
-        events.local.add_listener("lock",   disable);
+        events.local.add_listener(["unlock"], enable);
+        events.local.add_listener(["lock"],   disable);
         events.local.add_listener(
-            "context-requirement-change",
+            ["context-requirement-change"],
             handle_context_requirement_change
         );
         storage.load(storage.Key.Configuration).then(handle_context_requirement_change);

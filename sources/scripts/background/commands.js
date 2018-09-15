@@ -119,7 +119,7 @@
     function initialize()
     {
         browser.commands.onCommand.addListener(handle_command);
-        events.local.add_listener("context-requirement-change", async change =>
+        events.local.add_listener(["context-requirement-change"], async change =>
         {
             if (change.do_limit_to_private_context &&
                 menu_tab_id !== null)

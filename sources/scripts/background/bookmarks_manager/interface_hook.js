@@ -8,7 +8,7 @@
     {
         /// Listen for and handle commands from other frames via the bookmarks interface
         /// (see scripts/foreground/bookmarks_interface.js).
-        events.global.add_listener("bookmarks-interface", message =>
+        events.global.add_listener(["bookmarks-interface"], message =>
         {
             return Promise.resolve(core[message.method_name](...message.arguments));
         });

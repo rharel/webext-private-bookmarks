@@ -99,8 +99,8 @@
         if (await bookmarks.is_locked()) { disable_plain_export_option(); }
         else                             { enable_plain_export_option();  }
 
-        events.global.add_listener("lock",   disable_plain_export_option);
-        events.global.add_listener("unlock", enable_plain_export_option);
+        events.global.add_listener(["lock"],   disable_plain_export_option);
+        events.global.add_listener(["unlock"], enable_plain_export_option);
     }
 
     require(["scripts/foreground/bookmarks_interface",

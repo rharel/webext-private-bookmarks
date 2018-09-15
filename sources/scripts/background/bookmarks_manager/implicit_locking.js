@@ -39,8 +39,8 @@
         if (do_limit_to_private_context &&
             !is_limited_to_private_context)
         {
-            events.local.add_listener("unlock", start_monitoring);
-            events.local.add_listener("lock", stop_monitoring);
+            events.local.add_listener(["unlock"], start_monitoring);
+            events.local.add_listener(["lock"], stop_monitoring);
 
             if (core.is_unlocked())
             {
@@ -55,8 +55,8 @@
         {
             if (core.is_unlocked()) { stop_monitoring(); }
 
-            events.local.remove_listener("unlock", start_monitoring);
-            events.local.remove_listener("lock", stop_monitoring);
+            events.local.remove_listener(["unlock"], start_monitoring);
+            events.local.remove_listener(["lock"], stop_monitoring);
 
             is_limited_to_private_context = false;
         }
@@ -97,18 +97,18 @@
     {
         clean_up_after_suspension();
 
-        events.local.add_listener("unlock", () =>
+        events.local.add_listener(["unlock"], () =>
         {
             storage.save(storage.Key.FrontID, core.get_front_id());
             browser.bookmarks.onRemoved.addListener(lock_if_removed);
         });
-        events.local.add_listener("lock", () =>
+        events.local.add_listener(["lock"], () =>
         {
             storage.remove(storage.Key.FrontID);
             browser.bookmarks.onRemoved.removeListener(lock_if_removed);
         });
 
-        events.local.add_listener("context-requirement-change", message =>
+        events.local.add_listener(["context-requirement-change"], message =>
         {
             update_private_window_monitoring(message.do_limit_to_private_context);
         });
