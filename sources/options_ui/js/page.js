@@ -115,10 +115,9 @@
     {
         try
         {
-            await storage.save(
-                storage.Key.Configuration,
-                extract_configuration_from_page()
-            );
+            const oldValue = await storage.load(storage.Key.Configuration);
+            const newValue = Object.assign(oldValue, extract_configuration_from_page());
+            await storage.save(storage.Key.Configuration, newValue);
         }
         catch (error) { messages.error(ErrorMessage.SavingConfiguration, error); }
     }
