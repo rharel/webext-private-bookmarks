@@ -65,7 +65,7 @@
 
             // If set, the extension may (per user preference) display the release notes for the
             // installed version upon first user interaction proceeding deployment.
-            relevant_to_users: false
+            relevant_to_users: true
         },
         format: format
     });
