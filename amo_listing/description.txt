@@ -1,13 +1,20 @@
 Private Bookmarks enables a special password-protected bookmark folder. Your private bookmarks are encrypted with your chosen password. This is not an online service, and you are in control of what data leaves your machine (if at all).
 
-When you unlock your private bookmarks, a new 'Private Bookmarks' folder appears under 'Other Bookmarks'. You can add/remove items to it and when ready, lock it. Whenever an item is added/removed, the contents of the folder are encrypted and stored on your machine. When locked, the folder itself is removed from your browser's bookmarks collection. You can also move the folder wherever you want to, and the next time you unlock it will appear there. Syncing is an opt-in feature.
+When you unlock your private bookmarks, a new 'Private Bookmarks' folder appears under 'Other Bookmarks'. You can add/remove items to it and when ready, lock it. Whenever an item is added/removed, the contents of the folder are encrypted and stored on your machine. When locked, the folder itself is removed from your browser's bookmarks collection.
 
 By default, Private Bookmarks can only be accessed when in private browsing (to help avoid accidents), however that can be changed via the options page.
 
 <b>Be aware!</b>
-This extension is still in early development, so bugs are to be expected, and you should backup your bookmarks periodically to be safe.
+
+This extension is still in early development, so bugs are to be expected, and you should backup your bookmarks periodically to be safe. Also, since I am bound by Firefox regarding what it allows extensions to do, I cannot guarantee complete privacy. Mobile versions of Firefox are not supported because they do not yet allow extensions access to your bookmarks the way desktop versions do.
+
+<b>Custom folder location and name</b>
+
+You can move/rename the folder, and the next time you unlock it will appear in that location and
+with that name.
 
 <b>Auto-locking</b>
+
 There are a few cases where the extension auto locks your private bookmarks:
 <ul>
 <li>If you have selected the "disable outside of private browsing" option (it is on by default) Private Bookmarks auto-locks when the last private window is closed.</li>
@@ -17,13 +24,16 @@ There are a few cases where the extension auto locks your private bookmarks:
 </ul>
 
 <b>Backup</b>
+
 You can export both encrypted/plain versions of your private bookmark data from within the options page. However, to import an encrypted backup file you must remember the password you used when that backup was made.
 
 <b>Keyboard shortcuts</b>
+
 The following shortcuts are available:
 <ul>
 <li>Alt+Shift+8 opens the menu in a new tab. If you have selected the "disable outside of private browsing" option (it is on by default) the tab will open in a private window.</li>
 <li>Ctrl+Shift+8 adds the current page to your private bookmarks (requires unlocked bookmarks).</li>
+<li>Ctrl+Shift+F8 adds all tabs in the current window to your private bookmarks (requires unlocked bookmarks).</li>
 <li>Ctrl+Shift+L locks the folder (requires unlocked bookmarks).</li>
 </ul>
 You can customize these shortcuts through the options page <b>starting with Firefox 60</b>.
