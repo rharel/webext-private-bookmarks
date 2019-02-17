@@ -1,0 +1,390 @@
+{
+    "confirm_data_clearance":
+    {
+        "message": "Все ваши приватные закладки будут удалены а пароль будет сброшен. Вы уверенны что хотите этого?"
+    },
+
+    "command_change_password":
+    {
+        "message": "Сменить пароль"
+    },
+    "command_choose_password":
+    {
+        "message": "Задать пароль"
+    },
+    "command_clear_data":
+    {
+        "message": "Очистить..."
+    },
+    "command_export_encrypted":
+    {
+        "message": "Экспорт зашифрованных данных...",
+        "description": "Appears as a button that downloads encrypted private bookmark data."
+    },
+    "command_export_plain":
+    {
+        "message": "Экспорт незашифрованных данных...",
+        "description": "'plain' as in 'plaintext', i.e. not-encrypted."
+    },
+    "command_go_to_menu":
+    {
+        "message": "В основное меню"
+    },
+    "command_import":
+    {
+        "message": "Импорт"
+    },
+    "command_lock":
+    {
+        "message": "Заблокировать"
+    },
+    "command_post_feedback":
+    {
+        "message": "Написать автору",
+        "description": "'issue' refers to a GitHub issue. Appears directly after feedback_label."
+    },
+    "command_unlock":
+    {
+        "message": "Разблокировать"
+    },
+    "command_view_faq":
+    {
+        "message": "Просмотреть часто задаваемые вопросы"
+    },
+    "command_view_release_notes":
+    {
+        "message": "Просмотреть примечания к релизам"
+    },
+
+    "direction_customize_shortcut":
+    {
+        "message": "Убедитесь, что сочетание клавиш не используется браузером или другим расширением."
+    },
+    "direction_enter_current_password":
+    {
+        "message": "Введите текущий пароль:"
+    },
+    "direction_make_backup":
+    {
+        "message": "Помните, что полезно периодически создавать резервные копии ваших приватных закладок. Вы Можете сделать это на странице настроек расширения. (щёлкните чтобы закрыть)"
+    },
+    "direction_post_feedback":
+    {
+        "message": "Что-то не работает? Есть вопросы и/или предложения?"
+    },
+
+    "error_data_clearance":
+    {
+        "message": "Неожиданная ошибка при очистке данных"
+    },
+    "error_import_file_parse":
+    {
+        "message": "Выбранный файл не поддаётся анализу."
+    },
+    "error_import_plain":
+    {
+        "message": "Операция импорта не удалась."
+    },
+    "error_import_encrypted":
+    {
+        "message": "Операция импорта не удалась. Вы уверенны что верно ввели пароль?"
+    },
+    "error_options_load":
+    {
+        "message": "Неожиданная ошибка при загрузке настроек"
+    },
+    "error_options_save":
+    {
+        "message": "Неожиданная ошибка при сохранении настроек"
+    },
+
+    "extension_name":
+    {
+        "message": "Private Bookmarks"
+    },
+    "extension_description":
+    {
+        "message": "Добавляет в закладки защищённую паролем папку."
+    },
+
+    "field_placeholder_password":
+    {
+        "message": "Пароль"
+    },
+    "field_placeholder_repeated_password":
+    {
+        "message": "Повторите пароль"
+    },
+
+    "import_data_file_label":
+    {
+        "message": "Файлы резервных копий: "
+    },
+    "import_folder_title":
+    {
+        "message": "Импорт $DD$/$MM$/$YYYY$",
+        "description": "The title of a folder to host imported bookmarks.",
+        "placeholders":
+        {
+            "dd":   { "content": "$1" },
+            "mm":   { "content": "$2" },
+            "yyyy": { "content": "$3" }
+        }
+    },
+    "import_password_label":
+    {
+        "message": "Пароль: "
+    },
+
+    "info_export_plain_requirements":
+    {
+        "message": "Для экспорта незашифрованных данных, необходимо разблокировать приватные закладки."
+    },
+    "info_import_requirements":
+    {
+        "message": "Для импорта, приватные закладки необходимо разблокировать."
+    },
+    "info_sync_data_capacity":
+    {
+        "message": "Существует ограничение на объём данных которые может синхронизировать расширение."
+    },
+    "info_sync_data_capacity_exceeded":
+    {
+        "message": "Синхронизация приостанавливается если объём данных привышает ограничение :("
+    },
+    "info_sync_data_usage":
+    {
+        "message": "Сейчас ваши данные занимают $TAKEN_KB$KB из доступных $CAPACITY_KB$KB ($PERCENTAGE_TAKEN$%).",
+        "placeholders":
+        {
+            "taken_kb":         { "content": "$1" },
+            "capacity_kb":      { "content": "$2" },
+            "percentage_taken": { "content": "$3" }
+        }
+    },
+    "info_sync_experimental_caution":
+    {
+        "message": "Это экспериментальная функция, если вы её используете – почаще делайте резервные копии! (на всякий случай)"
+    },
+
+    "menu_panel_error_message_addendum":
+    {
+        "message": "Расширение Private Bookmarks находится на ранней стадии разработки. Приносим извинения за возможные неудобстваe."
+    },
+    "menu_panel_error_message_begin":
+    {
+        "message": "Ой! Похоже произошла ошибка. Вы можете помочь,"
+    },
+    "menu_panel_error_message_end":
+    {
+        "message": "сообщив о ней"
+    },
+    "menu_panel_title_authentication":
+    {
+        "message": "Аутентификация"
+    },
+    "menu_panel_title_busy":
+    {
+        "message": "Один момент..."
+    },
+    "menu_panel_title_error":
+    {
+        "message": "Ой!",
+        "description": "Should be playful."
+    },
+    "menu_panel_title_password_setup":
+    {
+        "message": "Установка пароля"
+    },
+    "menu_panel_title_success":
+    {
+        "message": "Отлично!"
+    },
+    "menu_panel_title_welcome":
+    {
+        "message": "Давайте начнём"
+    },
+    "menu_title":
+    {
+        "message": "Приватные закладки"
+    },
+
+    "notification_locked_title":
+    {
+        "message": "Заблокировано!"
+    },
+    "notification_locked":
+    {
+        "message": "Ваши приватные закладки заблокированы."
+    },
+
+    "options_item_disable_password_requirements":
+    {
+        "message": "Игнорировать требования безопасности к паролям (позволяет устанавливать любые пароли)"
+    },
+    "options_item_enable_backup_reminder_begin":
+    {
+        "message": "Напоминать мне о необходимости делать резервные копии каждые"
+    },
+    "options_item_enable_backup_reminder_end":
+    {
+        "message": "дн."
+    },
+    "options_item_enable_idle_auto_lock_begin":
+    {
+        "message": "Авто-блокировка при отсутствии активности более"
+    },
+    "options_item_enable_idle_auto_lock_end":
+    {
+        "message": "минут(ы)"
+    },
+    "options_item_enable_sync":
+    {
+        "message": "Синхронизировать приватные закладки и настройки между устройствами"
+    },
+    "options_item_require_private_context":
+    {
+        "message": "Сделать приватные закладки недоступными вне режима приватного просмотра"
+    },
+    "options_item_verbose_update":
+    {
+        "message": "Информировать меня об изменениях, после обновления"
+    },
+    "options_page_title":
+    {
+        "message": "Настройки | Private Bookmarks"
+    },
+    "options_section_title_data":
+    {
+        "message": "Данные"
+    },
+    "options_section_title_export":
+    {
+        "message": "Экспорт"
+    },
+    "options_section_title_general":
+    {
+        "message": "Основные"
+    },
+    "options_section_title_import":
+    {
+        "message": "Импорт"
+    },
+    "options_section_title_shortcuts":
+    {
+        "message": "Горячие клавиши"
+    },
+    "options_section_title_support":
+    {
+        "message": "Поддержка"
+    },
+    "options_section_title_sync":
+    {
+        "message": "Синхронизация"
+    },
+
+    "page_action_title":
+    {
+        "message": "Добавить приватную закладку"
+    },
+
+    "password_length_requirements":
+    {
+        "message": "Он должен быть длинной от $MIN$ до $MAX$ символов.",
+        "placeholders":
+        {
+            "min": { "content": "$1" },
+            "max": { "content": "$2" }
+        }
+    },
+    "password_character_requirements":
+    {
+        "message": "И должен содержать как минимум одну букву и одну цифру."
+    },
+
+    "requirement_private_context":
+    {
+        "message": "необходимо войти в режим приватного просмотра"
+    },
+    "requirement_unlocked_state":
+    {
+        "message": "необходимо разблокировать приватные закладки"
+    },
+
+    "response_confirm_cancel_negative":
+    {
+        "message": "Отмена",
+        "description": "A negative response to a confirm/cancel question."
+    },
+    "response_confirm_cancel_positive":
+    {
+        "message": "Подтвердить",
+        "description": "A positive response to a confirm/cancel question."
+    },
+    "response_yes_no_negative":
+    {
+        "message": "Нет",
+        "description": "A negative response to a yes/no question."
+    },
+    "response_yes_no_positive":
+    {
+        "message": "Да",
+        "description": "A positive response to a yes/no question."
+    },
+
+    "shortcut_bookmark_page_title":
+    {
+        "message": "Добавить приватную закладку для текущей страницы"
+    },
+    "shortcut_bookmark_all_title":
+    {
+        "message": "Добавить приватные закладки для всех вкладок"
+    },
+    "shortcut_lock_bookmarks_title":
+    {
+        "message": "Заблокировать приватные закладки"
+    },
+    "shortcut_open_menu_title":
+    {
+        "message": "Открыть меню приватных закладок"
+    },
+
+    "success_lock":
+    {
+        "message": "Ваши приватные закладки заблокированные!"
+    },
+    "success_password_change":
+    {
+        "message": "Ваш пароль успешно изменён."
+    },
+    "success_password_setup":
+    {
+        "message": "Всё готово к работе!"
+    },
+    "success_unlock":
+    {
+        "message": "Ваши приватные закладки разблокированы! Папка '$TITLE$' должна появиться в '$PARENT_TITLE$'.",
+        "placeholders":
+        {
+            "title":        { "content": "$1" },
+            "parent_title": { "content": "$2" }
+        }
+    },
+
+    "tooltip_options_button":
+    {
+        "message": "Открыть страницу настроек"
+    },
+    "tooltip_password_allowed_characters":
+    {
+        "message": "Допустимые символы"
+    },
+    "tooltip_sync_data_usage":
+    {
+        "message": "Зачем это?"
+    },
+    "tooltip_theme_button":
+    {
+        "message": "Сменить тему оформления"
+    }
+}
