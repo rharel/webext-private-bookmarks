@@ -50,7 +50,7 @@
         if (localStorage.getItem("theme") === null) { initialize_theme(); }
 
         const menu_open_event_properties = {};
-        if (url_query.parse().is_in_tab)
+        if (url_query.parse_location_query().is_in_tab)
         {
             const tab = await browser.tabs.getCurrent();
             menu_open_event_properties.tab_id = tab.id;

@@ -3,22 +3,35 @@
     const COMPONENT_DELIMITER = ";";
     const KEY_VALUE_DELIMITER = "=";
 
-    /// Parses the query portions of a URL into an object with a key-value mapping.
-    function parse(query = null)
+    /// Parses the specified query string as a key-value map.
+    ///
+    /// Whitespace surrounding the query is ignored.
+    /// Key-value pairs are separated by semicolons ';'.
+    /// Keys and values are separated by equal signs '='.
+    /// Values are interpreted as JSON.
+    /// Keys without an accompanying value are interpreted as set boolean flags.
+    function parse_query(query)
     {
-        if (query === null)     { query = window.location.search.slice(1).trim(); }
-        if (query.length === 0) { return {}; }
+        query = query.trim();
 
-        const values = {};
+        const result = {};
         query.split(COMPONENT_DELIMITER).forEach(component =>
         {
-            const [key, json_value] = component.split(KEY_VALUE_DELIMITER);
+            const [key, value] = component.split(KEY_VALUE_DELIMITER);
 
-            // Expect values in json format. Treat value-less components as flags.
-            if (json_value) { values[key] = JSON.parse(json_value); }
-            else            { values[key] = true; }
+            if (value) { result[key] = JSON.parse(value); }
+            else { result[key] = true; }
         });
-        return values;
+        return result;
     }
-    define({ parse: parse });
+
+    /// Parses the window location query string as a key-value map.
+    /// See parse_query() for details.
+    function parse_location_query()
+    {
+        const query = window.location.search.slice(1);  // Slice '?' prefix away.
+        return parse_query(query);
+    }
+
+    define({ parse_location_query: parse_location_query });
 })();
