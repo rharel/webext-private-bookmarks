@@ -56,10 +56,6 @@
         "message": "Просмотреть примечания к релизам"
     },
 
-    "direction_customize_shortcut":
-    {
-        "message": "Убедитесь, что сочетание клавиш не используется браузером или другим расширением."
-    },
     "direction_enter_current_password":
     {
         "message": "Введите текущий пароль:"
@@ -269,10 +265,6 @@
     "options_section_title_import":
     {
         "message": "Импорт"
-    },
-    "options_section_title_shortcuts":
-    {
-        "message": "Горячие клавиши"
     },
     "options_section_title_support":
     {

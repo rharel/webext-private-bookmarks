@@ -56,10 +56,6 @@
         "message": "View release notes"
     },
 
-    "direction_customize_shortcut":
-    {
-        "message": "Make sure not to choose a shortcut already in use by the browser or another extension."
-    },
     "direction_enter_current_password":
     {
         "message": "Enter your current password:"
@@ -269,10 +265,6 @@
     "options_section_title_import":
     {
         "message": "Import"
-    },
-    "options_section_title_shortcuts":
-    {
-        "message": "Shortcuts"
     },
     "options_section_title_support":
     {

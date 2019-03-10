@@ -24,18 +24,6 @@ button.small > img
 
 .hidden { display: none; }
 
-.shortcut > .title { width: 10em; }
-.shortcut > .mandatory-modifier
-{
-    display: flex;
-    flex-direction: column;
-}
-.shortcut > .separator
-{
-    margin-left: 1em;
-    margin-right: 1em;
-}
-
 .message-container
 {
     height: 0;

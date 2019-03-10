@@ -169,7 +169,7 @@
         initialize_options_change_listeners();
 
         load_page_configuration().then(
-            () => require(["./data", "./export", "./import", "./shortcuts", "./synchronization"])
+            () => require(["./data", "./export", "./import", "./synchronization"])
         );
 
         DOM.release_notes_link.href = version.RELEASE_NOTES.url;
