@@ -75,26 +75,24 @@
         return text;
     }
 
-    define(["libraries/base64",
-            "libraries/LZ_string"],
-           (base64_module, LZ_string_module) =>
-           {
-               LZ_string = LZ_string_module;
-               return   {
-                            to_base64_bytes:   base64_module.toByteArray,
-                            from_base64_bytes: base64_module.fromByteArray,
+    define(
+        ["libraries/base64",
+         "libraries/LZ_string"],
+        (base64_module, LZ_string_module) =>
+        {
+            LZ_string = LZ_string_module;
+            return {
+                to_base64_bytes:   base64_module.toByteArray,
+                from_base64_bytes: base64_module.fromByteArray,
 
-                            to_hex_bytes:   to_hex_bytes,
-                            from_hex_bytes: from_hex_bytes,
+                to_hex_bytes:   to_hex_bytes,
+                from_hex_bytes: from_hex_bytes,
 
-                            to_utf8_bytes:   to_utf8_bytes,
-                            from_utf8_bytes: from_utf8_bytes,
+                to_utf8_bytes:   to_utf8_bytes,
+                from_utf8_bytes: from_utf8_bytes,
 
-                            utf_8_to_16: utf_8_to_16,
-                            utf_16_to_8: utf_16_to_8,
-
-                            compress:   compress,
-                            decompress: decompress
-                        };
-           });
+                compress:   compress,
+                decompress: decompress
+            };
+       });
 })();
