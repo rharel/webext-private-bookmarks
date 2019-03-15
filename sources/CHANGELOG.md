@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.1.18
+ * Adds Russian locale (#99).
+ * Removes own command shortcut update interface in favor of Firefox' built in alternative.
+ 
 ### 0.1.17
  * Allows more modifier combination for command shortcuts (#71).
  * Improves panel alignment when in overflow menu (#73).
