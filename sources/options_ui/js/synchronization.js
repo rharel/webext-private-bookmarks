@@ -14,7 +14,6 @@
     /// Enumerates possible informational messages.
     const InfoMessage =
     {
-        ExperimentalCaution:  browser.i18n.getMessage("info_sync_experimental_caution"),
         DataCapacityExceeded: browser.i18n.getMessage("info_sync_data_capacity_exceeded"),
     };
 
@@ -61,7 +60,6 @@
         {
             browser.storage.onChanged.removeListener(update_data_usage_statistics);
             DOM.sync_data_usage_statistics.style.display = "none";
-            messages.info(InfoMessage.ExperimentalCaution);
         }
     }
 

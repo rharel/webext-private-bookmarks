@@ -158,10 +158,6 @@
             "percentage_taken": { "content": "$3" }
         }
     },
-    "info_sync_experimental_caution":
-    {
-        "message": "This is an experimental feature, backup your bookmarks frequently if you use it!"
-    },
 
     "menu_panel_error_message_addendum":
     {
