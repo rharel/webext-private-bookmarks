@@ -35,4 +35,4 @@ button.small > img
 #import-button-panel   { display: none; }
 #import-password-panel { display: none; }
 
-#sync-data-usage-statistics { display: none; }
+#sync-data-usage { margin-right: 4px; }

@@ -47,21 +47,6 @@
              percentage_taken.toString()]
         );
     }
-    /// Updates UI elements according to whether sync is enabled.
-    function update(options)
-    {
-        if (options.do_sync_data_across_devices)
-        {
-            update_data_usage_statistics();
-            DOM.sync_data_usage_statistics.style.display = "block";
-            browser.storage.onChanged.addListener(update_data_usage_statistics);
-        }
-        else
-        {
-            browser.storage.onChanged.removeListener(update_data_usage_statistics);
-            DOM.sync_data_usage_statistics.style.display = "none";
-        }
-    }
 
     /// Initializes this module.
     async function initialize()
@@ -69,10 +54,8 @@
         domanip.populate(DOM);
         messages = new messages.Controller(DOM.sync_message_container);
 
-        // Changes to configuration may also originate from other parts of the extension (namely
-        // the syncing module), so listen for them.
-        events.global.add_listener(["configuration-change"], event => update(event.new_value));
-        update(await storage.load(storage.Key.Configuration));
+        update_data_usage_statistics();
+        browser.storage.onChanged.addListener(update_data_usage_statistics);
     }
 
     require(["./messages",
