@@ -19,8 +19,6 @@
             do_limit_to_private_context: true,
             /// True iff release notes may be displayed proceeding an update.
             do_show_release_notes: true,
-            /// True iff preferences and bookmarks should be synced across devices.
-            do_sync_data_across_devices: false,
             /// True iff a dark theme is preferred.
             do_use_dark_theme: false,
 
@@ -108,7 +106,11 @@
                 interval_days: 7
             };
         }
-
+        // Release 18: Sync option is removed.
+        if (previous_release < 18)
+        {
+            delete configuration.do_sync_data_across_devices;
+        }
         // Mark as updated.
         configuration.version = version.CURRENT;
 
