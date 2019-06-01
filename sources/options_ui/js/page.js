@@ -12,7 +12,6 @@
         do_disable_password_requirements_checkbox: null,
         do_limit_to_private_context_checkbox: null,
         do_show_release_notes_checkbox: null,
-        do_sync_data_across_devices_checkbox: null,
         idle_auto_lock_threshold_minutes_field: null,
         top_level_message_container: null,
         release_notes_link: null
@@ -39,9 +38,6 @@
                     ),
                     do_show_release_notes: (
                         DOM.do_show_release_notes_checkbox.checked
-                    ),
-                    do_sync_data_across_devices: (
-                        DOM.do_sync_data_across_devices_checkbox.checked
                     ),
 
                     backup_reminder:
@@ -75,9 +71,6 @@
         );
         DOM.do_show_release_notes_checkbox.checked = (
             options.do_show_release_notes
-        );
-        DOM.do_sync_data_across_devices_checkbox.checked = (
-            options.do_sync_data_across_devices
         );
 
         DOM.do_auto_lock_when_idle_checkbox.checked = (
