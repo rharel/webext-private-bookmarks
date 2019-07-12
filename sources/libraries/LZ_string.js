@@ -1,12 +1,12 @@
-/**
- * Copyright (c) 2013 Pieroxy <pieroxy@pieroxy.net>
- * This work is free. You can redistribute it and/or modify it
- * under the terms of the WTFPL, Version 2 (http://www.wtfpl.net/)
- *
- * LZ-based compression algorithm, version 1.4.4
- *
- * @preserve
- */
+// Copyright (c) 2013 Pieroxy <pieroxy@pieroxy.net>
+// This work is free. You can redistribute it and/or modify it
+// under the terms of the WTFPL, Version 2
+// For more information see LICENSE.txt or http://www.wtfpl.net/
+//
+// For more information, the home page:
+// http://pieroxy.net/blog/pages/lz-string/testing.html
+//
+// LZ-based compression algorithm, version 1.4.4
 var LZString = (function() {
 
 // private property
@@ -498,9 +498,4 @@ if (typeof define === 'function' && define.amd) {
   define(function () { return LZString; });
 } else if( typeof module !== 'undefined' && module != null ) {
   module.exports = LZString
-} else if( typeof angular !== 'undefined' && angular != null ) {
-  angular.module('LZString', [])
-  .factory('LZString', function () {
-    return LZString;
-  });
 }

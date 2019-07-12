@@ -74,7 +74,7 @@
         }
         return text;
     }
-
+    window.exports = {};  // Base64 populates this.
     define(
         ["libraries/base64",
          "libraries/LZ_string"],
@@ -82,8 +82,8 @@
         {
             LZ_string = LZ_string_module;
             return {
-                to_base64_bytes:   base64_module.toByteArray,
-                from_base64_bytes: base64_module.fromByteArray,
+                to_base64_bytes:   window.exports.toByteArray,
+                from_base64_bytes: window.exports.fromByteArray,
 
                 to_hex_bytes:   to_hex_bytes,
                 from_hex_bytes: from_hex_bytes,
