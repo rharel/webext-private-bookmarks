@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.1.19
+ * Updates external libraries.
+
 ### 0.1.18
  * Adds Russian locale (#99).
  * Removes own command shortcut update interface in favor of Firefox' built in alternative.
