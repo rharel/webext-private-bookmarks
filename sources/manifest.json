@@ -3,14 +3,14 @@
 
     "name":    "__MSG_extension_name__",
     "author":  "Raoul Harel",
-    "version": "0.1.19a",
+    "version": "0.1.20",
 
     "description":  "__MSG_extension_description__",
     "homepage_url": "https://github.com/rharel/webext-private-bookmarks",
 
-    "applications": 
+    "applications":
     {
-        "gecko": 
+        "gecko":
         {
             "id": "private-bookmarks@rharel",
             "strict_min_version": "55.0"
