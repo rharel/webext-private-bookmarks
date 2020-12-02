@@ -74,6 +74,7 @@ img { box-sizing: border-box; }
     left: 24px;
     position: relative;
     top: 24px;
+    width: 75px;
 }
 #on-hold-animation-gear-B
 {
@@ -82,6 +83,7 @@ img { box-sizing: border-box; }
     left: -24px;
     position: relative;
     top: -24px;
+    width: 75px;
 }
 #on-hold-progress-bar
 {
