@@ -123,13 +123,37 @@
     /// in the future.
     synchronized.CAPACITY_BYTES = 80000;
 
+    /// Synchronized storage capacity for a single item in bytes [1].
+    ///
+    /// 1. https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/sync#Storage_quotas_for_sync_data
+    synchronized.ITEM_CAPACITY_BYTES = 8000;
+
     /// Loads the value associated with the specified key.
     /// Resolves to the associated value if it exists. If not, resolves to null.
     async function load(key) { return await local.load(key); }
+
     /// Associates the specified value to the specified key and saves it.
-    async function save(key, value) { await local.save(key, value); }
+    async function save(key, value)
+    {
+        await local.save(key, value);
+
+        if (size_in_bytes(value) < synchronized.ITEM_CAPACITY_BYTES &&
+            await local.get_bytes_in_use() < synchronized.CAPACITY_BYTES)
+        {
+            await synchronized.save(key, value);
+        }
+    }
+
     /// Removes the specified key and associated value.
-    async function remove(key) { await local.remove(key); }
+    async function remove(key)
+    {
+        await local.remove(key);
+
+        if (await synchronized.load(key) !== null)
+        {
+            await synchronized.remove(key);
+        }
+    }
 
     /// Initializes this module.
     async function initialize()

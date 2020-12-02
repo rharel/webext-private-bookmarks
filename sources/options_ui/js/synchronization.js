@@ -23,7 +23,7 @@
         function to_kb(bytes) { return Math.ceil(bytes / 1000); }
 
         const to_be_synced_bytes = await storage.local.get_bytes_in_use();
-        const capacity_bytes     = storage.synchronized.CAPACITY_BYTES;
+        const capacity_bytes     = storage.synchronized.ITEM_CAPACITY_BYTES;
 
         let taken_kb;
         if (to_be_synced_bytes > capacity_bytes)
