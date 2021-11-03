@@ -1,0 +1,262 @@
+{
+    "confirm_data_clearance": {
+        "message": "This will delete all private bookmarks and reset your password, are you sure?"
+    },
+    "command_change_password": {
+        "message": "Change password"
+    },
+    "command_choose_password": {
+        "message": "Choose a password"
+    },
+    "command_clear_data": {
+        "message": "Clear..."
+    },
+    "command_export_encrypted": {
+        "message": "Export encrypted data...",
+        "description": "Appears as a button that downloads encrypted private bookmark data."
+    },
+    "command_export_plain": {
+        "message": "Export plain data...",
+        "description": "'plain' as in 'plaintext', i.e. not-encrypted."
+    },
+    "command_go_to_menu": {
+        "message": "To main menu"
+    },
+    "command_import": {
+        "message": "Import"
+    },
+    "command_lock": {
+        "message": "Lock"
+    },
+    "command_post_feedback": {
+        "message": "Post an issue",
+        "description": "'issue' refers to a GitHub issue. Appears directly after feedback_label."
+    },
+    "command_unlock": {
+        "message": "Unlock"
+    },
+    "command_view_faq": {
+        "message": "View frequently asked questions"
+    },
+    "command_view_release_notes": {
+        "message": "View release notes"
+    },
+    "direction_enter_current_password": {
+        "message": "Enter your current password:"
+    },
+    "direction_make_backup": {
+        "message": "Remember to backup your private bookmarks once in a while. You can export a backup from the options page. (tap to close)"
+    },
+    "direction_post_feedback": {
+        "message": "Something's not working? Got a question and/or suggestion?"
+    },
+    "error_data_clearance": {
+        "message": "Unexpected error when clearing data"
+    },
+    "error_import_file_parse": {
+        "message": "The selected file could not be parsed."
+    },
+    "error_import_plain": {
+        "message": "Import failed."
+    },
+    "error_import_encrypted": {
+        "message": "Import failed. Is the password correct?"
+    },
+    "error_options_load": {
+        "message": "Unexpected error when loading options"
+    },
+    "error_options_save": {
+        "message": "Unexpected error when saving options"
+    },
+    "extension_name": {
+        "message": "Private Bookmarks"
+    },
+    "extension_description": {
+        "message": "Enables a password-protected bookmark folder."
+    },
+    "field_placeholder_password": {
+        "message": "Password"
+    },
+    "field_placeholder_repeated_password": {
+        "message": "Repeat password"
+    },
+    "import_data_file_label": {
+        "message": "Backup file: "
+    },
+    "import_folder_title": {
+        "message": "Imported on $DD$/$MM$/$YYYY$",
+        "description": "The title of a folder to host imported bookmarks.",
+        "placeholders": {
+            "dd": {
+                "content": "$1"
+            },
+            "mm": {
+                "content": "$2"
+            },
+            "yyyy": {
+                "content": "$3"
+            }
+        }
+    },
+    "import_password_label": {
+        "message": "Password for file: "
+    },
+    "info_export_plain_requirements": {
+        "message": "Exporting plain data requires unlocked bookmarks."
+    },
+    "info_import_requirements": {
+        "message": "Importing requires unlocked bookmarks."
+    },
+    "menu_panel_error_message_addendum": {
+        "message": "Sorry for the inconvenience."
+    },
+    "menu_panel_error_message_begin": {
+        "message": "There was an error. You can help by"
+    },
+    "menu_panel_error_message_end": {
+        "message": "reporting it"
+    },
+    "menu_panel_title_authentication": {
+        "message": "Authenticate"
+    },
+    "menu_panel_title_busy": {
+        "message": "Just a moment..."
+    },
+    "menu_panel_title_error": {
+        "message": "Sorry"
+    },
+    "menu_panel_title_password_setup": {
+        "message": "Setup a password"
+    },
+    "menu_panel_title_success": {
+        "message": "Success!"
+    },
+    "menu_panel_title_welcome": {
+        "message": "Get started"
+    },
+    "menu_title": {
+        "message": "Private Bookmarks"
+    },
+    "notification_locked_title": {
+        "message": "Locked!"
+    },
+    "notification_locked": {
+        "message": "Your private bookmarks have been locked."
+    },
+    "options_item_enable_backup_reminder_begin": {
+        "message": "Remind me to make a backup every"
+    },
+    "options_item_enable_backup_reminder_end": {
+        "message": "day(s)"
+    },
+    "options_item_enable_idle_auto_lock_begin": {
+        "message": "Auto-lock when idle for more than"
+    },
+    "options_item_enable_idle_auto_lock_end": {
+        "message": "minute(s)"
+    },
+    "options_item_require_private_context": {
+        "message": "Disable Private Bookmarks outside of private browsing"
+    },
+    "options_item_verbose_update": {
+        "message": "Let me know what's new after an update"
+    },
+    "options_page_title": {
+        "message": "Options | Private Bookmarks"
+    },
+    "options_section_title_data": {
+        "message": "Data"
+    },
+    "options_section_title_export": {
+        "message": "Export"
+    },
+    "options_section_title_general": {
+        "message": "General"
+    },
+    "options_section_title_import": {
+        "message": "Import"
+    },
+    "options_section_title_support": {
+        "message": "Support"
+    },
+    "page_action_title": {
+        "message": "Bookmark this page privately"
+    },
+    "password_length_requirements": {
+        "message": "Must be $MIN$–$MAX$ characters long.",
+        "placeholders": {
+            "min": {
+                "content": "$1"
+            },
+            "max": {
+                "content": "$2"
+            }
+        }
+    },
+    "password_character_requirements": {
+        "message": "Must contain at least one letter and one number."
+    },
+    "requirement_private_context": {
+        "message": "requires private browsing"
+    },
+    "requirement_unlocked_state": {
+        "message": "requires unlocked bookmarks"
+    },
+    "response_confirm_cancel_negative": {
+        "message": "Cancel",
+        "description": "A negative response to a confirm/cancel question."
+    },
+    "response_confirm_cancel_positive": {
+        "message": "Confirm",
+        "description": "A positive response to a confirm/cancel question."
+    },
+    "response_yes_no_negative": {
+        "message": "No",
+        "description": "A negative response to a yes/no question."
+    },
+    "response_yes_no_positive": {
+        "message": "Yes",
+        "description": "A positive response to a yes/no question."
+    },
+    "shortcut_bookmark_page_title": {
+        "message": "Bookmark Page"
+    },
+    "shortcut_bookmark_all_title": {
+        "message": "Bookmark All in Window"
+    },
+    "shortcut_lock_bookmarks_title": {
+        "message": "Lock Bookmarks"
+    },
+    "shortcut_open_menu_title": {
+        "message": "Open Menu"
+    },
+    "success_lock": {
+        "message": "Your bookmarks have been locked!"
+    },
+    "success_password_change": {
+        "message": "Your password has been changed successfully."
+    },
+    "success_password_setup": {
+        "message": "You are good to go!"
+    },
+    "success_unlock": {
+        "message": "Your bookmarks have been unlocked! Check the '$TITLE$' folder under '$PARENT_TITLE$'.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            },
+            "parent_title": {
+                "content": "$2"
+            }
+        }
+    },
+    "tooltip_options_button": {
+        "message": "Open options page"
+    },
+    "tooltip_password_allowed_characters": {
+        "message": "Allowed characters"
+    },
+    "tooltip_theme_button": {
+        "message": "Switch color theme"
+    }
+}

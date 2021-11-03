@@ -1,0 +1,94 @@
+{
+    "manifest_version": 2,
+    "name": "__MSG_extension_name__",
+    "author": "Raoul Harel",
+    "version": "0.2.20",
+    "description": "__MSG_extension_description__",
+    "homepage_url": "https://github.com/rharel/webext-private-bookmarks",
+    "default_locale": "en",
+    "icons": {
+        "16": "private-bookmarks.svg",
+        "32": "private-bookmarks.svg",
+        "48": "private-bookmarks.svg",
+        "64": "private-bookmarks.svg",
+        "96": "private-bookmarks.svg",
+        "128": "private-bookmarks.svg",
+        "256": "private-bookmarks.svg"
+    },
+    "applications": {
+        "gecko": {
+            "id": "private-bookmarks@rharel",
+            "strict_min_version": "57.0"
+        }
+    },
+    "permissions": [
+        "bookmarks",
+        "storage",
+        "tabs"
+    ],
+    "optional_permissions": [
+        "idle"
+    ],
+    "background": {
+        "scripts": [
+            "core/background.js"
+        ]
+    },
+    "browser_action": {
+        "browser_style": false,
+        "default_area": "navbar",
+        "default_icon": {
+            "16": "private-bookmarks.svg",
+            "32": "private-bookmarks.svg",
+            "48": "private-bookmarks.svg",
+            "64": "private-bookmarks.svg",
+            "96": "private-bookmarks.svg",
+            "128": "private-bookmarks.svg",
+            "256": "private-bookmarks.svg"
+        },
+        "default_popup": "main_ui/main_page.html",
+        "default_title": "__MSG_extension_name__"
+    },
+    "page_action": {
+        "default_icon": {
+            "16": "private-bookmarks.svg",
+            "32": "private-bookmarks.svg",
+            "48": "private-bookmarks.svg",
+            "64": "private-bookmarks.svg",
+            "96": "private-bookmarks.svg",
+            "128": "private-bookmarks.svg",
+            "256": "private-bookmarks.svg"
+        },
+        "default_title": "__MSG_page_action_title__"
+    },
+    "commands": {
+        "_execute_page_action": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+8"
+            },
+            "description": "__MSG_shortcut_bookmark_page_title__"
+        },
+        "lock": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+L"
+            },
+            "description": "__MSG_shortcut_lock_bookmarks_title__"
+        },
+        "open-menu": {
+            "suggested_key": {
+                "default": "Alt+Shift+8"
+            },
+            "description": "__MSG_shortcut_open_menu_title__"
+        },
+        "bookmark-all": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+F8"
+            },
+            "description": "__MSG_shortcut_bookmark_all_title__"
+        }
+    },
+    "options_ui": {
+        "browser_style": false,
+        "page": "options_ui/options_page.html"
+    }
+}

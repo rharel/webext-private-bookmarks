@@ -1,22 +1,36 @@
 {
   "name": "@rharel/webext-private-bookmarks",
-  "version": "0.1.17.1a",
-  "description": "WebExtension that enables a special password-protected bookmark folder.",
-  "directories": {
-    "test": "tests"
-  },
-  "dependencies": {},
+  "version": "0.2.20",
+  "description": "WebExtension that enables a password-protected bookmark folder.",
   "devDependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^4.0.1",
-    "requirejs": "^2.3.5",
-    "web-ext": "^2.8.0"
+    "@parcel/transformer-sass": "^2.0.0-beta.2",
+    "@types/debounce": "^1.2.0",
+    "@types/jest": "^26.0.24",
+    "@types/webextension-polyfill": "^0.8.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "debounce": "^1.2.1",
+    "eslint": "^7.31.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "jest": "^27.0.6",
+    "mitt": "^3.0.0",
+    "mockzilla": "^0.9.0",
+    "mockzilla-webextension": "^0.9.0",
+    "node-webcrypto-ossl": "^2.1.3",
+    "parcel": "^2.0.0-beta.2",
+    "ts-jest": "^27.0.4",
+    "typescript": "^4.3.5",
+    "typescript-eslint": "0.0.1-alpha.0",
+    "web-ext": "^6.2.0",
+    "webextension-polyfill-ts": "^0.26.0"
   },
   "scripts": {
-    "build": "web-ext build --source-dir ./sources/ --artifacts-dir ./distribution/ --overwrite-dest",
-    "lint": "web-ext lint --source-dir ./sources/",
-    "start:firefox": "web-ext run --source-dir ./sources/ --start-url about:addons --browser-console --verbose",
-    "start:firefoxDev": "web-ext run --source-dir ./sources/ --start-url about:addons --browser-console --verbose --firefox firefoxdeveloperedition"
+    "bundle-init": "rm -rf build && mkdir build && cp -r source/_locales source/manifest.json source/icons/main/private-bookmarks.svg build",
+    "bundle": "npm run bundle-init && parcel build source/options_ui/options_page.html source/main_ui/main_page.html source/core/background.ts --dist-dir build --no-optimize",
+    "bundle-dev": "npm run bundle-init && parcel watch source/options_ui/options_page.html source/main_ui/main_page.html source/core/background.ts --dist-dir build",
+    "build": "npm run bundle && web-ext lint && web-ext build",
+    "start": "web-ext run",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -29,9 +43,8 @@
     "password"
   ],
   "author": "Raoul Harel",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/rharel/webext-private-bookmarks/issues"
   },
-  "homepage": "https://github.com/rharel/webext-private-bookmarks#readme"
+  "homepage": "https://github.com/rharel/webext-private-bookmarks"
 }

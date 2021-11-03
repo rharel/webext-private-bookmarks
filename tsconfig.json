@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "DOM"
+        ],
+        "target": "ES2015",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "strict": true,
+        "importHelpers": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "baseUrl": ".",
+    },
+    "include": [
+        "source/**/*.ts",
+    ],
+    "exclude": [
+        "url:../*"
+    ]
+}

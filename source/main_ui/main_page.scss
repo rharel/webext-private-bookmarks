@@ -1,0 +1,253 @@
+body {
+    box-sizing: border-box;
+    width: 256px;
+    max-height: 512px;
+}
+
+/* Panels - General */
+.panel {
+    display: none;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 16px;
+}
+.panel.active {
+    display: flex;
+}
+.panel .section-header {
+    height: 1.5em;
+}
+.panel .centering.section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.panel.success img,
+.panel.error img {
+    width: 64px;
+    height: 64px;
+}
+
+img {
+    box-sizing: border-box;
+}
+
+button.large {
+    width: 156px;
+    height: auto;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px;
+}
+button.large > label {
+    font-size: 1.2em;
+    text-align: center;
+}
+button.large > img {
+    width: 48px;
+    height: 48px;
+    margin: 4px;
+}
+
+/* Panel - On hold */
+.animation-gear-a {
+    animation: rotate-clockwise 3s infinite;
+    animation-timing-function: linear;
+    left: 24px;
+    position: relative;
+    top: 24px;
+    width: 75px;
+}
+.animation-gear-b {
+    animation: rotate-counterclockwise 3s infinite;
+    animation-timing-function: linear;
+    left: -24px;
+    position: relative;
+    top: -24px;
+    width: 75px;
+}
+.progress-bar {
+    --animation-cycle-period: 0.75s;
+    --bar-height: 24px;
+    --stripe-width: 8px;
+
+    width: 100%;
+}
+.progress-bar > .progress-indicator {
+    --gradient-stop-A: var(--stripe-width);
+    --gradient-stop-B: calc(var(--gradient-stop-A) + var(--stripe-width));
+
+    animation: progress-bar-cycle var(--animation-cycle-period) linear infinite;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--green-50),
+        var(--green-50) var(--gradient-stop-A),
+        var(--green-60) var(--gradient-stop-A),
+        var(--green-60) var(--gradient-stop-B)
+    );
+    background-size: 200%; /* Avoid reaching image edge during animation. */
+    height: var(--bar-height);
+    transition: width 0.25s linear;
+    width: 0;
+}
+@keyframes rotate-clockwise {
+    0% {
+        transform: unset;
+    }
+    100% {
+        transform: rotate(1turn);
+    }
+}
+@keyframes rotate-counterclockwise {
+    0% {
+        transform: unset;
+    }
+    100% {
+        transform: rotate(-1turn);
+    }
+}
+@keyframes progress-bar-cycle {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        /* We calculate the rendered width of each stripe from its pre-rotation width, and assume a
+           rotation angle of 45 degrees. Because the striped pattern alternates, two times that
+           offset is where we need to be at in the last keyframe for the loop to be seamless.
+        */
+        --sqrt-2: 1.414;
+        --offset-x: calc(-2 * var(--sqrt-2) * var(--stripe-width));
+
+        background-position: var(--offset-x) 0;
+    }
+}
+
+/* Panel - Password setup */
+#password-setup-panel .centering.section {
+    padding-top: 0;
+}
+#password-setup-panel button {
+    display: none;
+    width: 100%;
+    text-align: left;
+}
+#password-setup-panel button.active {
+    display: flex;
+}
+.validation-icon {
+    border-radius: 50%;
+    height: 16px;
+    margin: 4px;
+    padding: 4px;
+    display: none;
+    width: 16px;
+}
+.validation-icon.active {
+    display: unset;
+}
+img.validation-icon[src*="correct_white"] {
+    background-color: var(--green-70);
+}
+img.validation-icon[src*="incorrect_white"] {
+    background-color: var(--red-60);
+}
+
+/* Panel - Main menu */
+button.lock-control {
+    display: none;
+    background-color: var(--purple-60);
+    flex-direction: column;
+    width: 100%;
+}
+button.lock-control.active {
+    display: flex;
+}
+button.lock-control:hover {
+    background-color: var(--purple-70);
+}
+button.lock-control:active {
+    background-color: var(--purple-80);
+}
+button.lock-control img {
+    height: 64px;
+    width: 64px;
+}
+#change-password-button {
+    height: auto;
+    width: 100%;
+}
+#change-password-button > img {
+    height: 24px;
+    margin-left: 8px;
+    width: 24px;
+}
+
+/* Panel - Authentication */
+#authentication-panel button {
+    width: 100%;
+    text-align: left;
+}
+#authentication-password-input.animated {
+    animation: flash-red 0.2s 2;
+    animation-direction: alternate;
+    animation-timing-function: ease-out;
+}
+
+/* Footer */
+#footer {
+    align-items: center;
+    border: 1px solid var(--grey-40);
+    display: flex;
+    flex-direction: row;
+    height: 3em;
+    padding-left: 8px;
+}
+#extension-info {
+    font-size: 0.85em;
+    margin-left: 4px;
+    flex-grow: 1;
+}
+#footer > .icon-button {
+    cursor: pointer;
+    height: 28px;
+    padding: 4px;
+    width: 28px;
+}
+
+/* Backup reminder */
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#backup-reminder {
+    display: none;
+    opacity: 0;
+    background-color: var(--blue-60);
+    border-radius: 1em;
+    color: white;
+    font-size: 0.8em;
+    position: absolute;
+    bottom: auto;
+    padding: 1em;
+    width: 200px;
+    animation: fade-in 0.25s 0.25s ease-out forwards;
+}
+#backup-reminder.active {
+    display: unset;
+}
+
+/* Media responsiveness */
+@media screen and (min-width: 768px), screen and (min-height: 512px) {
+    html {
+        align-items: center;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+    }
+}

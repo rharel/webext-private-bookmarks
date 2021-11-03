@@ -1,17 +1,8 @@
-####################
-# Project-specific #
-####################
-
-# Distribution archives
+.parcel-cache/
+.vscode/
+build/
 distribution/
-
-###########################
-# Development Environment #
-###########################
-
-# IntelliJ
-.idea/
-*.iml
-
-# Node
 node_modules/
+
+source/**/*.js
+*.map

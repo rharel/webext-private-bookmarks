@@ -1,14 +1,13 @@
-[Private Bookmarks @ Mozilla's Add-on Repository](https://addons.mozilla.org/en-US/firefox/addon/webext-private-bookmarks/)
+[Private Bookmarks at Mozilla's Add-on Repository](https://addons.mozilla.org/en-US/firefox/addon/webext-private-bookmarks/)
 
-## Summary 
+## Summary
 
-This extension enables a special password-protected bookmark folder. The folder's contents persist in local storage and are encrypted with the user's password of choice. [Read more...](sources/README.md)
-
-It is currently in early development. Help in testing and localization is much appreciated.
+This extension enables a password-protected bookmark folder. The folder's contents persist in local
+storage and are encrypted with the user's password of choice.
 
 ## Contributing
 
 Contributions are welcome. Please adhere to the [guidelines](CONTRIBUTING.md).
 
 ## License
-[MIT](LICENSE.txt)
+[All rights reserved](LICENSE.txt)

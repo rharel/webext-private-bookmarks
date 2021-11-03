@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title data-localized="options_page_title">Options | Private Bookmarks</title>
+
+        <link rel="stylesheet" href="../stylesheets/photon.scss" />
+        <link rel="stylesheet" href="options_page.scss" />
+
+        <script src="options_page.ts"></script>
+    </head>
+    <body>
+        <div class="panel">
+            <div class="section-header" data-localized="options_section_title_general">General</div>
+            <div class="section">
+                <div class="browser-style section-item">
+                    <input id="limit-to-private-context-checkbox" class="option" type="checkbox" />
+                    <label
+                        for="limit-to-private-context-checkbox"
+                        data-localized="options_item_require_private_context"
+                    >
+                        Disable Private Bookmarks outside of private browsing
+                    </label>
+                </div>
+                <div class="browser-style section-item">
+                    <input id="idle-auto-lock-checkbox" class="option" type="checkbox" />
+                    <label
+                        for="idle-auto-lock-checkbox"
+                        data-localized="options_item_enable_idle_auto_lock_begin"
+                    >
+                        Auto-lock when idle for more than
+                    </label>
+                    &nbsp;
+                    <select id="idle-auto-lock-threshold-minutes-field" class="option">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                        <option>25</option>
+                        <option selected>30</option>
+                        <option>35</option>
+                        <option>40</option>
+                        <option>45</option>
+                        <option>50</option>
+                        <option>55</option>
+                        <option>60</option>
+                    </select>
+                    &nbsp;
+                    <label
+                        for="idle-auto-lock-threshold-minutes-field"
+                        data-localized="options_item_enable_idle_auto_lock_end"
+                    >
+                        minute(s)
+                    </label>
+                </div>
+                <div class="browser-style section-item">
+                    <input id="backup-reminder-checkbox" class="option" type="checkbox" />
+                    <label
+                        for="backup-reminder-checkbox"
+                        data-localized="options_item_enable_backup_reminder_begin"
+                    >
+                        Remind me to make a backup every
+                    </label>
+                    &nbsp;
+                    <select id="backup-reminder-interval-days-field" class="option">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option selected>7</option>
+                        <option>14</option>
+                        <option>21</option>
+                        <option>30</option>
+                    </select>
+                    &nbsp;
+                    <label
+                        for="backup-reminder-interval-days-field"
+                        data-localized="options_item_enable_backup_reminder_end"
+                    >
+                        day(s)
+                    </label>
+                </div>
+                <div class="browser-style section-item">
+                    <input id="show-release-notes-checkbox" class="option" type="checkbox" />
+                    <label
+                        for="show-release-notes-checkbox"
+                        data-localized="options_item_verbose_update"
+                    >
+                        Let me know what's new after an update
+                    </label>
+                </div>
+            </div>
+            <div class="section-header" data-localized="options_section_title_export">Export</div>
+            <div class="section">
+                <div
+                    class="browser-style section-item"
+                    data-localized="info_export_plain_requirements"
+                >
+                    Exporting plain data requires unlocked bookmarks.
+                </div>
+                <div class="browser-style section-item">
+                    <button id="export-encrypted-data-button" class="browser-style">
+                        <label data-localized="command_export_encrypted">
+                            Export encrypted data...
+                        </label>
+                    </button>
+                </div>
+                <div class="browser-style section-item">
+                    <button id="export-plain-data-button" class="browser-style">
+                        <label data-localized="command_export_plain"> Export plain data... </label>
+                    </button>
+                </div>
+            </div>
+            <div class="section-header" data-localized="options_section_title_import">Import</div>
+            <div class="section">
+                <div class="browser-style section-item" data-localized="info_import_requirements">
+                    Importing requires unlocked bookmarks.
+                </div>
+                <div class="browser-style section-item">
+                    <label for="import-file-input" data-localized="import_data_file_label">
+                        Backup file:
+                    </label>
+                    <input id="import-file-input" type="file" accept=".json" />
+                </div>
+                <div id="import-password-panel" class="browser-style section-item">
+                    <label for="import-password-input" data-localized="import_password_label">
+                        File's password:
+                    </label>
+                    <input
+                        id="import-password-input"
+                        type="password"
+                        size="20"
+                        placeholder="Password"
+                        data-localized-attribute="placeholder"
+                        data-localized-attribute-value="field_placeholder_password"
+                    />
+                </div>
+                <div id="import-button-panel" class="browser-style section-item">
+                    <button id="import-button" class="browser-style">
+                        <label data-localized="command_import"> Import </label>
+                    </button>
+                    <span id="import-status-message"></span>
+                </div>
+                <div id="import-error-message" class="error message-container">
+                    <span  class="message" data-localized="error_import_plain">
+                        Import failed.
+                    </span>
+
+                </div>
+                <div id="encrypted-import-error-message" class="error message-container">
+                    <span  class="message" data-localized="error_import_encrypted">
+                        Import failed. Is the password correct?
+                    </span>
+                </div>
+            </div>
+            <div class="section-header" data-localized="options_section_title_data">Data</div>
+            <div class="section">
+                <div class="browser-style section-item">
+                    <button id="clear-data-button" class="browser-style negative">
+                        <label data-localized="command_clear_data"> Clear... </label>
+                    </button>
+                </div>
+                <div id="clear-data-confirmation-dialog" class="warning message-container">
+                    <span class="message" data-localized="confirm_data_clearance">
+                        This will delete all private bookmarks and reset your password, are you
+                        sure?
+                    </span>
+                    <div class="buttons">
+                        <button id="clear-data-confirm"" class="browser-style positive small">
+                            <label data-localized="response_yes_no_positive"> Yes </label>
+                            <img src="../icons/main/correct_white.svg" />
+                        </button>
+                        <button id="clear-data-cancel" class="browser-style negative small">
+                            <label data-localized="response_yes_no_negative"> No </label>
+                            <img src="../icons/main/incorrect_white.svg" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="section-header" data-localized="options_section_title_support">Support</div>
+            <div class="section">
+                <div class="section-item">
+                    <span data-localized="direction_post_feedback">
+                        Something's not working? Got a question and/or suggestion?
+                    </span>
+                    <a
+                        class="inline-with-margin"
+                        href="https://github.com/rharel/webext-private-bookmarks/issues"
+                        target="_blank"
+                        data-localized="command_post_feedback"
+                    >
+                        Post an issue
+                    </a>
+                </div>
+                <div class="section-item">
+                    <a
+                        id="release-notes-link"
+                        href="https://rharel.github.io/webext-private-bookmarks/release-notes/"
+                        target="_blank"
+                        data-localized="command_view_release_notes"
+                    >
+                        View release notes
+                    </a>
+                </div>
+                <div class="section-item">
+                    <a
+                        href="https://rharel.github.io/webext-private-bookmarks/faq.html"
+                        target="_blank"
+                        data-localized="command_view_faq"
+                    >
+                        View frequently asked questions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

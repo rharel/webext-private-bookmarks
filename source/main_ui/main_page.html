@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title data-localized="menu_title">Private Bookmarks</title>
+
+        <link rel="icon" type="image/svg+xml" href="../icons/main/private-bookmarks.svg" />
+
+        <link rel="stylesheet" href="../stylesheets/photon.scss" />
+        <link rel="stylesheet" href="theme_light.scss" />
+        <link rel="stylesheet" href="theme_dark.scss" />
+
+        <link rel="stylesheet" href="main_page.scss" />
+
+        <script src="main_page.ts" defer></script>
+    </head>
+    <body>
+        <div id="blank-panel" class="active panel"></div>
+
+        <div id="get-started-panel" class="panel">
+            <div class="section-header" data-localized="menu_panel_title_welcome">Get started</div>
+            <div class="centering section">
+                <button id="setup-password-button" class="large browser-style">
+                    <img src="../icons/main/password_white.svg" />
+                    <label data-localized="command_choose_password"> Choose a password </label>
+                </button>
+            </div>
+        </div>
+
+        <div id="password-setup-panel" class="panel">
+            <div class="section-header" data-localized="menu_panel_title_password_setup">
+                Setup a password
+            </div>
+            <div class="section">
+                <div class="browser-style section-item">
+                    <input
+                        id="new-password-input"
+                        type="password"
+                        size="20"
+                        placeholder="Password"
+                        data-localized-attribute="placeholder"
+                        data-localized-attribute-value="field_placeholder_password"
+                    />
+                </div>
+                <div class="browser-style section-item">
+                    <input
+                        id="repeated-new-password-input"
+                        type="password"
+                        size="20"
+                        placeholder="Repeat password"
+                        data-localized-attribute="placeholder"
+                        data-localized-attribute-value="field_placeholder_repeated_password"
+                    />
+                    <img
+                        id="validation-icon-good"
+                        class="validation-icon"
+                        src="../icons/main/correct_white.svg"
+                    />
+                    <img
+                        id="validation-icon-bad"
+                        class="validation-icon"
+                        src="../icons/main/incorrect_white.svg"
+                    />
+                </div>
+            </div>
+            <div class="centering section">
+                <button id="confirm-new-password-button" class="browser-style active">
+                    <label data-localized="response_confirm_cancel_positive"> Confirm </label>
+                    <img src="../icons/main/password_white.svg" />
+                </button>
+                <button id="cancel-password-setup-button" class="browser-style negative">
+                    <label data-localized="response_confirm_cancel_negative"> Cancel </label>
+                    <img src="../icons/main/incorrect_white.svg" />
+                </button>
+            </div>
+        </div>
+
+        <div id="password-setup-success-panel" class="success panel">
+            <div class="section-header" data-localized="menu_panel_title_success">Success!</div>
+            <div class="centering section">
+                <span data-localized="success_password_setup">You are good to go!</span>
+                <img src="../icons/main/success_blue.svg" />
+                <a
+                    id="password-setup-success-go-to-menu-button"
+                    data-localized="command_go_to_menu"
+                >
+                    To main menu
+                </a>
+            </div>
+        </div>
+
+        <div id="main-menu-panel" class="panel">
+            <div class="section-header" data-localized="menu_title">Private Bookmarks</div>
+            <div class="centering section">
+                <button id="lock-button" class="lock-control browser-style">
+                    <img src="../icons/main/lock_white.svg" />
+                    <label data-localized="command_lock">Lock</label>
+                </button>
+                <button id="unlock-button" class="lock-control browser-style">
+                    <img src="../icons/main/unlock_white.svg" />
+                    <label data-localized="command_unlock">Unlock</label>
+                </button>
+                <button id="change-password-button" class="browser-style">
+                    <label data-localized="command_change_password"> Change password </label>
+                    <img src="../icons/main/password_white.svg" />
+                </button>
+            </div>
+        </div>
+
+        <div id="authentication-panel" class="panel">
+            <div class="section-header" data-localized="menu_panel_title_authentication">
+                Authenticate
+            </div>
+            <div class="centering section">
+                <div class="section-item" data-localized="direction_enter_current_password">
+                    Enter your current password:
+                </div>
+                <div class="browser-style section-item">
+                    <input
+                        id="authentication-password-input"
+                        type="password"
+                        size="20"
+                        placeholder="Password"
+                        data-localized-attribute="placeholder"
+                        data-localized-attribute-value="field_placeholder_password"
+                    />
+                </div>
+                <button id="confirm-authentication-button" class="browser-style">
+                    <label data-localized="response_confirm_cancel_positive"> Confirm </label>
+                    <img src="../icons/main/password_white.svg" />
+                </button>
+                <button id="cancel-authentication-button" class="browser-style negative">
+                    <label data-localized="response_confirm_cancel_negative"> Cancel </label>
+                    <img src="../icons/main/incorrect_white.svg" />
+                </button>
+            </div>
+        </div>
+
+        <div id="unlock-progress-panel" class="panel">
+            <div class="section-header" data-localized="menu_panel_title_busy">
+                Just a moment...
+            </div>
+            <div class="centering section">
+                <img class="animation-gear-a" src="../icons/main/gear_black.svg" />
+                <img class="animation-gear-b" src="../icons/main/gear_black.svg" />
+                <div class="progress-bar">
+                    <div id="progress-indicator" class="progress-indicator"></div>
+                </div>
+                <span id="progress-status-message"></span>
+            </div>
+        </div>
+
+        <div id="unlock-success-panel" class="success panel">
+            <div class="section-header" data-localized="menu_panel_title_success">Success!</div>
+            <div class="centering section">
+                <span id="unlock-success-message">Your bookmarks have been unlocked!</span>
+                <img src="../icons/main/success_blue.svg" />
+                <a id="unlock-success-go-to-menu-button" data-localized="command_go_to_menu">
+                    To main menu
+                </a>
+            </div>
+            <div id="backup-reminder" data-localized="direction_make_backup">
+                Remember to backup your private bookmarks once in a while. You can export a backup
+                from the options page. (tap to close)
+            </div>
+        </div>
+
+        <div id="lock-success-panel" class="success panel">
+            <div class="section-header" data-localized="menu_panel_title_success">Success!</div>
+            <div class="centering section">
+                <span data-localized="success_lock">Your bookmarks have been locked!</span>
+                <img src="../icons/main/success_blue.svg" />
+                <a id="lock-success-go-to-menu-button" data-localized="command_go_to_menu">
+                    To main menu
+                </a>
+            </div>
+        </div>
+
+        <div id="error-panel" class="error panel">
+            <div class="section-header" data-localized="menu_panel_title_error">Sorry</div>
+            <div class="section">
+                <span data-localized="menu_panel_error_message_begin">
+                    There was an error. You can help by
+                </span>
+                <a
+                    id="error-report-button"
+                    data-localized="menu_panel_error_message_end"
+                    href="https://github.com/rharel/webext-private-bookmarks/issues"
+                    target="_blank"
+                >
+                    reporting it
+                </a>
+            </div>
+            <div class="section" data-localized="menu_panel_error_message_addendum">
+                Sorry for the inconvenience.
+            </div>
+            <div class="centering section">
+                <img src="../icons/main/error_blue.svg" />
+            </div>
+        </div>
+
+        <div id="footer">
+            <div id="extension-info">
+                <span data-localized="extension_name">Private Bookmarks</span>
+                <span id="extension-version"></span>
+            </div>
+            <img
+                id="theme-button"
+                class="icon-button"
+                src="../icons/photon/theme_black.svg"
+                title="Switch color theme"
+                data-localized-attribute="title"
+                data-localized-attribute-value="tooltip_theme_button"
+            />
+            <img
+                id="options-button"
+                class="icon-button"
+                src="../icons/main/gear_black.svg"
+                title="Open options page"
+                data-localized-attribute="title"
+                data-localized-attribute-value="tooltip_options_button"
+            />
+        </div>
+    </body>
+</html>

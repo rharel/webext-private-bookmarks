@@ -1,0 +1,36 @@
+body {
+    background-color: white;
+    color: var(--grey-90);
+
+    .section-header {
+        border-bottom-color: #d9d9d9;
+    }
+
+    #on-hold-animation-gear-a,
+    #on-hold-animation-gear-b {
+        filter: invert(25%);
+    }
+
+    #footer {
+        background-color: #f0f0f0;
+    }
+    #footer > .icon-button:hover {
+        filter: invert(50%);
+    }
+    #footer > .icon-button:active {
+        filter: invert(0%);
+    }
+
+    #extension-info {
+        color: var(--grey-60);
+    }
+
+    @keyframes flash-red {
+        0% {
+            background-color: inherit;
+        }
+        100% {
+            background-color: #ff002675;
+        }
+    }
+}
