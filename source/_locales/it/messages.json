@@ -1,0 +1,263 @@
+{
+    "confirm_data_clearance": {
+        "message": "Questo cancellerà tutti i segnalibri privati e reimposterà la tua password, sei sicuro?"
+    },
+    "command_change_password": {
+        "message": "Cambia password"
+    },
+    "command_choose_password": {
+        "message": "Scegli una password"
+    },
+    "command_clear_data": {
+        "message": "Elimina..."
+    },
+    "command_export_encrypted": {
+        "message": "Esporta dati crittografati...",
+        "description": "Appears as a button that downloads encrypted private bookmark data."
+    },
+    "command_export_plain": {
+        "message": "Esporta dati in chiaro...",
+        "description": "'plain' as in 'plaintext', i.e. not-encrypted."
+    },
+    "command_go_to_menu": {
+        "message": "Al menù principale"
+    },
+    "command_import": {
+        "message": "Importa"
+    },
+    "command_lock": {
+        "message": "Blocca"
+    },
+    "command_post_feedback": {
+        "message": "Segnala un problema",
+        "description": "'issue' refers to a GitHub issue. Appears directly after feedback_label."
+    },
+    "command_unlock": {
+        "message": "Sblocca"
+    },
+    "command_view_faq": {
+        "message": "Visualizza le domande frequenti"
+    },
+    "command_view_release_notes": {
+        "message": "Visualizza le note di rilascio"
+    },
+    "direction_enter_current_password": {
+        "message": "Inserisci la tua password corrente:"
+    },
+    "direction_make_backup": {
+        "message": "Ricorda di fare un backup dei tuoi segnalibri privati ogni tanto. Puoi esportare un backup dalla pagina delle opzioni. (premi per chiudere)"
+    },
+    "direction_post_feedback": {
+        "message": "Qualcosa non funziona? Hai una domanda e/o un suggerimento?"
+    },
+    "error_data_clearance": {
+        "message": "Errore imprevisto durante l'eliminazione dei dati"
+    },
+    "error_import_file_parse": {
+        "message": "Non è stato possibile analizzare il file selezionato."
+    },
+    "error_import_plain": {
+        "message": "L'operazione di importazione è fallita"
+    },
+    "error_import_encrypted": {
+        "message": "L'operazione di importazione è fallita. La password è corretta per tutti i file?"
+    },
+    "error_options_load": {
+        "message": "Errore imprevisto durante il caricamento delle opzioni"
+    },
+    "error_options_save": {
+        "message": "Errore imprevisto durante il salvataggio delle opzioni"
+    },
+    "extension_name": {
+        "message": "Private Bookmarks"
+    },
+    "extension_description": {
+        "message": "Abilita una cartella dei segnalibri speciale protetta da password."
+    },
+    "field_placeholder_password": {
+        "message": "Password"
+    },
+    "field_placeholder_repeated_password": {
+        "message": "Ripeti password"
+    },
+    "import_data_file_label": {
+        "message": "File di backup: "
+    },
+    "import_folder_title": {
+        "message": "Importato il $DD$/$MM$/$YYYY$",
+        "description": "The title of a folder to host imported bookmarks.",
+        "placeholders": {
+            "dd": {
+                "content": "$1"
+            },
+            "mm": {
+                "content": "$2"
+            },
+            "yyyy": {
+                "content": "$3"
+            }
+        }
+    },
+    "import_password_label": {
+        "message": "Password per i file: "
+    },
+    "info_export_plain_requirements": {
+        "message": "Per esportare i dati in chiaro è necessario aver sbloccato i segnalibri."
+    },
+    "info_import_requirements": {
+        "message": "Per importare è necessario sbloccare i segnalibri."
+    },
+    "menu_panel_error_message_addendum": {
+        "message": "Private Bookmarks è ancora in fase di sviluppo. Chiedo scusa per l'inconveniente."
+    },
+    "menu_panel_error_message_begin": {
+        "message": "Oops! C'è stato un errore. Puoi aiutare"
+    },
+    "menu_panel_error_message_end": {
+        "message": "segnalandolo"
+    },
+    "menu_panel_title_authentication": {
+        "message": "Autentica"
+    },
+    "menu_panel_title_busy": {
+        "message": "Solo un momento..."
+    },
+    "menu_panel_title_error": {
+        "message": "Oops!",
+        "description": "Should be playful."
+    },
+    "menu_panel_title_password_setup": {
+        "message": "Imposta una password"
+    },
+    "menu_panel_title_success": {
+        "message": "Successo!"
+    },
+    "menu_panel_title_welcome": {
+        "message": "Iniziamo"
+    },
+    "menu_title": {
+        "message": "Private Bookmarks"
+    },
+    "notification_locked_title": {
+        "message": "Bloccato!"
+    },
+    "notification_locked": {
+        "message": "I tuoi segnalibri privati sono stati bloccati"
+    },
+    "options_item_enable_backup_reminder_begin": {
+        "message": "Ricordami di fare un backup ogni"
+    },
+    "options_item_enable_backup_reminder_end": {
+        "message": "giorno(i)"
+    },
+    "options_item_enable_idle_auto_lock_begin": {
+        "message": "Blocca automaticamente quando inattivo per più di"
+    },
+    "options_item_enable_idle_auto_lock_end": {
+        "message": "minuto(i)"
+    },
+    "options_item_require_private_context": {
+        "message": "Disabilita private bookmarks al di fuori della navigazione in incognito"
+    },
+    "options_item_verbose_update": {
+        "message": "Fammi sapere cosa c'è di nuovo dopo un aggiornamento"
+    },
+    "options_page_title": {
+        "message": "Opzioni | Private Bookmarks"
+    },
+    "options_section_title_data": {
+        "message": "Dati"
+    },
+    "options_section_title_export": {
+        "message": "Esporta"
+    },
+    "options_section_title_general": {
+        "message": "Impostazioni generali"
+    },
+    "options_section_title_import": {
+        "message": "Importa"
+    },
+    "options_section_title_support": {
+        "message": "Supporto"
+    },
+    "page_action_title": {
+        "message": "Aggiungi questa pagina ai segnalibri privati"
+    },
+    "password_length_requirements": {
+        "message": "Deve essere lunga $MIN$–$MAX$ caratteri.",
+        "placeholders": {
+            "min": {
+                "content": "$1"
+            },
+            "max": {
+                "content": "$2"
+            }
+        }
+    },
+    "password_character_requirements": {
+        "message": "Deve contenere almeno una lettera ed un numero."
+    },
+    "requirement_private_context": {
+        "message": "necessita la navigazione in incognito"
+    },
+    "requirement_unlocked_state": {
+        "message": "necessita che i segnalibri siano sbloccati"
+    },
+    "response_confirm_cancel_negative": {
+        "message": "Annulla",
+        "description": "A negative response to a confirm/cancel question."
+    },
+    "response_confirm_cancel_positive": {
+        "message": "Conferma",
+        "description": "A positive response to a confirm/cancel question."
+    },
+    "response_yes_no_negative": {
+        "message": "No",
+        "description": "A negative response to a yes/no question."
+    },
+    "response_yes_no_positive": {
+        "message": "Si",
+        "description": "A positive response to a yes/no question."
+    },
+    "shortcut_bookmark_page_title": {
+        "message": "Aggiungi pagina ai segnalibri"
+    },
+    "shortcut_bookmark_all_title": {
+        "message": "Aggiungi tutti i segnalibri alla finestra"
+    },
+    "shortcut_lock_bookmarks_title": {
+        "message": "Blocca segnalibri"
+    },
+    "shortcut_open_menu_title": {
+        "message": "Apri il menù"
+    },
+    "success_lock": {
+        "message": "I tuoi segnalibri sono stati bloccati!"
+    },
+    "success_password_change": {
+        "message": "La tua password è stata cambiata con successo."
+    },
+    "success_password_setup": {
+        "message": "È fatta!"
+    },
+    "success_unlock": {
+        "message": "I tuoi segnalibri sono stati sbloccati! Controlla la cartella '$TITLE$' dentro '$PARENT_TITLE$'.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            },
+            "parent_title": {
+                "content": "$2"
+            }
+        }
+    },
+    "tooltip_options_button": {
+        "message": "Apri la pagina delle opzioni"
+    },
+    "tooltip_password_allowed_characters": {
+        "message": "Caratteri consentiti"
+    },
+    "tooltip_theme_button": {
+        "message": "Cambia tema"
+    }
+}
