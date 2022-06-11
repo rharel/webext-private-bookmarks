@@ -6,10 +6,18 @@ import {
     BookmarksExport,
     clear_bookmarks,
     encrypted_bookmarks_export,
-    plain_bookmarks_export,
-    import_plain_bookmarks,
     import_encrypted_bookmarks,
+    import_plain_bookmarks,
+    plain_bookmarks_export,
 } from "../core/bookmarks";
+import {
+    is_encrypted_legacy_export,
+    is_legacy_export,
+    is_plain_legacy_export,
+    LegacyBookmarksExport,
+    migrate_legacy_encrypted_export,
+    migrate_legacy_plain_export,
+} from "../core/legacy";
 import { localize_document } from "../core/localization";
 import { add_message_listener } from "../core/messages";
 import { options, save_options } from "../core/options";
@@ -193,6 +201,7 @@ when_document_ready(async () => {
     const import_status_message = element_by_id("import-status-message", HTMLElement);
 
     let bookmarks_export: BookmarksExport | null;
+    let legacy_bookmarks_export: LegacyBookmarksExport | null;
 
     import_file_input.addEventListener("change", () => {
         import_error_message.classList.remove("active");
@@ -202,6 +211,7 @@ when_document_ready(async () => {
         import_password_input.value = "";
         import_status_message.textContent = "";
         bookmarks_export = null;
+        legacy_bookmarks_export = null;
 
         if (!import_file_input.files) {
             return;
@@ -222,13 +232,25 @@ when_document_ready(async () => {
                 return;
             }
             try {
-                bookmarks_export = JSON.parse(reader.result) as BookmarksExport;
+                const file_data = JSON.parse(reader.result) as
+                    | BookmarksExport
+                    | LegacyBookmarksExport
+                    | null;
 
-                import_button_panel.classList.add("active");
-
-                if (bookmarks_export.kind === "encrypted") {
-                    import_password_panel.classList.add("active");
+                if (file_data === null) {
+                    return;
+                } else if (is_legacy_export(file_data)) {
+                    legacy_bookmarks_export = file_data;
+                    if (is_encrypted_legacy_export(legacy_bookmarks_export)) {
+                        import_password_panel.classList.add("active");
+                    }
+                } else {
+                    bookmarks_export = file_data;
+                    if (bookmarks_export.kind === "encrypted") {
+                        import_password_panel.classList.add("active");
+                    }
                 }
+                import_button_panel.classList.add("active");
             } catch {
                 import_error_message.classList.add("active");
             }
@@ -240,6 +262,22 @@ when_document_ready(async () => {
         import_error_message.classList.remove("active");
         encrypted_import_error_message.classList.remove("active");
         import_status_message.textContent = "";
+
+        const password = import_password_input.value;
+
+        if (legacy_bookmarks_export) {
+            if (is_encrypted_legacy_export(legacy_bookmarks_export)) {
+                bookmarks_export = await migrate_legacy_encrypted_export(
+                    legacy_bookmarks_export,
+                    password
+                );
+                if (bookmarks_export === null) {
+                    encrypted_import_error_message.classList.add("active");
+                }
+            } else if (is_plain_legacy_export(legacy_bookmarks_export)) {
+                bookmarks_export = migrate_legacy_plain_export(legacy_bookmarks_export);
+            }
+        }
 
         if (!bookmarks_export) {
             return;
@@ -254,7 +292,6 @@ when_document_ready(async () => {
                 import_error_message.classList.add("active");
             }
         } else {
-            const password = import_password_input.value;
             import_password_input.value = "";
             if (!(await import_encrypted_bookmarks(bookmarks_export, password, display_progress))) {
                 encrypted_import_error_message.classList.add("active");

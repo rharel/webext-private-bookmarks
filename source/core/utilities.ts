@@ -9,3 +9,10 @@ export function deep_copy<T>(value: T): T {
 export function sleep(duration_ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, duration_ms));
 }
+
+export function has_property<X extends unknown, Y extends PropertyKey>(
+    obj: X,
+    property: Y
+): obj is X & Record<Y, unknown> {
+    return Object.prototype.hasOwnProperty.call(obj, property);
+}

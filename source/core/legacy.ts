@@ -1,10 +1,18 @@
 import { Bookmarks, browser } from "webextension-polyfill-ts";
 
-import { bookmarks_exist, BOOKMARKS_STORAGE_KEY, PrivateBookmarks, pruned_node } from "./bookmarks";
+import {
+    bookmarks_exist,
+    BOOKMARKS_STORAGE_KEY,
+    EncryptedBookmarksExport,
+    PlainBookmarksExport,
+    PrivateBookmarks,
+    pruned_node,
+} from "./bookmarks";
 import { encrypted, random_salt } from "./crypto";
 import { save_options } from "./options";
 import { get_from_storage, remove_from_storage, set_in_storage } from "./storage";
-import { extension_version } from "./version";
+import { has_property } from "./utilities";
+import { extension_version, Version } from "./version";
 
 export const LEGACY_BOOKMARKS_STORAGE_KEY = "back_folder";
 export const LEGACY_BOOKMARKS_MIGRATION_DONE_KEY = "bookmarks_migrated";
@@ -56,6 +64,77 @@ export interface LegacyBookmarks {
     is_compressed: boolean;
     is_fresh: boolean;
     version: LegacyVersion;
+}
+
+export interface LegacyFolderNode {
+    type: "folder";
+    title: string;
+    children: Bookmarks.BookmarkTreeNode[];
+}
+
+export type LegacyBookmarksExport = LegacyBookmarks | LegacyFolderNode;
+
+export function is_encrypted_legacy_export(value: unknown): value is LegacyBookmarks {
+    return (
+        typeof value === "object" &&
+        value !== null &&
+        has_property(value, "version") &&
+        (value.version as Version | LegacyVersion).release < 20
+    );
+}
+
+export function is_plain_legacy_export(value: unknown): value is LegacyFolderNode {
+    return (
+        typeof value === "object" &&
+        value !== null &&
+        has_property(value, "type") &&
+        value.type === "folder"
+    );
+}
+
+export function is_legacy_export(value: unknown): value is LegacyBookmarksExport {
+    return is_encrypted_legacy_export(value) || is_plain_legacy_export(value);
+}
+
+export async function migrate_legacy_encrypted_export(
+    legacy_bookmarks: LegacyBookmarks,
+    password: string
+): Promise<EncryptedBookmarksExport | null> {
+    const plaintext = await decrypted_legacy(
+        legacy_bookmarks.bookmarks.iv,
+        legacy_bookmarks.bookmarks.ciphertext,
+        password
+    );
+
+    if (plaintext === null) {
+        return null;
+    }
+
+    const plaintext_uncompressed = legacy_bookmarks.is_compressed
+        ? decompressed_legacy(plaintext)
+        : plaintext;
+
+    const node: Bookmarks.BookmarkTreeNode = JSON.parse(plaintext_uncompressed);
+    const pruned_children = node.children?.map(child => pruned_node(child)) ?? [];
+    const salt = random_salt();
+    const encrypted_child_nodes = await encrypted(JSON.stringify(pruned_children), password + salt);
+
+    return {
+        kind: "encrypted",
+        version: extension_version(),
+        salt,
+        encrypted_child_nodes,
+    };
+}
+
+export function migrate_legacy_plain_export(
+    legacy_folder_node: LegacyFolderNode
+): PlainBookmarksExport {
+    return {
+        kind: "plain",
+        version: extension_version(),
+        child_nodes: legacy_folder_node.children?.map(child => pruned_node(child)) ?? [],
+    };
 }
 
 export async function decrypted_legacy(
