@@ -56,3 +56,20 @@ button.small > img {
 #import-password-panel.active {
     display: unset;
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #23222b;
+        color: var(--grey-10);
+    }
+
+    a {
+        color: var(--blue-40);
+        cursor: pointer;
+        text-decoration: none;
+    }
+    a:hover {
+        color: var(--teal-50);
+        text-decoration: underline;
+    }
+}
