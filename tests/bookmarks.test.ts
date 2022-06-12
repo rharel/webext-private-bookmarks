@@ -77,9 +77,6 @@ describe("bookmarks module", () => {
         const salt = "def456🐄😀";
         const ciphertext = await encrypted(plaintext, password + salt);
 
-        mockBrowser.storage.local.get.expect(LEGACY_BOOKMARKS_MIGRATION_DONE_KEY).andResolve({
-            [LEGACY_BOOKMARKS_MIGRATION_DONE_KEY]: false,
-        });
         mockBrowser.storage.local.get.expect(LEGACY_BOOKMARKS_STORAGE_KEY).andResolve({
             [LEGACY_BOOKMARKS_STORAGE_KEY]: null,
         });
@@ -98,13 +95,9 @@ describe("bookmarks module", () => {
         const salt = "some salt";
         const ciphertext = await encrypted(plaintext, password + salt);
 
-        mockBrowser.storage.local.get.expect(LEGACY_BOOKMARKS_MIGRATION_DONE_KEY).andResolve({
-            [LEGACY_BOOKMARKS_MIGRATION_DONE_KEY]: false,
-        });
         mockBrowser.storage.local.get.expect(LEGACY_BOOKMARKS_STORAGE_KEY).andResolve({
             [LEGACY_BOOKMARKS_STORAGE_KEY]: null,
         });
-
         mockBrowser.storage.local.get
             .expect(BOOKMARKS_STORAGE_KEY)
             .andResolve({ [BOOKMARKS_STORAGE_KEY]: { encrypted_child_nodes: ciphertext, salt } });
