@@ -5,9 +5,15 @@
 This extension enables a password-protected bookmark folder. The folder's contents persist in local
 storage and are encrypted with the user's password of choice.
 
+## Build instructions
+
+1. `npm install`
+2. `npm run build`
+
 ## Contributing
 
 Contributions are welcome. Please adhere to the [guidelines](CONTRIBUTING.md).
 
 ## License
+
 [All rights reserved](LICENSE.txt)
