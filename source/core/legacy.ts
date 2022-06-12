@@ -449,8 +449,8 @@ export async function migrate_legacy_node_spawn_details(): Promise<boolean> {
 
 export async function legacy_bookmarks_migration_needed(): Promise<boolean> {
     return (
-        (await get_from_storage<boolean>(LEGACY_BOOKMARKS_MIGRATION_DONE_KEY)) === false &&
-        (await get_from_storage<LegacyBookmarks>(LEGACY_BOOKMARKS_STORAGE_KEY)) !== null
+        (await get_from_storage<LegacyBookmarks>(LEGACY_BOOKMARKS_STORAGE_KEY)) !== null &&
+        !(await get_from_storage<boolean>(LEGACY_BOOKMARKS_MIGRATION_DONE_KEY))
     );
 }
 
@@ -495,6 +495,9 @@ export async function migrate_legacy_bookmarks(password: string): Promise<boolea
 }
 
 export async function manage_legacy_migration(): Promise<void> {
+    if (!(await legacy_bookmarks_migration_needed())) {
+        return;
+    }
     if (!(await bookmarks_exist())) {
         const salt = random_salt();
         const password = random_salt();
@@ -512,5 +515,4 @@ export async function manage_legacy_migration(): Promise<void> {
     await remove_from_storage(LEGACY_DEPLOYMENT_TYPE_STORAGE_KEY);
     await remove_from_storage(LEGACY_LAST_BACKUP_REMINDER_DATE_STORAGE_KEY);
     await remove_from_storage(LEGACY_NODE_ID_STORAGE_KEY);
-    await set_in_storage(LEGACY_BOOKMARKS_MIGRATION_DONE_KEY, false);
 }
