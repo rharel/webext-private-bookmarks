@@ -68,7 +68,7 @@ export function manage_page_action(): void {
         }
     });
     browser.pageAction.onClicked.addListener(async tab => {
-        if (tab.title && tab.url) {
+        if (tab.title !== undefined && tab.url !== undefined) {
             await add_bookmark(tab.title, tab.url);
         }
     });
