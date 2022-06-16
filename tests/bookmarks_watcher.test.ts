@@ -235,12 +235,22 @@ describe("bookmarks watcher module", () => {
 
         await manage_bookmarks();
 
+        mockBrowser.bookmarks.onCreated.hasListener.expect.andReturn(false);
+        mockBrowser.bookmarks.onChanged.hasListener.expect.andReturn(false);
+        mockBrowser.bookmarks.onMoved.hasListener.expect.andReturn(false);
+        mockBrowser.bookmarks.onRemoved.hasListener.expect.andReturn(false);
+
         mockBrowser.bookmarks.onCreated.addListener.expect;
         mockBrowser.bookmarks.onChanged.addListener.expect;
         mockBrowser.bookmarks.onMoved.addListener.expect;
         mockBrowser.bookmarks.onRemoved.addListener.expect;
 
         on_message.emit({ kind: "lock-status-change", password } as LockStatusChangeMessage, {});
+
+        mockBrowser.bookmarks.onCreated.hasListener.expect.andReturn(true);
+        mockBrowser.bookmarks.onChanged.hasListener.expect.andReturn(true);
+        mockBrowser.bookmarks.onMoved.hasListener.expect.andReturn(true);
+        mockBrowser.bookmarks.onRemoved.hasListener.expect.andReturn(true);
 
         mockBrowser.bookmarks.onCreated.removeListener.expect;
         mockBrowser.bookmarks.onChanged.removeListener.expect;

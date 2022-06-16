@@ -3,6 +3,7 @@ import { browser } from "webextension-polyfill-ts";
 import { bookmarks_locked, lock_bookmarks } from "./bookmarks";
 import { add_message_listener } from "./messages";
 import { options } from "./options";
+import { add_listener_safely, remove_listener_safely } from "./utilities";
 
 async function lock_bookmarks_if_not_private() {
     const has_private_context = (
@@ -15,15 +16,11 @@ async function lock_bookmarks_if_not_private() {
 }
 
 function enable_context_lock() {
-    if (!browser.windows.onRemoved.hasListener(lock_bookmarks_if_not_private)) {
-        browser.windows.onRemoved.addListener(lock_bookmarks_if_not_private);
-    }
+    add_listener_safely(browser.windows.onRemoved, lock_bookmarks_if_not_private);
 }
 
 function disable_context_lock() {
-    if (browser.windows.onRemoved.hasListener(lock_bookmarks_if_not_private)) {
-        browser.windows.onRemoved.removeListener(lock_bookmarks_if_not_private);
-    }
+    remove_listener_safely(browser.windows.onRemoved, lock_bookmarks_if_not_private);
 }
 
 export function manage_context_lock(): void {

@@ -1,3 +1,5 @@
+import { Events } from "webextension-polyfill-ts";
+
 export function deep_equals<T>(a: T, b: T): boolean {
     return JSON.stringify(a) === JSON.stringify(b);
 }
@@ -15,4 +17,23 @@ export function has_property<X extends unknown, Y extends PropertyKey>(
     property: Y
 ): obj is X & Record<Y, unknown> {
     return Object.prototype.hasOwnProperty.call(obj, property);
+}
+
+// We use Function as our constraint deliberately to match the Events.Event<T> interface.
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function add_listener_safely<T extends Function>(event: Events.Event<T>, callback: T): void {
+    if (!event.hasListener(callback)) {
+        event.addListener(callback);
+    }
+}
+
+// We use Function as our constraint deliberately to match the Events.Event<T> interface.
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function remove_listener_safely<T extends Function>(
+    event: Events.Event<T>,
+    callback: T
+): void {
+    if (event.hasListener(callback)) {
+        event.removeListener(callback);
+    }
 }

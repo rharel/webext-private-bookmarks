@@ -7,6 +7,7 @@ import {
     url_in_bookmarks,
 } from "./bookmarks";
 import { add_message_listener } from "./messages";
+import { add_listener_safely, remove_listener_safely } from "./utilities";
 
 async function update_in_tab(tab: Tabs.Tab) {
     if (tab.id === undefined) {
@@ -48,10 +49,10 @@ export function manage_page_action(): void {
     add_message_listener(async message => {
         if (message.kind === "lock-status-change") {
             if (await bookmarks_locked()) {
-                browser.bookmarks.onCreated.removeListener(update_in_active_tabs);
-                browser.bookmarks.onRemoved.removeListener(update_in_active_tabs);
-                browser.tabs.onActivated.removeListener(on_tab_activated);
-                browser.tabs.onUpdated.removeListener(on_tab_updated);
+                remove_listener_safely(browser.bookmarks.onCreated, update_in_active_tabs);
+                remove_listener_safely(browser.bookmarks.onRemoved, update_in_active_tabs);
+                remove_listener_safely(browser.tabs.onActivated, on_tab_activated);
+                remove_listener_safely(browser.tabs.onUpdated, on_tab_updated);
                 const tabs = await browser.tabs.query({});
                 for (const tab of tabs) {
                     if (tab.id !== undefined) {
@@ -59,10 +60,10 @@ export function manage_page_action(): void {
                     }
                 }
             } else {
-                browser.bookmarks.onCreated.addListener(update_in_active_tabs);
-                browser.bookmarks.onRemoved.addListener(update_in_active_tabs);
-                browser.tabs.onActivated.addListener(on_tab_activated);
-                browser.tabs.onUpdated.addListener(on_tab_updated);
+                add_listener_safely(browser.bookmarks.onCreated, update_in_active_tabs);
+                add_listener_safely(browser.bookmarks.onRemoved, update_in_active_tabs);
+                add_listener_safely(browser.tabs.onActivated, on_tab_activated);
+                add_listener_safely(browser.tabs.onUpdated, on_tab_updated);
                 await update_in_active_tabs();
             }
         }

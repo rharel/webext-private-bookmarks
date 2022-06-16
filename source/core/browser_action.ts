@@ -5,6 +5,7 @@ import { browser, Tabs } from "webextension-polyfill-ts";
 import { bookmarks_locked } from "./bookmarks";
 import { add_message_listener, BusyStatusChangeMessage } from "./messages";
 import { options } from "./options";
+import { add_listener_safely, remove_listener_safely } from "./utilities";
 
 async function update_icon() {
     const icon = (await bookmarks_locked()) ? locked_bookmarks_icon : unlocked_bookmarks_icon;
@@ -69,9 +70,9 @@ async function update_availability_management() {
     });
 
     if (limit_to_private_context) {
-        browser.tabs.onActivated.addListener(update_availability_in_activated_tab);
+        add_listener_safely(browser.tabs.onActivated, update_availability_in_activated_tab);
     } else {
-        browser.tabs.onActivated.removeListener(update_availability_in_activated_tab);
+        remove_listener_safely(browser.tabs.onActivated, update_availability_in_activated_tab);
     }
 }
 

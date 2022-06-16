@@ -1,5 +1,6 @@
 import mitt from "mitt";
 import { browser } from "webextension-polyfill-ts";
+import { add_listener_safely, remove_listener_safely } from "./utilities";
 
 export interface BookmarksCreatedMessage {
     kind: "bookmarks-created";
@@ -33,12 +34,12 @@ const emitter = mitt<{ message: Message }>();
 
 export function add_message_listener(listener: (message: Message) => void): void {
     emitter.on("message", listener);
-    browser.runtime.onMessage.addListener(listener);
+    add_listener_safely(browser.runtime.onMessage, listener);
 }
 
 export function remove_message_listener(listener: (message: Message) => void): void {
     emitter.off("message", listener);
-    browser.runtime.onMessage.removeListener(listener);
+    remove_listener_safely(browser.runtime.onMessage, listener);
 }
 
 export async function send_message(message: Message): Promise<void> {

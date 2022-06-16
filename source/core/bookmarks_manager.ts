@@ -7,8 +7,9 @@ import {
     save_bookmarks,
     node_in_bookmarks,
 } from "./bookmarks";
-import { add_message_listener } from "./messages";
+import { add_message_listener, LockStatusChangeMessage } from "./messages";
 import { get_from_storage } from "./storage";
+import { add_listener_safely, remove_listener_safely } from "./utilities";
 
 const save_bookmarks_debounced = debounce(save_bookmarks, 1000);
 
@@ -56,32 +57,34 @@ async function on_removed(
 }
 
 export function manage_bookmarks(): void {
+    let current_message: LockStatusChangeMessage = { kind: "lock-status-change", password: "" };
+    const on_created_proxy = (created_node_id: string) => {
+        return on_created(created_node_id, current_message.password);
+    };
+    const on_changed_proxy = (changed_node_id: string) => {
+        return on_changed(changed_node_id, current_message.password);
+    };
+    const on_moved_proxy = (_id: string, move_info: Bookmarks.OnMovedMoveInfoType) => {
+        return on_moved(move_info.oldParentId, move_info.parentId, current_message.password);
+    };
+    const on_removed_proxy = (id: string, info: Bookmarks.OnRemovedRemoveInfoType) => {
+        return on_removed(id, info.parentId, current_message.password);
+    };
     add_message_listener(message => {
         if (message.kind === "lock-status-change") {
-            const on_created_proxy = (created_node_id: string) => {
-                return on_created(created_node_id, message.password);
-            };
-            const on_changed_proxy = (changed_node_id: string) => {
-                return on_changed(changed_node_id, message.password);
-            };
-            const on_moved_proxy = (_id: string, move_info: Bookmarks.OnMovedMoveInfoType) => {
-                return on_moved(move_info.oldParentId, move_info.parentId, message.password);
-            };
-            const on_removed_proxy = (id: string, info: Bookmarks.OnRemovedRemoveInfoType) => {
-                return on_removed(id, info.parentId, message.password);
-            };
+            current_message.password = message.password;
             if (message.password) {
                 // Bookmarks were unlocked. Start watching.
-                browser.bookmarks.onCreated.addListener(on_created_proxy);
-                browser.bookmarks.onChanged.addListener(on_changed_proxy);
-                browser.bookmarks.onMoved.addListener(on_moved_proxy);
-                browser.bookmarks.onRemoved.addListener(on_removed_proxy);
+                add_listener_safely(browser.bookmarks.onCreated, on_created_proxy);
+                add_listener_safely(browser.bookmarks.onChanged, on_changed_proxy);
+                add_listener_safely(browser.bookmarks.onMoved, on_moved_proxy);
+                add_listener_safely(browser.bookmarks.onRemoved, on_removed_proxy);
             } else {
                 // Bookmarks were locked. Stop watching.
-                browser.bookmarks.onCreated.removeListener(on_created_proxy);
-                browser.bookmarks.onChanged.removeListener(on_changed_proxy);
-                browser.bookmarks.onMoved.removeListener(on_moved_proxy);
-                browser.bookmarks.onRemoved.removeListener(on_removed_proxy);
+                remove_listener_safely(browser.bookmarks.onCreated, on_created_proxy);
+                remove_listener_safely(browser.bookmarks.onChanged, on_changed_proxy);
+                remove_listener_safely(browser.bookmarks.onMoved, on_moved_proxy);
+                remove_listener_safely(browser.bookmarks.onRemoved, on_removed_proxy);
             }
         }
     });
