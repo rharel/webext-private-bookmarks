@@ -7,7 +7,7 @@ import {
     url_in_bookmarks,
 } from "./bookmarks";
 import { add_message_listener } from "./messages";
-import { add_listener_safely, remove_listener_safely } from "./utilities";
+import { add_listener_safely, in_chrome, remove_listener_safely } from "./utilities";
 
 async function update_in_tab(tab: Tabs.Tab) {
     if (tab.id === undefined) {
@@ -46,6 +46,12 @@ async function on_tab_updated(
 }
 
 export function manage_page_action(): void {
+    // Chrome does not support a page action if a browser action is also defined.
+    //
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_action#browser_compatibility
+    if (in_chrome()) {
+        return;
+    }
     add_message_listener(async message => {
         if (message.kind === "lock-status-change") {
             if (await bookmarks_locked()) {

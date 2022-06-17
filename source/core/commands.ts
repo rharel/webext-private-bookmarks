@@ -56,6 +56,15 @@ export async function show_main_page_in_tab(): Promise<void> {
     }
 }
 
+async function bookmark_current_tab() {
+    const current_tabs = await browser.tabs.query({ currentWindow: true, active: true });
+    for (const tab of current_tabs) {
+        if (tab.title !== undefined && tab.url !== undefined) {
+            await add_bookmark(tab.title, tab.url);
+        }
+    }
+}
+
 async function bookmark_all_in_current_window() {
     for (const tab of await browser.tabs.query({ currentWindow: true })) {
         if (tab.url && url_can_be_bookmarked(tab.url) && !(await url_in_bookmarks(tab.url))) {
@@ -66,7 +75,9 @@ async function bookmark_all_in_current_window() {
 
 export function manage_commands(): void {
     browser.commands.onCommand.addListener(command => {
-        if (command === "open-menu") {
+        if (command === "bookmark-page") {
+            bookmark_current_tab();
+        } else if (command === "open-menu") {
             show_main_page_in_tab();
         } else if (command === "lock") {
             lock_bookmarks();

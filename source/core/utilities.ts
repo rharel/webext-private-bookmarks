@@ -19,6 +19,10 @@ export function has_property<X extends unknown, Y extends PropertyKey>(
     return Object.prototype.hasOwnProperty.call(obj, property);
 }
 
+export function in_chrome(): boolean {
+    return has_property(globalThis, "chrome");
+}
+
 // We use Function as our constraint deliberately to match the Events.Event<T> interface.
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function add_listener_safely<T extends Function>(event: Events.Event<T>, callback: T): void {

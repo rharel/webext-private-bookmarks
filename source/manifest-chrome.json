@@ -35,17 +35,8 @@
         "default_popup": "main_ui/main_page.html",
         "default_title": "__MSG_extension_name__"
     },
-    "page_action": {
-        "default_icon": {
-            "16": "private-bookmarks-16.png",
-            "32": "private-bookmarks-32.png",
-            "64": "private-bookmarks-64.png",
-            "128": "private-bookmarks-128.png"
-        },
-        "default_title": "__MSG_page_action_title__"
-    },
     "commands": {
-        "_execute_page_action": {
+        "bookmark-page": {
             "suggested_key": {
                 "default": "Ctrl+Shift+8"
             },
