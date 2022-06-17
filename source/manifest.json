@@ -7,13 +7,10 @@
     "homepage_url": "https://github.com/rharel/webext-private-bookmarks",
     "default_locale": "en",
     "icons": {
-        "16": "private-bookmarks.svg",
-        "32": "private-bookmarks.svg",
-        "48": "private-bookmarks.svg",
-        "64": "private-bookmarks.svg",
-        "96": "private-bookmarks.svg",
-        "128": "private-bookmarks.svg",
-        "256": "private-bookmarks.svg"
+        "16": "private-bookmarks-16.png",
+        "32": "private-bookmarks-32.png",
+        "64": "private-bookmarks-64.png",
+        "128": "private-bookmarks-128.png"
     },
     "applications": {
         "gecko": {
@@ -38,26 +35,20 @@
         "browser_style": false,
         "default_area": "navbar",
         "default_icon": {
-            "16": "private-bookmarks.svg",
-            "32": "private-bookmarks.svg",
-            "48": "private-bookmarks.svg",
-            "64": "private-bookmarks.svg",
-            "96": "private-bookmarks.svg",
-            "128": "private-bookmarks.svg",
-            "256": "private-bookmarks.svg"
+            "16": "private-bookmarks-16.png",
+            "32": "private-bookmarks-32.png",
+            "64": "private-bookmarks-64.png",
+            "128": "private-bookmarks-128.png"
         },
         "default_popup": "main_ui/main_page.html",
         "default_title": "__MSG_extension_name__"
     },
     "page_action": {
         "default_icon": {
-            "16": "private-bookmarks.svg",
-            "32": "private-bookmarks.svg",
-            "48": "private-bookmarks.svg",
-            "64": "private-bookmarks.svg",
-            "96": "private-bookmarks.svg",
-            "128": "private-bookmarks.svg",
-            "256": "private-bookmarks.svg"
+            "16": "private-bookmarks-16.png",
+            "32": "private-bookmarks-32.png",
+            "64": "private-bookmarks-64.png",
+            "128": "private-bookmarks-128.png"
         },
         "default_title": "__MSG_page_action_title__"
     },

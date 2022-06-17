@@ -25,7 +25,7 @@
     "webextension-polyfill-ts": "0.26.0"
   },
   "scripts": {
-    "bundle-init": "rm -rf build && mkdir build && cp -r source/_locales source/manifest.json source/icons/main/private-bookmarks.svg build",
+    "bundle-init": "rm -rf build && mkdir build && cp -r source/_locales source/manifest.json source/icons/main/private-bookmarks-*.png build",
     "bundle": "npm run bundle-init && parcel build source/options_ui/options_page.html source/main_ui/main_page.html source/core/background.ts --dist-dir build --no-optimize",
     "bundle-dev": "npm run bundle-init && parcel watch source/options_ui/options_page.html source/main_ui/main_page.html source/core/background.ts --dist-dir build",
     "build": "npm run bundle && web-ext lint && web-ext build",
