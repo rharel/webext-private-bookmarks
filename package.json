@@ -1,6 +1,6 @@
 {
   "name": "@rharel/webext-private-bookmarks",
-  "version": "0.2.20",
+  "version": "0.2.21",
   "description": "WebExtension that enables a password-protected bookmark folder.",
   "devDependencies": {
     "@parcel/transformer-sass": "2.6.0",
