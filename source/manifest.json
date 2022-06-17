@@ -32,7 +32,6 @@
         ]
     },
     "browser_action": {
-        "browser_style": false,
         "default_area": "navbar",
         "default_icon": {
             "16": "private-bookmarks-16.png",
