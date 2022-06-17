@@ -12,7 +12,7 @@
         "64": "private-bookmarks-64.png",
         "128": "private-bookmarks-128.png"
     },
-    "applications": {
+    "browser_specific_settings": {
         "gecko": {
             "id": "private-bookmarks@rharel",
             "strict_min_version": "57.0"
