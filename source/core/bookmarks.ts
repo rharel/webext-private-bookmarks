@@ -266,17 +266,17 @@ export async function lock_bookmarks(): Promise<void> {
 }
 
 export function pruned_node(node: Bookmarks.BookmarkTreeNode): PrunedNode {
-    if (node.type === "bookmark") {
+    if (node.url !== undefined) {
         return {
             kind: "bookmark",
             title: node.title,
-            url: node.url ?? "",
+            url: node.url,
         };
-    } else if (node.type === "folder") {
+    } else if (node.children !== undefined) {
         return {
             kind: "folder",
             title: node.title,
-            children: node.children?.map(child => pruned_node(child)) ?? [],
+            children: node.children.map(child => pruned_node(child)),
         };
     } else {
         return {
