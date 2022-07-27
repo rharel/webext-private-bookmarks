@@ -46,9 +46,11 @@ async function on_tab_updated(
 }
 
 export function manage_page_action(): void {
-    // Chrome does not support a page action if a browser action is also defined.
+    // Chrome does not support a page action if a browser action is also defined [1], 
+    // and in manifest v3 the two have been unified under a single "action" API [2].
     //
-    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_action#browser_compatibility
+    // 1. https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_action#browser_compatibility
+    // 2. https://developer.chrome.com/blog/mv3-actions/
     if (in_chrome()) {
         return;
     }
