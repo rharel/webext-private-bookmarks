@@ -1,5 +1,5 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "__MSG_extension_name__",
     "author": "Raoul Harel",
     "version": "0.2.21",
@@ -21,11 +21,10 @@
         "idle"
     ],
     "background": {
-        "scripts": [
-            "core/background.js"
-        ]
+        "service_worker": "core/background.js",
+        "type": "module"
     },
-    "browser_action": {
+    "action": {
         "default_icon": {
             "16": "private-bookmarks-16.png",
             "32": "private-bookmarks-32.png",
@@ -36,12 +35,6 @@
         "default_title": "__MSG_extension_name__"
     },
     "commands": {
-        "bookmark-page": {
-            "suggested_key": {
-                "default": "Ctrl+Shift+8"
-            },
-            "description": "__MSG_shortcut_bookmark_page_title__"
-        },
         "lock": {
             "suggested_key": {
                 "default": "Ctrl+Shift+L"
@@ -53,12 +46,6 @@
                 "default": "Alt+Shift+8"
             },
             "description": "__MSG_shortcut_open_menu_title__"
-        },
-        "bookmark-all": {
-            "suggested_key": {
-                "default": "Ctrl+Shift+F8"
-            },
-            "description": "__MSG_shortcut_bookmark_all_title__"
         }
     },
     "options_ui": {

@@ -29,9 +29,9 @@
     "prepare-chrome": "npm run prepare && cp source/manifest-chrome.json build/manifest.json",
     "prepare-firefox": "npm run prepare && cp source/manifest-firefox.json build/manifest.json",
     "watch": "parcel watch source/options_ui/options_page.html source/main_ui/main_page.html source/core/background.ts --dist-dir build",
-    "build": " parcel build source/options_ui/options_page.html source/main_ui/main_page.html source/core/background.ts --dist-dir build --no-optimize && web-ext lint && web-ext build",
+    "build": " parcel build source/options_ui/options_page.html source/main_ui/main_page.html source/core/background.ts --dist-dir build --no-optimize && web-ext build",
     "build-chrome": "npm run prepare-chrome && npm run build",
-    "build-firefox": "npm run prepare-firefox && npm run build",
+    "build-firefox": "npm run prepare-firefox && npm run build && web-ext lint",
     "start": "web-ext run",
     "test": "jest"
   },
