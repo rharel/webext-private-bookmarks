@@ -9,7 +9,7 @@ import { add_listener_safely, remove_listener_safely } from "./utilities";
 
 async function update_icon() {
     const icon = (await bookmarks_locked()) ? locked_bookmarks_icon : unlocked_bookmarks_icon;
-    browser.browserAction.setIcon({
+    browser.action.setIcon({
         path: {
             "16": icon,
             "32": icon,
@@ -31,30 +31,30 @@ async function update_busy_status_badge(
     clearTimeout(badge_clear_timeout);
 
     if (busy_status_change.kind === "busy-status-begin") {
-        await browser.browserAction.setBadgeBackgroundColor({ color: "rgb(45, 45, 45)" });
-        await browser.browserAction.setBadgeText({ text: "⌛" });
+        await browser.action.setBadgeBackgroundColor({ color: "rgb(45, 45, 45)" });
+        await browser.action.setBadgeText({ text: "⌛" });
     } else {
         return window.setTimeout(() => {
-            browser.browserAction.setBadgeText({ text: "" });
+            browser.action.setBadgeText({ text: "" });
         }, MIN_BUSY_BADGE_DISPLAY_DURATION_MS);
     }
 }
 
 async function update_availability_in_tab(tab: Tabs.Tab) {
     if ((await options()).limit_to_private_context && !tab.incognito) {
-        browser.browserAction.setTitle({
+        browser.action.setTitle({
             title:
                 browser.i18n.getMessage("extension_name") +
                 ` (${browser.i18n.getMessage("requirement_private_context")})`,
             tabId: tab.id,
         });
-        browser.browserAction.disable(tab.id);
+        browser.action.disable(tab.id);
     } else {
-        browser.browserAction.setTitle({
+        browser.action.setTitle({
             title: browser.i18n.getMessage("extension_name"),
             tabId: tab.id,
         });
-        browser.browserAction.enable(tab.id);
+        browser.action.enable(tab.id);
     }
 }
 
