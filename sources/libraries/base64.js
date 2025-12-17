@@ -1,8 +1,8 @@
 'use strict'
 
-exports.byteLength = byteLength
-exports.toByteArray = toByteArray
-exports.fromByteArray = fromByteArray
+window.exports.byteLength = byteLength
+window.exports.toByteArray = toByteArray
+window.exports.fromByteArray = fromByteArray
 
 var lookup = []
 var revLookup = []
