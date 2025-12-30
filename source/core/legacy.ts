@@ -1,4 +1,6 @@
-import { Bookmarks, browser } from "webextension-polyfill-ts";
+/* eslint-disable indent */
+
+import browser, { Bookmarks } from "webextension-polyfill";
 
 import {
     bookmarks_exist,
@@ -284,7 +286,7 @@ export function decompressed_legacy(compressed: string): string {
     dictionary[3] = c;
     w = c as string;
     result.push(c);
-    // eslint-disable-next-line no-constant-condition
+
     while (true) {
         if (data.index > length) {
             return "";

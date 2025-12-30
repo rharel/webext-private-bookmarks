@@ -1,4 +1,4 @@
-import { browser, Tabs } from "webextension-polyfill-ts";
+import browser, { Tabs } from "webextension-polyfill";
 
 import {
     add_bookmark,
@@ -46,7 +46,7 @@ async function on_tab_updated(
 }
 
 export function manage_page_action(): void {
-    // Chrome does not support a page action if a browser action is also defined [1], 
+    // Chrome does not support a page action if a browser action is also defined [1],
     // and in manifest v3 the two have been unified under a single "action" API [2].
     //
     // 1. https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_action#browser_compatibility

@@ -1,4 +1,4 @@
-import { browser } from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 export async function get_from_storage<T>(key: string): Promise<T | null> {
     try {

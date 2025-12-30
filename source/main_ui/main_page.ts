@@ -1,7 +1,6 @@
-import { browser } from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 import { backup_reminder_is_due, reset_backup_reminder } from "../core/backup_reminder";
-import { maybe_show_release_notes } from "../core/installation";
 import {
     bookmarks_exist,
     bookmarks_locked,
@@ -12,13 +11,14 @@ import {
     setup_bookmarks,
     unlock_bookmarks,
 } from "../core/bookmarks";
+import { maybe_show_release_notes } from "../core/installation";
+import { legacy_bookmarks_migration_needed } from "../core/legacy";
 import { localize_document } from "../core/localization";
 import { add_message_listener } from "../core/messages";
 import { options, save_options } from "../core/options";
 import { get_from_storage } from "../core/storage";
 import { element_by_id, when_document_ready } from "../core/ui";
 import { deep_copy } from "../core/utilities";
-import { legacy_bookmarks_migration_needed } from "../core/legacy";
 
 const PANEL_IDS = [
     "blank-panel",
@@ -32,7 +32,7 @@ const PANEL_IDS = [
     "lock-success-panel",
     "error-panel",
 ] as const;
-type PanelId = typeof PANEL_IDS[number];
+type PanelId = (typeof PANEL_IDS)[number];
 
 async function main_panel_id(): Promise<PanelId> {
     return (await bookmarks_exist()) || (await legacy_bookmarks_migration_needed())

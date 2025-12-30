@@ -7,7 +7,7 @@ storage and are encrypted with the user's password of choice.
 
 ## Build instructions
 
-Tested with Node v16.13.0 (npm v8.1.0):
+Tested with Node v25.2.1 (npm v11.7.0):
 
 1. `npm install`
 2. `npm run build`

@@ -1,18 +1,13 @@
-import { browser } from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 export const ATTRIBUTE_LOCALIZED_CONTENT_MESSAGE_ID = "data-localized";
 export const ATTRIBUTE_LOCALIZED_ATTRIBUTE_NAME = "data-localized-attribute";
-export const ATTRIBUTE_LOCALIZED_ATTRIBUTE_VALUE_MESSAGE_ID =
-    "data-localized-attribute-value";
+export const ATTRIBUTE_LOCALIZED_ATTRIBUTE_VALUE_MESSAGE_ID = "data-localized-attribute-value";
 
 export function localize_element_content(element: Element): void {
-    const localized_content_message_id = element.getAttribute(
-        ATTRIBUTE_LOCALIZED_CONTENT_MESSAGE_ID
-    );
-    if (localized_content_message_id !== null) {
-        const localized_content = browser.i18n.getMessage(
-            localized_content_message_id
-        );
+    const message_id = element.getAttribute(ATTRIBUTE_LOCALIZED_CONTENT_MESSAGE_ID);
+    if (message_id !== null) {
+        const localized_content = browser.i18n.getMessage(message_id);
         if (localized_content.length > 0) {
             element.textContent = localized_content;
         }
@@ -20,24 +15,12 @@ export function localize_element_content(element: Element): void {
 }
 
 export function localize_element_attribute(element: Element): void {
-    const localized_attribute_name = element.getAttribute(
-        ATTRIBUTE_LOCALIZED_ATTRIBUTE_NAME
-    );
-    const localized_attribute_value_message_id = element.getAttribute(
-        ATTRIBUTE_LOCALIZED_ATTRIBUTE_VALUE_MESSAGE_ID
-    );
-    if (
-        localized_attribute_name !== null &&
-        localized_attribute_value_message_id !== null
-    ) {
-        const localized_attribute_value = browser.i18n.getMessage(
-            localized_attribute_value_message_id
-        );
+    const attribute_name = element.getAttribute(ATTRIBUTE_LOCALIZED_ATTRIBUTE_NAME);
+    const message_id = element.getAttribute(ATTRIBUTE_LOCALIZED_ATTRIBUTE_VALUE_MESSAGE_ID);
+    if (attribute_name !== null && message_id !== null) {
+        const localized_attribute_value = browser.i18n.getMessage(message_id);
         if (localized_attribute_value.length > 0) {
-            element.setAttribute(
-                localized_attribute_name,
-                localized_attribute_value
-            );
+            element.setAttribute(attribute_name, localized_attribute_value);
         }
     }
 }

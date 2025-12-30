@@ -15,7 +15,7 @@ jest.mock("../source/core/bookmarks", () => ({
 }));
 
 import { mockEvent } from "mockzilla-webextension";
-import { Bookmarks } from "webextension-polyfill-ts";
+import { Bookmarks } from "webextension-polyfill";
 
 import { BOOKMARKS_NODE_ID_STORAGE_KEY } from "../source/core/bookmarks";
 import { manage_bookmarks } from "../source/core/bookmarks_manager";

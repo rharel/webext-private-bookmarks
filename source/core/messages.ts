@@ -1,5 +1,6 @@
 import mitt from "mitt";
-import { browser } from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
+
 import { add_listener_safely, remove_listener_safely } from "./utilities";
 
 export interface BookmarksCreatedMessage {

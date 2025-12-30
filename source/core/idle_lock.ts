@@ -1,5 +1,4 @@
-import { browser } from "webextension-polyfill-ts";
-import { Idle } from "webextension-polyfill-ts";
+import browser, { Idle } from "webextension-polyfill";
 
 import { bookmarks_locked, lock_bookmarks } from "./bookmarks";
 import { add_message_listener } from "./messages";

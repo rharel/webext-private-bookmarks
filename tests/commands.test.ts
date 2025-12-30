@@ -1,7 +1,7 @@
 import "mockzilla-webextension";
 
 import { mockEvent } from "mockzilla-webextension";
-import { Tabs, Windows } from "webextension-polyfill-ts";
+import { Tabs, Windows } from "webextension-polyfill";
 
 const lock_bookmarks = jest.fn();
 const url_in_bookmarks = jest.fn();
@@ -15,8 +15,8 @@ jest.mock("../source/core/bookmarks", () => ({
 }));
 
 import {
-    manage_commands,
     MAIN_PAGE_LOCAL_URL,
+    manage_commands,
     show_main_page_in_tab,
 } from "../source/core/commands";
 import { Options, OPTIONS_STORAGE_KEY } from "../source/core/options";
@@ -110,7 +110,7 @@ describe("commands module", () => {
     manage_commands();
 
     it("should lock bookmarks on command", () => {
-        on_command.emit("lock");
+        on_command.emit("lock", undefined);
 
         expect(lock_bookmarks).toHaveBeenCalled();
     });
@@ -150,7 +150,7 @@ describe("commands module", () => {
         url_in_bookmarks.mockImplementation(url => url === tabs[0].url);
         url_can_be_bookmarked.mockImplementation(url => url === tabs[0].url || url === tabs[1].url);
 
-        on_command.emit("bookmark-all");
+        on_command.emit("bookmark-all", undefined);
 
         await sleep(1);
 

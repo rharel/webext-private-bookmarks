@@ -1,7 +1,7 @@
 // Adopted with modification from https://gist.github.com/chrisveness/43bcda93af9f646d083fad678071b90a with the
 // following license:
 //      Copyright (c) Chris Veness
-//      MIT Licence
+//      MIT License
 
 export function random_salt(): string {
     const bytes = crypto.getRandomValues(new Uint8Array(12));

@@ -1,4 +1,4 @@
-import { browser, Tabs } from "webextension-polyfill-ts";
+import browser, { Tabs } from "webextension-polyfill";
 
 import { add_bookmark, lock_bookmarks, url_can_be_bookmarked, url_in_bookmarks } from "./bookmarks";
 import { options } from "./options";

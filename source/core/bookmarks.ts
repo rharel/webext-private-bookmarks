@@ -1,4 +1,4 @@
-import { Bookmarks, browser } from "webextension-polyfill-ts";
+import browser, { Bookmarks } from "webextension-polyfill";
 
 import { decrypted, encrypted, random_salt } from "./crypto";
 import {
@@ -428,7 +428,11 @@ async function import_bookmark_nodes(
 
     const imported_node: PrunedNode = {
         kind: "folder",
-        title: browser.i18n.getMessage("import_folder_title", [dd, mm, yyyy]),
+        title: browser.i18n.getMessage("import_folder_title", [
+            dd.toString(),
+            mm.toString(),
+            yyyy.toString(),
+        ]),
         children: nodes,
     };
 

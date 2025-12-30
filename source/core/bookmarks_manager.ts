@@ -1,11 +1,11 @@
 import { debounce } from "debounce";
-import { Bookmarks, browser } from "webextension-polyfill-ts";
+import browser, { Bookmarks } from "webextension-polyfill";
 
 import {
     BOOKMARKS_NODE_ID_STORAGE_KEY,
     lock_bookmarks,
-    save_bookmarks,
     node_in_bookmarks,
+    save_bookmarks,
 } from "./bookmarks";
 import { add_message_listener, LockStatusChangeMessage } from "./messages";
 import { get_from_storage } from "./storage";
@@ -57,7 +57,7 @@ async function on_removed(
 }
 
 export function manage_bookmarks(): void {
-    let current_message: LockStatusChangeMessage = { kind: "lock-status-change", password: "" };
+    const current_message: LockStatusChangeMessage = { kind: "lock-status-change", password: "" };
     const on_created_proxy = (created_node_id: string) => {
         return on_created(created_node_id, current_message.password);
     };

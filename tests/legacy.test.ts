@@ -1,11 +1,10 @@
+import { Crypto } from "@peculiar/webcrypto";
 import "mockzilla-webextension";
 
-import { Crypto } from "node-webcrypto-ossl";
 import { TextDecoder, TextEncoder } from "util";
-import { bookmarks } from "webextension-polyfill";
 
 import { BOOKMARKS_STORAGE_KEY, PrivateBookmarks } from "../source/core/bookmarks";
-import { decrypted, encrypted } from "../source/core/crypto";
+import { decrypted } from "../source/core/crypto";
 import {
     decompressed_legacy,
     decrypted_legacy,
@@ -25,7 +24,7 @@ import { deep_copy } from "../source/core/utilities";
 
 describe("legacy module", () => {
     beforeAll(() => {
-        global.crypto = new Crypto();
+        Object.defineProperty(window, 'crypto', { value: new Crypto() });
         global.TextEncoder = TextEncoder as typeof global.TextEncoder;
         global.TextDecoder = TextDecoder as typeof global.TextDecoder;
     });

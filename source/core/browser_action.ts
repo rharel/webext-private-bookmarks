@@ -1,6 +1,6 @@
 import locked_bookmarks_icon from "url:../icons/main/locked-bookmarks.svg";
 import unlocked_bookmarks_icon from "url:../icons/main/unlocked-bookmarks.svg";
-import { browser, Tabs } from "webextension-polyfill-ts";
+import browser, { Tabs } from "webextension-polyfill";
 
 import { bookmarks_locked } from "./bookmarks";
 import { add_message_listener, BusyStatusChangeMessage } from "./messages";

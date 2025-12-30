@@ -1,4 +1,4 @@
-import { browser } from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 import { options } from "./options";
 import { get_from_storage, set_in_storage } from "./storage";

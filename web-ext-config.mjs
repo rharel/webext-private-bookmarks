@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     sourceDir: "./build/",
     artifactsDir: "./distribution/",
     build: {

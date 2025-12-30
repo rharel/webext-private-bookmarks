@@ -1,8 +1,9 @@
+import { Crypto } from "@peculiar/webcrypto";
+
 import "mockzilla-webextension";
 
-import { Crypto } from "node-webcrypto-ossl";
 import { TextDecoder, TextEncoder } from "util";
-import { Bookmarks, Manifest } from "webextension-polyfill-ts";
+import { Bookmarks, Manifest } from "webextension-polyfill";
 
 import {
     bookmarks_exist,
@@ -34,7 +35,7 @@ import { BusyStatusChangeMessage, LockStatusChangeMessage } from "../source/core
 
 describe("bookmarks module", () => {
     beforeAll(() => {
-        global.crypto = new Crypto();
+        Object.defineProperty(window, 'crypto', { value: new Crypto() });
         global.TextEncoder = TextEncoder as typeof global.TextEncoder;
         global.TextDecoder = TextDecoder as typeof global.TextDecoder;
     });
