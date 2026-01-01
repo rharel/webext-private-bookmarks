@@ -17,7 +17,7 @@ import { has_property } from "./utilities";
 import { extension_version, Version } from "./version";
 
 export const LEGACY_BOOKMARKS_STORAGE_KEY = "back_folder";
-export const LEGACY_BOOKMARKS_MIGRATION_DONE_KEY = "bookmarks_migrated";
+export const LEGACY_BOOKMARKS_MIGRATION_DONE_KEY = "migrated_legacy_bookmarks";
 export const LEGACY_DEPLOYMENT_TYPE_STORAGE_KEY = "deployment_type";
 export const LEGACY_LAST_BACKUP_REMINDER_DATE_STORAGE_KEY = "last_backup_reminder_date";
 export const LEGACY_NODE_ID_STORAGE_KEY = "front_folder_id";

@@ -1,6 +1,6 @@
-import { Crypto } from "@peculiar/webcrypto";
 import "mockzilla-webextension";
 
+import { Crypto } from "@peculiar/webcrypto";
 import { TextDecoder, TextEncoder } from "util";
 
 import { BOOKMARKS_STORAGE_KEY, PrivateBookmarks } from "../source/core/bookmarks";
@@ -24,7 +24,7 @@ import { deep_copy } from "../source/core/utilities";
 
 describe("legacy module", () => {
     beforeAll(() => {
-        Object.defineProperty(window, 'crypto', { value: new Crypto() });
+        Object.defineProperty(window, "crypto", { value: new Crypto() });
         global.TextEncoder = TextEncoder as typeof global.TextEncoder;
         global.TextDecoder = TextDecoder as typeof global.TextDecoder;
     });

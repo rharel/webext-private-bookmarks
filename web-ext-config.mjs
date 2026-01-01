@@ -5,6 +5,6 @@ export default {
         overwriteDest: true,
     },
     run: {
-        startUrl: ["about:addons", "about:debugging"],
+        startUrl: ["about:debugging#/runtime/this-firefox"],
     },
 };

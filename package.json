@@ -1,57 +1,57 @@
 {
-  "name": "@rharel/webext-private-bookmarks",
-  "version": "0.2.22",
-  "description": "WebExtension that enables a password-protected bookmark folder.",
-  "devDependencies": {
-    "@eslint/eslintrc": "^3.3.3",
-    "@eslint/js": "^9.39.2",
-    "@parcel/transformer-sass": "2.16.3",
-    "@peculiar/webcrypto": "^1.5.0",
-    "@types/debounce": "1.2.4",
-    "@types/jest": "^28.0.0",
-    "@types/webextension-polyfill": "^0.9.0",
-    "@typescript-eslint/eslint-plugin": "8.51.0",
-    "@typescript-eslint/parser": "8.51.0",
-    "debounce": "1.2.1",
-    "eslint": "9.39.0",
-    "eslint-plugin-simple-import-sort": "12.1.1",
-    "globals": "^16.5.0",
-    "jest": "^28.0.0",
-    "jest-environment-jsdom": "^30.2.0",
-    "mitt": "3.0.1",
-    "mockzilla": "0.14.0",
-    "mockzilla-webextension": "0.15.0",
-    "parcel": "2.16.3",
-    "ts-jest": "^28.0.0",
-    "typescript": "4.9.5",
-    "typescript-eslint": "8.51.0",
-    "web-ext": "9.2.0",
-    "webextension-polyfill": "^0.9.0"
-  },
-  "scripts": {
-    "prepare": "rm -rf build && mkdir build && cp -r source/_locales source/icons/main/private-bookmarks-*.png build",
-    "prepare-chrome": "npm run prepare && cp source/manifest-chrome.json build/manifest.json",
-    "prepare-firefox": "npm run prepare && cp source/manifest-firefox.json build/manifest.json",
-    "watch": "parcel watch source/options_ui/options_page.html source/main_ui/main_page.html source/core/background.ts --dist-dir build",
-    "build": " parcel build source/options_ui/options_page.html source/main_ui/main_page.html source/core/background.ts --dist-dir build --no-optimize --no-cache && web-ext build",
-    "build-chrome": "npm run prepare-chrome && npm run build",
-    "build-firefox": "npm run prepare-firefox && npm run build && web-ext lint",
-    "start": "web-ext run",
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rharel/webext-private-bookmarks.git"
-  },
-  "keywords": [
-    "WebExtension",
-    "privacy",
-    "bookmarks",
-    "password"
-  ],
-  "author": "Raoul Harel",
-  "bugs": {
-    "url": "https://github.com/rharel/webext-private-bookmarks/issues"
-  },
-  "homepage": "https://github.com/rharel/webext-private-bookmarks"
+    "name": "@rharel/webext-private-bookmarks",
+    "version": "0.2.22",
+    "description": "WebExtension that enables a password-protected bookmark folder.",
+    "devDependencies": {
+        "@eslint/eslintrc": "^3.3.3",
+        "@eslint/js": "^9.39.2",
+        "@parcel/transformer-sass": "2.16.3",
+        "@peculiar/webcrypto": "^1.5.0",
+        "@types/debounce": "1.2.4",
+        "@types/jest": "^28.0.0",
+        "@types/webextension-polyfill": "^0.9.0",
+        "@typescript-eslint/eslint-plugin": "8.51.0",
+        "@typescript-eslint/parser": "8.51.0",
+        "debounce": "1.2.1",
+        "eslint": "9.39.0",
+        "eslint-plugin-simple-import-sort": "12.1.1",
+        "globals": "^16.5.0",
+        "jest": "^28.0.0",
+        "jest-environment-jsdom": "^30.2.0",
+        "mitt": "3.0.1",
+        "mockzilla": "0.14.0",
+        "mockzilla-webextension": "0.15.0",
+        "parcel": "2.16.3",
+        "ts-jest": "^28.0.0",
+        "typescript": "4.9.5",
+        "typescript-eslint": "8.51.0",
+        "web-ext": "9.2.0",
+        "webextension-polyfill": "^0.9.0"
+    },
+    "scripts": {
+        "prepare": "rm -rf build && mkdir build && cp -r source/_locales source/icons/main/private-bookmarks-*.png build && cp node_modules/webextension-polyfill/dist/browser-polyfill.js* build",
+        "prepare-chrome": "npm run prepare && cp source/manifest-chrome.json build/manifest.json",
+        "prepare-firefox": "npm run prepare && cp source/manifest-firefox.json build/manifest.json",
+        "watch": "parcel watch source/options_ui/options_page.html source/main_ui/main_page.html source/core/background.ts --dist-dir build",
+        "build": " parcel build source/options_ui/options_page.html source/main_ui/main_page.html source/core/background.ts --dist-dir build --no-optimize --no-cache && web-ext build",
+        "build-chrome": "npm run prepare-chrome && npm run build",
+        "build-firefox": "npm run prepare-firefox && npm run build && web-ext lint",
+        "start": "web-ext run",
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rharel/webext-private-bookmarks.git"
+    },
+    "keywords": [
+        "WebExtension",
+        "privacy",
+        "bookmarks",
+        "password"
+    ],
+    "author": "Raoul Harel",
+    "bugs": {
+        "url": "https://github.com/rharel/webext-private-bookmarks/issues"
+    },
+    "homepage": "https://github.com/rharel/webext-private-bookmarks"
 }

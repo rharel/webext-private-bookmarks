@@ -36,9 +36,9 @@ export function manage_context_lock(): void {
             if (!limit_to_private_context) {
                 disable_context_lock();
             } else {
-                await lock_bookmarks_if_not_private();
                 if (!(await bookmarks_locked())) {
                     enable_context_lock();
+                    await lock_bookmarks_if_not_private();
                 }
             }
         } else if (message.kind === "lock-status-change") {

@@ -12,17 +12,19 @@ async function lock_if_idle(idle_state: Idle.IdleState) {
 }
 
 async function try_enabling_idle_lock(): Promise<boolean> {
-    if (
-        !(await browser.permissions.contains({ permissions: ["idle"] })) ||
-        browser.idle.onStateChanged.hasListener(lock_if_idle)
-    ) {
+    if (!(await browser.permissions.contains({ permissions: ["idle"] }))) {
         return false;
     }
 
     const { idle_lock_threshold_minutes } = await options();
     browser.idle.setDetectionInterval(idle_lock_threshold_minutes * 60);
+
+    if (browser.idle.onStateChanged.hasListener(lock_if_idle)) {
+        return false;
+    }
+
     browser.idle.onStateChanged.addListener(lock_if_idle);
-    console.log("Idle lock enabled.");
+    console.debug(`Idle lock enabled with interval = ${idle_lock_threshold_minutes} minute(s).`);
 
     return true;
 }
@@ -30,7 +32,7 @@ async function try_enabling_idle_lock(): Promise<boolean> {
 function disable_idle_lock() {
     if (browser.idle && browser.idle.onStateChanged.hasListener(lock_if_idle)) {
         browser.idle.onStateChanged.removeListener(lock_if_idle);
-        console.log("Idle lock disabled.");
+        console.debug("Idle lock disabled.");
     }
 }
 

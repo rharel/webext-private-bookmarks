@@ -1,11 +1,8 @@
 import "mockzilla-webextension";
+
 import { mockEvent } from "mockzilla-webextension";
 
-import {
-    add_message_listener,
-    Message,
-    send_message,
-} from "../source/core/messages";
+import { add_message_listener, Message, send_message } from "../source/core/messages";
 
 describe("messages module", () => {
     it("should forward listener subscription to browser runtime", () => {

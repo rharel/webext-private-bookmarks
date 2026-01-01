@@ -4,9 +4,9 @@ import {
     ATTRIBUTE_LOCALIZED_ATTRIBUTE_NAME,
     ATTRIBUTE_LOCALIZED_ATTRIBUTE_VALUE_MESSAGE_ID,
     ATTRIBUTE_LOCALIZED_CONTENT_MESSAGE_ID,
+    localize_document,
     localize_element_attribute,
     localize_element_content,
-    localize_document,
 } from "../source/core/localization";
 
 describe("localization module", () => {
@@ -24,18 +24,9 @@ describe("localization module", () => {
 
     function dummy_localized_element(): Element {
         const element = dummy_element();
-        element.setAttribute(
-            ATTRIBUTE_LOCALIZED_CONTENT_MESSAGE_ID,
-            localized_message_id
-        );
-        element.setAttribute(
-            ATTRIBUTE_LOCALIZED_ATTRIBUTE_NAME,
-            target_attribute
-        );
-        element.setAttribute(
-            ATTRIBUTE_LOCALIZED_ATTRIBUTE_VALUE_MESSAGE_ID,
-            localized_message_id
-        );
+        element.setAttribute(ATTRIBUTE_LOCALIZED_CONTENT_MESSAGE_ID, localized_message_id);
+        element.setAttribute(ATTRIBUTE_LOCALIZED_ATTRIBUTE_NAME, target_attribute);
+        element.setAttribute(ATTRIBUTE_LOCALIZED_ATTRIBUTE_VALUE_MESSAGE_ID, localized_message_id);
         return element;
     }
 
@@ -51,9 +42,7 @@ describe("localization module", () => {
         it("should not alter localized elements with invalid message id", () => {
             const element = dummy_localized_element();
 
-            mockBrowser.i18n.getMessage
-                .expect(localized_message_id)
-                .andReturn("");
+            mockBrowser.i18n.getMessage.expect(localized_message_id).andReturn("");
 
             localize_element_content(element);
 
@@ -63,9 +52,7 @@ describe("localization module", () => {
         it("should alter localized elements", () => {
             const element = dummy_localized_element();
 
-            mockBrowser.i18n.getMessage
-                .expect(localized_message_id)
-                .andReturn(localized_value);
+            mockBrowser.i18n.getMessage.expect(localized_message_id).andReturn(localized_value);
 
             localize_element_content(element);
 
@@ -79,37 +66,27 @@ describe("localization module", () => {
 
             localize_element_attribute(element);
 
-            expect(element.getAttribute(target_attribute)).toEqual(
-                default_value
-            );
+            expect(element.getAttribute(target_attribute)).toEqual(default_value);
         });
 
         it("should not alter localized attributes with invalid message id", () => {
             const element = dummy_localized_element();
 
-            mockBrowser.i18n.getMessage
-                .expect(localized_message_id)
-                .andReturn("");
+            mockBrowser.i18n.getMessage.expect(localized_message_id).andReturn("");
 
             localize_element_attribute(element);
 
-            expect(element.getAttribute(target_attribute)).toEqual(
-                default_value
-            );
+            expect(element.getAttribute(target_attribute)).toEqual(default_value);
         });
 
         it("should alter localized attributes", () => {
             const element = dummy_localized_element();
 
-            mockBrowser.i18n.getMessage
-                .expect(localized_message_id)
-                .andReturn(localized_value);
+            mockBrowser.i18n.getMessage.expect(localized_message_id).andReturn(localized_value);
 
             localize_element_attribute(element);
 
-            expect(element.getAttribute(target_attribute)).toEqual(
-                localized_value
-            );
+            expect(element.getAttribute(target_attribute)).toEqual(localized_value);
         });
     });
 
@@ -130,22 +107,15 @@ describe("localization module", () => {
         });
 
         it("should not alter localized elements with invalid message id", () => {
-            mockBrowser.i18n.getMessage
-                .expect(localized_message_id)
-                .andReturn("")
-                .times(2);
+            mockBrowser.i18n.getMessage.expect(localized_message_id).andReturn("").times(2);
 
             localize_document();
 
             expect(non_localized_element.textContent).toEqual(default_value);
-            expect(
-                non_localized_element.getAttribute(target_attribute)
-            ).toEqual(default_value);
+            expect(non_localized_element.getAttribute(target_attribute)).toEqual(default_value);
 
             expect(localized_element.textContent).toEqual(default_value);
-            expect(localized_element.getAttribute(target_attribute)).toEqual(
-                default_value
-            );
+            expect(localized_element.getAttribute(target_attribute)).toEqual(default_value);
         });
 
         it("should alter localized elements only", () => {
@@ -157,14 +127,10 @@ describe("localization module", () => {
             localize_document();
 
             expect(non_localized_element.textContent).toEqual(default_value);
-            expect(
-                non_localized_element.getAttribute(target_attribute)
-            ).toEqual(default_value);
+            expect(non_localized_element.getAttribute(target_attribute)).toEqual(default_value);
 
             expect(localized_element.textContent).toEqual(localized_value);
-            expect(localized_element.getAttribute(target_attribute)).toEqual(
-                localized_value
-            );
+            expect(localized_element.getAttribute(target_attribute)).toEqual(localized_value);
         });
     });
 });

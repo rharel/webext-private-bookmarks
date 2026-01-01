@@ -10,7 +10,8 @@ storage and are encrypted with the user's password of choice.
 Tested with Node v25.2.1 (npm v11.7.0):
 
 1. `npm install`
-2. `npm run build`
+2. `npm run build-firefox`
+3. The extension is built into `distribution/`.
 
 ## Contributing
 

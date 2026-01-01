@@ -20,7 +20,7 @@ export interface Options {
 
 export function default_options(): Options {
     return {
-        backup_reminder_enabled: false,
+        backup_reminder_enabled: true,
         backup_reminder_interval_days: 7,
         idle_lock_enabled: false,
         idle_lock_threshold_minutes: 30,

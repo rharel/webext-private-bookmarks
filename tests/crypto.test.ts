@@ -1,7 +1,6 @@
-import { Crypto } from "@peculiar/webcrypto";
-
 import "mockzilla-webextension";
 
+import { Crypto } from "@peculiar/webcrypto";
 import { TextDecoder, TextEncoder } from "util";
 
 import { decrypted, encrypted, random_salt } from "../source/core/crypto";
@@ -11,7 +10,7 @@ describe("crypto module", () => {
     const password = "def456☮☪❌🌯🧀👌❤";
 
     beforeAll(() => {
-        Object.defineProperty(window, 'crypto', { value: new Crypto() });
+        Object.defineProperty(window, "crypto", { value: new Crypto() });
         global.TextEncoder = TextEncoder as typeof global.TextEncoder;
         global.TextDecoder = TextDecoder as typeof global.TextDecoder;
     });

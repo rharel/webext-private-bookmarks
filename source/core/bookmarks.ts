@@ -273,7 +273,7 @@ export async function lock_bookmarks(): Promise<void> {
 }
 
 export function pruned_node(node: Bookmarks.BookmarkTreeNode): PrunedNode {
-    if (node.url !== undefined) {
+    if (node.title !== undefined && node.title.length > 0 && node.url !== undefined) {
         return {
             kind: "bookmark",
             title: node.title,

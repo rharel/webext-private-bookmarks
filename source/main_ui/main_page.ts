@@ -20,19 +20,17 @@ import { get_from_storage } from "../core/storage";
 import { element_by_id, when_document_ready } from "../core/ui";
 import { deep_copy } from "../core/utilities";
 
-const PANEL_IDS = [
-    "blank-panel",
-    "get-started-panel",
-    "password-setup-panel",
-    "password-setup-success-panel",
-    "main-menu-panel",
-    "authentication-panel",
-    "unlock-progress-panel",
-    "unlock-success-panel",
-    "lock-success-panel",
-    "error-panel",
-] as const;
-type PanelId = (typeof PANEL_IDS)[number];
+type PanelId =
+    | "blank-panel"
+    | "get-started-panel"
+    | "password-setup-panel"
+    | "password-setup-success-panel"
+    | "main-menu-panel"
+    | "authentication-panel"
+    | "unlock-progress-panel"
+    | "unlock-success-panel"
+    | "lock-success-panel"
+    | "error-panel";
 
 async function main_panel_id(): Promise<PanelId> {
     return (await bookmarks_exist()) || (await legacy_bookmarks_migration_needed())

@@ -9,7 +9,7 @@ import { add_listener_safely, remove_listener_safely } from "./utilities";
 
 async function update_icon() {
     const icon = (await bookmarks_locked()) ? locked_bookmarks_icon : unlocked_bookmarks_icon;
-    browser.action.setIcon({
+    browser.browserAction.setIcon({
         path: {
             "16": icon,
             "32": icon,
@@ -31,30 +31,31 @@ async function update_busy_status_badge(
     clearTimeout(badge_clear_timeout);
 
     if (busy_status_change.kind === "busy-status-begin") {
-        await browser.action.setBadgeBackgroundColor({ color: "rgb(45, 45, 45)" });
-        await browser.action.setBadgeText({ text: "⌛" });
+        await browser.browserAction.setBadgeBackgroundColor({ color: "rgb(45, 45, 45)" });
+        await browser.browserAction.setBadgeTextColor({ color: "rgb(255, 255, 255)" });
+        await browser.browserAction.setBadgeText({ text: "..." });
     } else {
         return window.setTimeout(() => {
-            browser.action.setBadgeText({ text: "" });
+            browser.browserAction.setBadgeText({ text: "" });
         }, MIN_BUSY_BADGE_DISPLAY_DURATION_MS);
     }
 }
 
 async function update_availability_in_tab(tab: Tabs.Tab) {
     if ((await options()).limit_to_private_context && !tab.incognito) {
-        browser.action.setTitle({
+        browser.browserAction.setTitle({
             title:
                 browser.i18n.getMessage("extension_name") +
                 ` (${browser.i18n.getMessage("requirement_private_context")})`,
             tabId: tab.id,
         });
-        browser.action.disable(tab.id);
+        browser.browserAction.disable(tab.id);
     } else {
-        browser.action.setTitle({
+        browser.browserAction.setTitle({
             title: browser.i18n.getMessage("extension_name"),
             tabId: tab.id,
         });
-        browser.action.enable(tab.id);
+        browser.browserAction.enable(tab.id);
     }
 }
 
@@ -63,7 +64,7 @@ async function update_availability_in_activated_tab(info: Tabs.OnActivatedActive
 }
 
 async function update_availability_management() {
-    const limit_to_private_context = (await options()).limit_to_private_context;
+    const { limit_to_private_context } = await options();
 
     (await browser.tabs.query({ active: true })).forEach(tab => {
         update_availability_in_tab(tab);
