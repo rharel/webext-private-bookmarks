@@ -11,16 +11,21 @@ async function lock_bookmarks_if_not_private() {
     ).some(window => window.incognito);
 
     if (!has_private_context) {
+        console.log("Private context lock triggered.");
         await lock_bookmarks();
     }
 }
 
 function enable_context_lock() {
-    add_listener_safely(browser.windows.onRemoved, lock_bookmarks_if_not_private);
+    if (add_listener_safely(browser.windows.onRemoved, lock_bookmarks_if_not_private)) {
+        console.log("Private context lock enabled.");
+    }
 }
 
 function disable_context_lock() {
-    remove_listener_safely(browser.windows.onRemoved, lock_bookmarks_if_not_private);
+    if (remove_listener_safely(browser.windows.onRemoved, lock_bookmarks_if_not_private)) {
+        console.log("Private context lock disabled.");
+    }
 }
 
 export function manage_context_lock(): void {

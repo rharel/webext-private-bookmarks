@@ -74,6 +74,8 @@ async function update_availability_management() {
     } else {
         remove_listener_safely(browser.tabs.onActivated, update_availability_in_activated_tab);
     }
+
+    console.debug("Updated browser action availability.");
 }
 
 export async function manage_browser_action(): Promise<void> {

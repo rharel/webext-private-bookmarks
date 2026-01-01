@@ -79,12 +79,14 @@ export function manage_bookmarks(): void {
                 add_listener_safely(browser.bookmarks.onChanged, on_changed_proxy);
                 add_listener_safely(browser.bookmarks.onMoved, on_moved_proxy);
                 add_listener_safely(browser.bookmarks.onRemoved, on_removed_proxy);
+                console.debug("Watching bookmarks folder for updates.");
             } else {
                 // Bookmarks were locked. Stop watching.
                 remove_listener_safely(browser.bookmarks.onCreated, on_created_proxy);
                 remove_listener_safely(browser.bookmarks.onChanged, on_changed_proxy);
                 remove_listener_safely(browser.bookmarks.onMoved, on_moved_proxy);
                 remove_listener_safely(browser.bookmarks.onRemoved, on_removed_proxy);
+                console.debug("Stopped watching bookmarks folder.");
             }
         }
     });

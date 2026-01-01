@@ -9,6 +9,7 @@ import { manage_legacy_migration } from "./legacy";
 import { manage_page_action } from "./page_action";
 
 async function main() {
+    console.log("Background script is running.");
     await manage_legacy_migration();
     await lock_bookmarks(); // In case they were unlocked last when browser closed.
     await manage_installation();

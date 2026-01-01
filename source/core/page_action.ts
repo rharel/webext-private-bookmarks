@@ -7,7 +7,7 @@ import {
     url_in_bookmarks,
 } from "./bookmarks";
 import { add_message_listener } from "./messages";
-import { add_listener_safely, in_chrome, remove_listener_safely } from "./utilities";
+import { add_listener_safely, remove_listener_safely } from "./utilities";
 
 async function update_in_tab(tab: Tabs.Tab) {
     if (tab.id === undefined) {
@@ -29,10 +29,12 @@ async function update_in_active_tabs() {
     for (const active_tab of active_tabs) {
         await update_in_tab(active_tab);
     }
+    console.debug("Updated page action visibility in active tabs.");
 }
 
 async function on_tab_activated(info: Tabs.OnActivatedActiveInfoType) {
     await update_in_tab(await browser.tabs.get(info.tabId));
+    console.debug("Updated page action visibility in new active tab.");
 }
 
 async function on_tab_updated(
@@ -42,6 +44,7 @@ async function on_tab_updated(
 ) {
     if (tab.active && change_info.url) {
         await update_in_tab(tab);
+        console.debug("Updated page action visibility in active tab.");
     }
 }
 
@@ -51,9 +54,6 @@ export function manage_page_action(): void {
     //
     // 1. https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_action#browser_compatibility
     // 2. https://developer.chrome.com/blog/mv3-actions/
-    if (in_chrome()) {
-        return;
-    }
     add_message_listener(async message => {
         if (message.kind === "lock-status-change") {
             if (await bookmarks_locked()) {
@@ -79,6 +79,7 @@ export function manage_page_action(): void {
     browser.pageAction.onClicked.addListener(async tab => {
         if (tab.title !== undefined && tab.url !== undefined) {
             await add_bookmark(tab.title, tab.url);
+            console.log("Added bookmark using page action.");
         }
     });
 }

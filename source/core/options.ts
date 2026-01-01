@@ -36,9 +36,17 @@ export async function options(): Promise<Options> {
 }
 
 export async function save_options(new_options: Options): Promise<void> {
-    const current_options = await options();
-    if (!deep_equals(new_options, current_options)) {
+    const old_options = await options();
+    if (!deep_equals(new_options, old_options)) {
         await set_in_storage(OPTIONS_STORAGE_KEY, new_options);
+
+        console.log("Options change:");
+        for (const key of Object.keys(new_options) as Array<keyof Options>) {
+            if (!deep_equals(new_options[key], old_options[key])) {
+                console.log(`  ${key}:`, old_options[key], "=>", new_options[key]);
+            }
+        }
+
         await send_message({ kind: "options-change" });
     }
 }

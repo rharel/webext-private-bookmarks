@@ -6,6 +6,7 @@ import { options } from "./options";
 
 async function lock_if_idle(idle_state: Idle.IdleState) {
     if (idle_state !== "active") {
+        console.log("Idle lock triggered.");
         await lock_bookmarks();
     }
 }
@@ -21,6 +22,7 @@ async function try_enabling_idle_lock(): Promise<boolean> {
     const { idle_lock_threshold_minutes } = await options();
     browser.idle.setDetectionInterval(idle_lock_threshold_minutes * 60);
     browser.idle.onStateChanged.addListener(lock_if_idle);
+    console.log("Idle lock enabled.");
 
     return true;
 }
@@ -28,6 +30,7 @@ async function try_enabling_idle_lock(): Promise<boolean> {
 function disable_idle_lock() {
     if (browser.idle && browser.idle.onStateChanged.hasListener(lock_if_idle)) {
         browser.idle.onStateChanged.removeListener(lock_if_idle);
+        console.log("Idle lock disabled.");
     }
 }
 

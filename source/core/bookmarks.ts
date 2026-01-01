@@ -66,6 +66,7 @@ export async function setup_bookmarks(password: string): Promise<PrivateBookmark
     await set_in_storage(BOOKMARKS_STORAGE_KEY, initial_bookmarks);
     await send_message({ kind: "bookmarks-created" });
 
+    console.log("Done initial setup.");
     return initial_bookmarks;
 }
 
@@ -114,6 +115,8 @@ export async function change_password(
     );
 
     await set_in_storage(BOOKMARKS_STORAGE_KEY, bookmarks);
+
+    console.log("Password changed.");
 }
 
 function pruned_node_size(node: PrunedNode): number {
@@ -234,6 +237,8 @@ export async function unlock_bookmarks(
     }
 
     await set_in_storage(BOOKMARKS_NODE_ID_STORAGE_KEY, node.id);
+
+    console.log("Unlocked bookmarks.");
     await send_message({ kind: "lock-status-change", password });
 }
 
@@ -263,6 +268,8 @@ export async function lock_bookmarks(): Promise<void> {
 
     await set_in_storage(BOOKMARKS_STORAGE_KEY, bookmarks);
     await browser.bookmarks.removeTree(node.id);
+
+    console.log("Locked bookmarks.");
 }
 
 export function pruned_node(node: Bookmarks.BookmarkTreeNode): PrunedNode {
@@ -308,6 +315,7 @@ export async function save_bookmarks(password: string): Promise<void> {
     );
     await send_message({ kind: "busy-status-begin" });
     await set_in_storage(BOOKMARKS_STORAGE_KEY, bookmarks);
+    console.log("Saved bookmarks.");
     await send_message({ kind: "busy-status-end" });
 }
 
@@ -360,6 +368,7 @@ export async function add_bookmark(title: string, url: string): Promise<string |
 export async function clear_bookmarks(): Promise<void> {
     await lock_bookmarks();
     await set_in_storage(BOOKMARKS_STORAGE_KEY, null);
+    console.log("Cleared bookmarks.");
     await send_message({ kind: "bookmarks-cleared" });
 }
 
@@ -444,6 +453,7 @@ async function import_bookmark_nodes(
             nr_nodes_created += 1;
             on_progress(nr_nodes_created, nr_nodes_to_create);
         });
+        console.log("Imported bookmarks.");
     } finally {
         await send_message({ kind: "busy-status-end" });
     }

@@ -19,26 +19,26 @@ export function has_property<X, Y extends PropertyKey>(
     return Object.prototype.hasOwnProperty.call(obj, property);
 }
 
-export function in_chrome(): boolean {
-    return has_property(globalThis, "chrome");
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function add_listener_safely<T extends (...args: any[]) => any>(
     event: Events.Event<T>,
     callback: T
-): void {
+): boolean {
     if (!event.hasListener(callback)) {
         event.addListener(callback);
+        return true;
     }
+    return false;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function remove_listener_safely<T extends (...args: any[]) => any>(
     event: Events.Event<T>,
     callback: T
-): void {
+): boolean {
     if (event.hasListener(callback)) {
         event.removeListener(callback);
+        return true;
     }
+    return false;
 }

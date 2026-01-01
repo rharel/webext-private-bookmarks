@@ -44,6 +44,7 @@ export function remove_message_listener(listener: (message: Message) => void): v
 }
 
 export async function send_message(message: Message): Promise<void> {
+    console.debug(`Sending message: "${message.kind}".`);
     emitter.emit("message", message);
     try {
         await browser.runtime.sendMessage(message);

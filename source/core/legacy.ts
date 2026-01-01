@@ -500,6 +500,7 @@ export async function manage_legacy_migration(): Promise<void> {
     if (!(await legacy_bookmarks_migration_needed())) {
         return;
     }
+
     if (!(await bookmarks_exist())) {
         const salt = random_salt();
         const password = random_salt();
@@ -512,6 +513,8 @@ export async function manage_legacy_migration(): Promise<void> {
         };
         await set_in_storage(BOOKMARKS_STORAGE_KEY, initial_bookmarks);
     }
+
+    console.log("Migrating from legacy version.");
     await migrate_legacy_node_spawn_details();
     await migrate_legacy_options();
     await remove_from_storage(LEGACY_DEPLOYMENT_TYPE_STORAGE_KEY);

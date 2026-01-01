@@ -76,12 +76,16 @@ async function bookmark_all_in_current_window() {
 export function manage_commands(): void {
     browser.commands.onCommand.addListener(command => {
         if (command === "bookmark-page") {
+            console.log("Command: Bookmark page.");
             bookmark_current_tab();
         } else if (command === "open-menu") {
+            console.log("Command: Open menu.");
             show_main_page_in_tab();
         } else if (command === "lock") {
+            console.log("Command: Lock bookmarks.");
             lock_bookmarks();
         } else if (command === "bookmark-all") {
+            console.log("Command: Bookmark all.");
             bookmark_all_in_current_window();
         }
     });
