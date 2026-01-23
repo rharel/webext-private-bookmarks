@@ -1,0 +1,374 @@
+{
+    "confirm_data_clearance":
+    {
+        "message": "Dies löscht alle privaten Lesezeichen und setzt dein Passwort zurück, bist du dir sicher?"
+    },
+
+    "command_change_password":
+    {
+        "message": "Passwort ändern"
+    },
+    "command_choose_password":
+    {
+        "message": "Wähle ein Passwort"
+    },
+    "command_clear_data":
+    {
+        "message": "Löschen..."
+    },
+    "command_export_encrypted":
+    {
+        "message": "Verschlüsselte Daten exportieren...",
+        "description": "Appears as a button that downloads encrypted private bookmark data."
+    },
+    "command_export_plain":
+    {
+        "message": "Unverschlüsselte Daten exportieren...",
+        "description": "'plain' as in 'plaintext', i.e. not-encrypted."
+    },
+    "command_go_to_menu":
+    {
+        "message": "Zum Hauptmenü"
+    },
+    "command_import":
+    {
+        "message": "Importieren"
+    },
+    "command_lock":
+    {
+        "message": "Schließen"
+    },
+    "command_post_feedback":
+    {
+        "message": "Poste einen Issue",
+        "description": "'issue' refers to a GitHub issue. Appears directly after feedback_label."
+    },
+    "command_unlock":
+    {
+        "message": "Öffnen"
+    },
+    "command_view_faq":
+    {
+        "message": "Zeige häufig gestellte Fragen"
+    },
+    "command_view_release_notes":
+    {
+        "message": "Zeige die Veröffentlichungshinweise"
+    },
+
+    "direction_enter_current_password":
+    {
+        "message": "Gib dein aktuelles Passwort ein:"
+    },
+    "direction_make_backup":
+    {
+        "message": "Denke daran, hin und wieder ein Backup deiner privaten Lesezeichen zu erstellen. Das kannst du in den Einstellungen tun. (zum Schließen tippen)"
+    },
+    "direction_post_feedback":
+    {
+        "message": "Etwas funktioniert nicht? Du hast eine Frage und/oder einen Vorschlag?"
+    },
+
+    "error_data_clearance":
+    {
+        "message": "Unerwarteter Fehler beim Löschen der Daten"
+    },
+    "error_import_file_parse":
+    {
+        "message": "Die ausgewählte Datei konnte nicht eingelesen werden."
+    },
+    "error_import_plain":
+    {
+        "message": "Der Import ist fehlgeschlagen."
+    },
+    "error_import_encrypted":
+    {
+        "message": "Der Import ist fehlgeschlagen. Ist das Passwort für alle Dateien korrekt?"
+    },
+    "error_options_load":
+    {
+        "message": "Unerwarteter Fehler beim Laden der Einstellungen"
+    },
+    "error_options_save":
+    {
+        "message": "Unerwarteter Fehler beim Speichern der Einstellungen"
+    },
+
+    "extension_name":
+    {
+        "message": "Private Bookmarks"
+    },
+    "extension_description":
+    {
+        "message": "Aktiviert einen speziellen passwortgeschützten Lesezeichen-Ordner."
+    },
+
+    "field_placeholder_password":
+    {
+        "message": "Passwort"
+    },
+    "field_placeholder_repeated_password":
+    {
+        "message": "Password wiederholen"
+    },
+
+    "import_data_file_label":
+    {
+        "message": "Backup-Datei(en): "
+    },
+    "import_folder_title":
+    {
+        "message": "Importiert am $DD$.$MM$.$YYYY$",
+        "description": "The title of a folder to host imported bookmarks.",
+        "placeholders":
+        {
+            "dd":   { "content": "$1" },
+            "mm":   { "content": "$2" },
+            "yyyy": { "content": "$3" }
+        }
+    },
+    "import_password_label":
+    {
+        "message": "Passwort für die Datei(en): "
+    },
+
+    "info_export_plain_requirements":
+    {
+        "message": "Das Exportieren der Klartext-Daten erfordert entsperrte Lesezeichen."
+    },
+    "info_import_requirements":
+    {
+        "message": "Das Exportieren erfordert entsperrte Lesezeichen."
+    },
+    "info_sync_data_capacity":
+    {
+        "message": "Der Browser legt ein Limit fest, wie viele Daten eine Erweiterung synchronisieren darf."
+    },
+    "info_sync_data_capacity_exceeded":
+    {
+        "message": "Das Synchonisieren ist nicht möglich, wenn das Datenvolumen aufgebraucht ist :("
+    },
+    "info_sync_data_usage":
+    {
+        "message": "Deine Daten verbrauchen $TAKEN_KB$KB von $CAPACITY_KB$KB ($PERCENTAGE_TAKEN$%).",
+        "placeholders":
+        {
+            "taken_kb":         { "content": "$1" },
+            "capacity_kb":      { "content": "$2" },
+            "percentage_taken": { "content": "$3" }
+        }
+    },
+
+    "menu_panel_error_message_addendum":
+    {
+        "message": "Private Bookmarks befindet sich noch in einem frühen Entwicklungsstadium. Entschuldigung für die Unannehmlichkeiten."
+    },
+    "menu_panel_error_message_begin":
+    {
+        "message": "Upps! Es gab einen Fehler. Du kannst helfen, indem du"
+    },
+    "menu_panel_error_message_end":
+    {
+        "message": "ihn meldest"
+    },
+    "menu_panel_title_authentication":
+    {
+        "message": "Authentifizieren"
+    },
+    "menu_panel_title_busy":
+    {
+        "message": "Einen Moment..."
+    },
+    "menu_panel_title_error":
+    {
+        "message": "Upps!",
+        "description": "Should be playful."
+    },
+    "menu_panel_title_password_setup":
+    {
+        "message": "Passwort festlegen"
+    },
+    "menu_panel_title_success":
+    {
+        "message": "Erfolg!"
+    },
+    "menu_panel_title_welcome":
+    {
+        "message": "Los geht's"
+    },
+    "menu_title":
+    {
+        "message": "Private Bookmarks"
+    },
+
+    "notification_locked_title":
+    {
+        "message": "Gesperrt!"
+    },
+    "notification_locked":
+    {
+        "message": "Deine privaten Lesezeichen wurden gesperrt."
+    },
+
+    "options_item_disable_password_requirements":
+    {
+        "message": "Die Passwort-Vorgaben deaktivieren (lässt weniger sichere Passwörter zu)"
+    },
+    "options_item_enable_backup_reminder_begin":
+    {
+        "message": "Erinnere mich an ein Backup alle"
+    },
+    "options_item_enable_backup_reminder_end":
+    {
+        "message": "Tage"
+    },
+    "options_item_enable_idle_auto_lock_begin":
+    {
+        "message": "Automatisch sperren beim Ruhezustand von mehr als"
+    },
+    "options_item_enable_idle_auto_lock_end":
+    {
+        "message": "Minute(n)"
+    },
+    "options_item_require_private_context":
+    {
+        "message": "Deaktiviere Private Bookmarks außerhalb privater Fenster"
+    },
+    "options_item_verbose_update":
+    {
+        "message": "Sag mir nach einem Update, was neu ist"
+    },
+    "options_page_title":
+    {
+        "message": "Einstellungen | Private Bookmarks"
+    },
+    "options_section_title_data":
+    {
+        "message": "Daten"
+    },
+    "options_section_title_export":
+    {
+        "message": "Exportieren"
+    },
+    "options_section_title_general":
+    {
+        "message": "Allgemein"
+    },
+    "options_section_title_import":
+    {
+        "message": "Importieren"
+    },
+    "options_section_title_support":
+    {
+        "message": "Hilfe"
+    },
+    "options_section_title_sync":
+    {
+        "message": "Synchronisation"
+    },
+
+    "page_action_title":
+    {
+        "message": "Speichere diese Seite als privates Lesezeichen"
+    },
+
+    "password_length_requirements":
+    {
+        "message": "Muss $MIN$–$MAX$ Zeichen lang sein.",
+        "placeholders":
+        {
+            "min": { "content": "$1" },
+            "max": { "content": "$2" }
+        }
+    },
+    "password_character_requirements":
+    {
+        "message": "Muss mindestens einen Buchstaben und eine Zahl beinhalten."
+    },
+
+    "requirement_private_context":
+    {
+        "message": "Erfordert privates Browsen"
+    },
+    "requirement_unlocked_state":
+    {
+        "message": "Erfordert entsperrte Lesezeichen"
+    },
+
+    "response_confirm_cancel_negative":
+    {
+        "message": "Abbrechen",
+        "description": "A negative response to a confirm/cancel question."
+    },
+    "response_confirm_cancel_positive":
+    {
+        "message": "Bestätigen",
+        "description": "A positive response to a confirm/cancel question."
+    },
+    "response_yes_no_negative":
+    {
+        "message": "Nein",
+        "description": "A negative response to a yes/no question."
+    },
+    "response_yes_no_positive":
+    {
+        "message": "Ja",
+        "description": "A positive response to a yes/no question."
+    },
+
+    "shortcut_bookmark_page_title":
+    {
+        "message": "Lesezeichen-Seite"
+    },
+    "shortcut_bookmark_all_title":
+    {
+        "message": "Alle im Fenster als Lesezeichen speichern"
+    },
+    "shortcut_lock_bookmarks_title":
+    {
+        "message": "Lesezeichen sperren"
+    },
+    "shortcut_open_menu_title":
+    {
+        "message": "Menü öffnen"
+    },
+
+    "success_lock":
+    {
+        "message": "Deine Lesezeichen wurden gesperrt!"
+    },
+    "success_password_change":
+    {
+        "message": "Dein Passwort wurde erfolgreich geändert."
+    },
+    "success_password_setup":
+    {
+        "message": "Du kannst loslegen!"
+    },
+    "success_unlock":
+    {
+        "message": "Deine Lesezeichen wurden entsperrt! Überprüfe den \"$TITLE$\"-Ordner unter \"$PARENT_TITLE$\".",
+        "placeholders":
+        {
+            "title":        { "content": "$1" },
+            "parent_title": { "content": "$2" }
+        }
+    },
+
+    "tooltip_options_button":
+    {
+        "message": "Öffne die Einstellungen"
+    },
+    "tooltip_password_allowed_characters":
+    {
+        "message": "Erlaubte Zeichen"
+    },
+    "tooltip_sync_data_usage":
+    {
+        "message": "Warum steht das hier?"
+    },
+    "tooltip_theme_button":
+    {
+        "message": "Farbschema ändern"
+    }
+}
